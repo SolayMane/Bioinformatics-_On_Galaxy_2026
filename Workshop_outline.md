@@ -7,7 +7,7 @@
 
 * [Introduction](#-introduction)
 * [Workflow bioinformatique](#-workflow-bioinformatique)
-* [QC des données](#-qc-donnees)
+* [QC des donnees](#-qc-des-donnees)
 * [Assemblage génomique](#-assemblage-genomique)
 * [Recherche de variants](#-recherche-de-variants)
 * [Analyse des AMRs](#-analyse-des-amrs)
@@ -45,8 +45,8 @@ Analyse biologique
 
 ---
 
-<a id="qc-donnees"></a>
-# QC des données
+
+# QC des donnees
 > Basé sur le tutoriel GTN : [gxy.io/GTN:T00239](https://gxy.io/GTN:T00239
 
 Lors du séquençage, les bases nucléotidiques d'un échantillon d'ADN ou d'ARN (bibliothèque) sont déterminées par le séquenceur. Pour chaque fragment de la bibliothèque, une séquence est générée, également appelée lecture , qui est simplement une succession de nucléotides.
