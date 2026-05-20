@@ -47,7 +47,7 @@ Analyse biologique
 
 
 # QC des donnees
-> Basé sur le tutoriel GTN : [gxy.io/GTN:T00239](https://gxy.io/GTN:T00239
+
 
 Lors du séquençage, les bases nucléotidiques d'un échantillon d'ADN ou d'ARN (bibliothèque) sont déterminées par le séquenceur. Pour chaque fragment de la bibliothèque, une séquence est générée, également appelée lecture , qui est simplement une succession de nucléotides.
 
@@ -55,7 +55,7 @@ Les technologies de séquençage modernes permettent de générer un grand nombr
 
 Il est donc nécessaire de comprendre, d'identifier et d'éliminer les types d'erreurs susceptibles d'affecter l'interprétation des analyses ultérieures. Le contrôle qualité des séquences constitue ainsi une première étape essentielle de votre analyse. Détecter les erreurs au plus tôt permet de gagner du temps par la suite.
 
-## Téléchargé un fichier de séquence brute
+## Téléchargé un fichier de séquence brute à partir de la base de données SRA
 1. créez un nouveau historique
 2. renommez le
 3. importer les données NGS via Faster Download and Extract Reads in FASTQ en utilisant le ID SRR suivant 
@@ -67,8 +67,16 @@ SRR3111247
 1. commbien des reads nous avons sur ces données?
 2. Quelle la taille des reads?
 3. Qu'est ce qu'il faut faire pour améliorer  ce jeux de données?
-## Lancer fastp sur ce jeux de données en utlisant un cut-off de 50 pb en taille.
-1. comparer le resultats de filtrage avec le resultat de FASTQ.
+## Lancer fastp sur ce jeux de données en utlisant ces paramètres :
+* cut-off de 50 pb en taille.
+* Phred score de 20
+1. comparer le resultat de filtrage avec le resultat précédant de FASTQC.
+
+## Téléchargé un fichier de séquence brute à partir de la base de données SRA
+1. importer les données NGS en utilsant ces liens
+````
+SRR3111247
+````
 
 ---
 # 🧬Assemblage génomique
