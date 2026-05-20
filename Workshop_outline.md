@@ -68,12 +68,17 @@ SRR3111247
 2. Quelle la taille des reads?
 3. Qu'est ce qu'il faut faire pour améliorer  ce jeux de données?
 ## Lancer fastp sur ce jeux de données en utlisant un cut-off de 50 pb en taille.
-1. comparer le resumltats de filtrage avec le resultat de FASTQ.
+1. comparer le resultats de filtrage avec le resultat de FASTQ.
 
 ---
 # 🧬Assemblage génomique
-
- 
+Dans ce tuotriel nous allons faire un assemblage d'un seul genome puis nous allons l'annoter puis le visualiser
+ 1. Creer un nouveau historique
+ 2. Télécharger les données brutes ces leins :
+````
+https://zenodo.org/record/10669812/files/DRR187559_1.fastqsanger.bz2
+https://zenodo.org/record/10669812/files/DRR187559_2.fastqsanger.bz2
+````
 
 
 
