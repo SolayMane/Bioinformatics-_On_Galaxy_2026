@@ -76,31 +76,29 @@ SRR3111247
  
 
 
----
 
 ---
 
 ## Recherche de variants
+
+
+
 ---
+## Analyse des AMRs
 
 
 ---
 ## Analyse des AMRs
 
-
----
-## Analyse des AMRs
----
 
 ---
 ## Notion de Workflow
 
----
+
 ---
 ## Tutoriel sur sars-cov2
+
+
+
 ---
 
-
-*Pour toute question : [help.galaxyproject.org](https://help.galaxyproject.org) · [Galaxy Training Network](https://training.galaxyproject.org)*
-
-</div>
