@@ -7,12 +7,12 @@
 
 * [Introduction](#-introduction)
 * [Workflow bioinformatique](#-workflow-bioinformatique)
-* [QC des donnees](#-qc-des-donnees)
-* [Assemblage génomique](#-assemblage-genomique)
-* [Recherche de variants](#-recherche-de-variants)
-* [Analyse des AMRs](#-analyse-des-amrs)
-* [Notion de Workflow](#-notion-de-workflow)
-* [Tutoriel sur sars-cov2](#-tutoriel-sur-sars-cov2)
+* [QC des données](#qc-des-donnees)
+* [Assemblage génomique](#assemblage-genomique)
+* [Recherche de variants](#recherche-de-variants)
+* [Analyse des AMRs](#analyse-des-amrs)
+* [Notion de Workflow](#notion-de-workflow)
+* [Tutoriel sur sars-cov2](#tutoriel-sur-sars-cov2)
 
 ---
 
