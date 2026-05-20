@@ -8,7 +8,7 @@
 * [Introduction](#-introduction)
 * [Workflow bioinformatique](#-workflow-bioinformatique)
 * [QC des données](#-qc-des-données)
-* [Assemblage génomique](#-assemblage-génomique])
+* [Assemblage génomique](#-assemblage-génomique)
 * [Recherche de variants](#-recherche-de-variants)
 * [Analyse des AMRs](#-analyse-des-amrs)
 * [Tutoriel sur sars-cov2](#-tutoriel-sur-sars-cov2)
