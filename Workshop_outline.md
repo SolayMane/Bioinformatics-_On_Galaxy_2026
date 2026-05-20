@@ -7,8 +7,8 @@
 
 * [Introduction](#-introduction)
 * [Workflow bioinformatique](#-workflow-bioinformatique)
-* [QC des données](#-qc-des-données)
-* [Assemblage génomique](#-assemblage-génomique)
+* [QC des données](#-qc-des-donnees)
+* [Assemblage génomique](#-assemblage-genomique)
 * [Recherche de variants](#-recherche-de-variants)
 * [Analyse des AMRs](#-analyse-des-amrs)
 * [Notion de Workflow](#-notion-de-workflow)
