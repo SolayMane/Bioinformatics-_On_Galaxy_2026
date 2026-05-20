@@ -7,11 +7,11 @@
 
 * [Introduction](#-introduction)
 * [Workflow bioinformatique](#-workflow-bioinformatique)
-* [QC des données](#-QC-des-données)
-* [Assemblage génomique](#-Assemblage-génomique])
-* [Recherche de variants](#-Recherche-de-variants)
-* [Analyse des AMRs](#-Analyse-des-AMRs)
-* [Tutoriel sur sars-cov2](#-Tutoriel-sur-sars-cov2)
+* [QC des données](#-qc-des-données)
+* [Assemblage génomique](#-assemblage-génomique])
+* [Recherche de variants](#-recherche-de-variants)
+* [Analyse des AMRs](#-analyse-des-amrs)
+* [Tutoriel sur sars-cov2](#-tutoriel-sur-sars-cov2)
 
 ---
 
@@ -54,17 +54,19 @@ Les technologies de séquençage modernes permettent de générer un grand nombr
 
 Il est donc nécessaire de comprendre, d'identifier et d'éliminer les types d'erreurs susceptibles d'affecter l'interprétation des analyses ultérieures. Le contrôle qualité des séquences constitue ainsi une première étape essentielle de votre analyse. Détecter les erreurs au plus tôt permet de gagner du temps par la suite.
 
-## Inspecter un fichier de séquence brute
+## Téléchargé un fichier de séquence brute
 1. créez un nouveau historique
 2. renommez le
 3. importer les données NGS via Faster Download and Extract Reads in FASTQ en utilisant le ID SRR suivant 
 ````
 SRR3111247
 ````
-<img width="1596" height="763" alt="image" src="https://github.com/user-attachments/assets/737f31a5-4771-4ff2-8587-7045433ac02b" />
-
-## Lancer FATSQC sur les données téléchargées
-<img width="1583" height="604" alt="image" src="https://github.com/user-attachments/assets/b3bdc0d5-ef50-4eb7-88f6-91b2cc68897d" />
+## Lancer l'outil FATSQC sur ces données
+1. commbien des reads nous avons sur ces données?
+2. Quelle la taille des reads?
+3. Qu'est ce qu'il faut faire pour améliorer  ce jeux de données?
+## Lancer fastp sur ce jeux de données en utlisant un cut-off de 50 pb en taille.
+1. comparer le resumltats de filtrage avec le resultat de FASTQ.
 
 
 # 🧬 Assemblage du Génome Bactérien MRSA
