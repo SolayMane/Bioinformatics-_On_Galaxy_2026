@@ -1,3 +1,72 @@
+
+# Workshop Analyse Bioinformatique sous Galaxy 2026 — 
+
+---
+
+# 📚 Sommaire
+
+* [Introduction](#-introduction)
+* [Workflow bioinformatique](#-workflow-bioinformatique)
+* [QC des données](#-QC-des-données)
+* [Assemblage génomique](#-Assemblage-génomique])
+* [Recherche de variants](#-Recherche-de-variants)
+* [Analyse des AMRs](#-Analyse-des-AMRs)
+* [Tutoriel sur sars-cov2](#-Tutoriel-sur-sars-cov2)
+
+---
+
+# 🔬 Introduction
+
+Bienvenue dans cet atelier d’analyse bioinformatique.
+
+Ce support permet aux participants de :
+
+* suivre les étapes d’un workflow bioinformatique ;
+* Copier les liens d'acces aux données;
+* cliquer pour afficher les réponses ;
+* apprendre progressivement les concepts clés.
+
+---
+
+# 🧪 Workflow bioinformatique
+
+```text
+FASTQ brut
+    ↓
+Contrôle qualité (FastQC)
+    ↓
+Trimming / nettoyage
+    ↓
+Alignement / assemblage Recherche de variants / Annotation Recherche de Gene AMR
+    ↓
+Analyse biologique
+```
+
+---
+
+
+# 🧬QC des données
+> Basé sur le tutoriel GTN : [gxy.io/GTN:T00239](https://gxy.io/GTN:T00239
+
+Lors du séquençage, les bases nucléotidiques d'un échantillon d'ADN ou d'ARN (bibliothèque) sont déterminées par le séquenceur. Pour chaque fragment de la bibliothèque, une séquence est générée, également appelée lecture , qui est simplement une succession de nucléotides.
+
+Les technologies de séquençage modernes permettent de générer un grand nombre de séquences en une seule expérience. Cependant, aucune technologie n'est parfaite et chaque instrument produit des erreurs de nature et de quantité variables, comme l'identification incorrecte de nucléotides. Ces erreurs d'identification sont dues aux limitations techniques propres à chaque plateforme de séquençage.
+
+Il est donc nécessaire de comprendre, d'identifier et d'éliminer les types d'erreurs susceptibles d'affecter l'interprétation des analyses ultérieures. Le contrôle qualité des séquences constitue ainsi une première étape essentielle de votre analyse. Détecter les erreurs au plus tôt permet de gagner du temps par la suite.
+
+## Inspecter un fichier de séquence brute
+1. créez un nouveau historique
+2. renommez le
+3. importer les données NGS via Faster Download and Extract Reads in FASTQ en utilisant le ID SRR suivant 
+````
+SRR3111247
+````
+<img width="1596" height="763" alt="image" src="https://github.com/user-attachments/assets/737f31a5-4771-4ff2-8587-7045433ac02b" />
+
+## Lancer FATSQC sur les données téléchargées
+<img width="1583" height="604" alt="image" src="https://github.com/user-attachments/assets/b3bdc0d5-ef50-4eb7-88f6-91b2cc68897d" />
+
+
 # 🧬 Assemblage du Génome Bactérien MRSA
 ### Tutoriel Galaxy Training Network — Données Illumina MiSeq
  
