@@ -24,7 +24,6 @@ Ce support permet aux participants de :
 
 * suivre les étapes d’un workflow bioinformatique ;
 * Copier les liens d'acces aux données;
-* cliquer pour afficher les réponses ;
 * apprendre progressivement les concepts clés.
 
 ---
@@ -56,10 +55,16 @@ Les technologies de séquençage modernes permettent de générer un grand nombr
 Il est donc nécessaire de comprendre, d'identifier et d'éliminer les types d'erreurs susceptibles d'affecter l'interprétation des analyses ultérieures. Le contrôle qualité des séquences constitue ainsi une première étape essentielle de votre analyse. Détecter les erreurs au plus tôt permet de gagner du temps par la suite.
 
 ## Téléchargé un fichier de séquence brute à partir de la base de données SRA
+En bioinformatique, la base de données SRA (Sequence Read Archive) est le plus grand référentiel public mondial de données de séquençage de l'ADN et de l'ARN à haut débit.
+Elle fait partie intégrante de l'INSDC (International Nucleotide Sequence Database Collaboration). Les données soumises à l'une des plateformes suivantes sont automatiquement synchronisées entre elles :
+NCBI SRA (États-Unis)
+ERA / ENA (European Nucleotide Archive, gérée par l'EBI en Europe)
+DRA (DDBJ Sequence Read Archive, au Japon)
+
 1. Créez un nouveau historique
 2. Renommez le
 3. Comment explorer la base de données SRA (Demo NCBI)
-4. Importer les données NGS via Faster Download and Extract Reads in FASTQ en utilisant le ID SRR suivant 
+4. Importer les données NGS via ````Faster Download and Extract Reads in FASTQ```` en utilisant 'l'accession number' SRRXXX suivant 
 ````
 SRR3111247
 ````
@@ -116,36 +121,61 @@ Par conséquent, la précision est de 100 - 3,981 = 96,019 %.
 
 </details>
 
-## Évaluez la qualité avec FastQC
+### Évaluez la qualité avec FastQC
 Une autre méthode pour vérifier la qualité des séquences consiste à utiliser FastQC . Cet outil propose un ensemble d'analyses modulaires permettant de détecter d'éventuels problèmes dans vos données avant toute analyse ultérieure. 
 
-1. Quel encodage Phred est utilisé dans le fichier FASTQ pour ces séquences ?
-2. commbien des reads nous avons sur ces données?
-3. Quelle la taille des reads?
-## Lancer fastp sur ce jeux de données en utlisant ces paramètres :
+1.Lancer ````FastQC````
+
+<img width="293" height="458" alt="image" src="https://github.com/user-attachments/assets/66599f75-5cfc-4607-83fb-57bf3c2ec0e3" />
+
+
+2. Quel encodage Phred est utilisé dans le fichier FASTQ pour ces séquences ?
+3. commbien des reads nous avons sur ces données?
+4. Quelle la taille des reads?
+5. Lancer `fastp` sur ce jeux de données en utlisant ces paramètres :
 * cut-off de 50 pb en taille.
 * Phred score de 20
-1. comparer le resultat de filtrage avec le resultat précédant de FASTQC.
+  
+<img width="297" height="279" alt="image" src="https://github.com/user-attachments/assets/0143828a-e481-4307-a6df-e5c29516a3d8" />
+
+6. comparer le resultat de filtrage avec le resultat précédant de FASTQC.
 
 ## Téléchargé des données à partir d'un lien
+### Traiement des données en single end
+
+
 1. importer les données NGS en utilsant ces liens
 ````
 https://zenodo.org/record/3977236/files/female_oral2.fastq-4143.gz
 ````
-2. Lancer FASTQC et inspecter le resultats
+<img width="1478" height="570" alt="image" src="https://github.com/user-attachments/assets/4a332378-d3b8-4855-a6db-c22137fc716e" />
+
+
+2. Lancer `FastQC` et inspecter le resultats
 3. Comment vous trouvez ces données en terme de qualité?
 4. Utiliser blastn/VecScreen pour voir quels sont les dapatateurs trouvés
-5. Utiliser cutadapt pour enlever les adaptateurs et améliorer les sequences brutes
+5. Utiliser cutadapt pour enlever les adaptateurs et améliorer les sequences brutes ( [adapter list](https://knowledge.illumina.com/library-preparation/general/library-preparation-general-reference_material-list/000001314))
 6. Quel pourcentage de lectures contient un adaptateur ?
 7. Quel pourcentage de lectures a été tronqué en raison d'une mauvaise qualité ?
 8. Quel pourcentage de lectures a été supprimé car trop courtes ?
 
 Nous pouvons examiner nos données tronquées avec  FastQC et faire une comparaison des resultats.
-
+### Traitement des données en paired end
+1. Telecharger ces données
+````
+https://zenodo.org/record/61771/files/GSM461178_untreat_paired_subset_1.fastq
+https://zenodo.org/record/61771/files/GSM461178_untreat_paired_subset_2.fastq
+````
+2.  Lancer FASTQC
+3.  Que pensez vous des données?
+4.  Lancer cutadapat ou fastp pour améliorer la qualité.
+5.  Combien de pb enlevées a cause de la qualité basse?
+6.  Combien de séquences courtes supprimées?
 ---
 
 # 🧬Assemblage génomique
-Dans ce tuotriel nous allons faire un assemblage d'un seul genome puis nous allons l'annoter puis le visualiser
+L'assemblage génomique consiste à reconstruire la séquence complète d'un génome à partir de millions de fragments courts d'ADN (les reads) obtenus par séquençage. C'est un puzzle informatique géant à résoudre sans modèle de départ
+
  1. Creer un nouveau historique
  2. Télécharger les données brutes ces leins :
 ````
