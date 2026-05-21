@@ -175,17 +175,385 @@ https://zenodo.org/record/61771/files/GSM461178_untreat_paired_subset_2.fastq
 
 # 🧬Assemblage génomique
 L'assemblage génomique consiste à reconstruire la séquence complète d'un génome à partir de millions de fragments courts d'ADN (les reads) obtenus par séquençage. C'est un puzzle informatique géant à résoudre sans modèle de départ
-
- 1. Creer un nouveau historique
- 2. Télécharger les données brutes ces leins :
-````
-https://zenodo.org/record/10669812/files/DRR187559_1.fastqsanger.bz2
-https://zenodo.org/record/10669812/files/DRR187559_2.fastqsanger.bz2
-````
+Dans cette étape nous allons faire plusier assemblage génomique sur différents jeux de données.
 
 
+
+## Cas d'étude 1 :Assemblage d’un génome bactérien MRSA avec des données Illumina MiSeq
+
+> Source : galaxy training
+---
+
+<a id="objectifs"></a>
+## 1. Objectifs
+
+À la fin de cet atelier, les participants pourront :
+
+- importer des reads Illumina paired-end dans Galaxy ;
+- organiser les données en collection paired-end ;
+- évaluer la qualité des reads ;
+- nettoyer les reads avec `fastp` ;
+- assembler un génome bactérien avec `Shovill` ;
+- évaluer l’assemblage avec `QUAST`.
 
 ---
+
+<a id="contexte-biologique"></a>
+## 2. Contexte biologique
+
+Cet atelier utilise des données de séquençage Illumina MiSeq provenant d’une souche de **Staphylococcus aureus résistant à la méthicilline** (**MRSA**).
+
+Le MRSA est un pathogène important impliqué dans les infections hospitalières.  
+Assembler son génome permet ensuite de réaliser plusieurs analyses :
+
+- recherche de gènes de résistance aux antibiotiques ;
+- comparaison entre souches ;
+- typage génomique ;
+- étude épidémiologique.
+
+---
+
+<a id="preparation-historique"></a>
+## 3. Préparation de l’historique Galaxy
+
+Avant de commencer, créer un nouvel historique Galaxy.
+
+### Étapes
+
+1. Ouvrir Galaxy.
+2. Créer un nouvel historique.
+3. Renommer l’historique, par exemple :
+
+```text
+MRSA_Illumina_Assembly
+```
+
+<details>
+<summary>Pourquoi créer un nouvel historique ?</summary>
+
+Un historique séparé permet d’organiser l’analyse, d’éviter de mélanger les fichiers et de rendre le travail plus reproductible.
+
+</details>
+
+---
+
+<a id="importation-donnees"></a>
+## 4. Importation des données
+
+Importer les deux fichiers FASTQ paired-end suivants :
+
+```text
+https://zenodo.org/record/10669812/files/DRR187559_1.fastqsanger.bz2
+https://zenodo.org/record/10669812/files/DRR187559_2.fastqsanger.bz2
+```
+
+### Étapes dans Galaxy
+
+1. Cliquer sur **Upload Data**.
+2. Choisir **Paste/Fetch Data**.
+3. Coller les deux liens.
+4. Cliquer sur **Start**.
+5. Fermer la fenêtre.
+
+### Renommer les datasets
+
+Renommer les fichiers en :
+
+```text
+DRR187559_1
+DRR187559_2
+```
+
+### Créer une collection paired-end
+
+1. Sélectionner les deux fichiers.
+2. Choisir **Build List of Dataset Pairs**.
+3. Vérifier l’appariement `_1` / `_2`.
+4. Nommer la collection :
+
+```text
+Paired Reads
+```
+
+5. Ajouter le tag :
+
+```text
+#unfiltered
+```
+
+---
+
+## Question — Que contient un fichier FASTQ ?
+
+<details>
+<summary>Afficher la réponse</summary>
+
+Un fichier FASTQ contient quatre lignes par read :
+
+1. un identifiant commençant par `@` ;
+2. la séquence nucléotidique ;
+3. une ligne séparatrice `+` ;
+4. les scores de qualité encodés en ASCII.
+
+Exemple :
+
+```text
+@read001
+ATGCGTACGTAG
++
+IIIIHHHHFFFF
+```
+
+</details>
+
+---
+
+<a id="controle-qualite"></a>
+## 5. Contrôle qualité des reads
+
+Le séquençage peut introduire plusieurs erreurs :
+
+- mauvaise qualité en fin de read ;
+- erreurs d’appel de bases ;
+- adaptateurs résiduels ;
+- reads trop courts ;
+- biais de composition GC.
+
+Avant l’assemblage, il est donc nécessaire de contrôler la qualité des données.
+
+### Outil utilisé
+
+Dans le tutoriel original, l’outil utilisé est :
+
+```text
+Falco
+```
+
+Falco est une alternative rapide à FastQC pour les données courtes de type Illumina.
+
+### Paramètre Galaxy
+
+Outil : **Falco**
+
+```text
+Raw read data from your current history: Paired Reads
+```
+
+### Résultats à examiner
+
+Dans le rapport HTML, observer :
+
+- Per base sequence quality ;
+- Per sequence quality scores ;
+- Per base sequence content ;
+- GC content ;
+- Adapter content.
+
+---
+
+## Interprétation rapide : Per base sequence quality
+
+- Axe X : position de la base dans le read.
+- Axe Y : score de qualité Phred.
+- Vert : bonne qualité.
+- Jaune : qualité moyenne.
+- Rouge : mauvaise qualité.
+
+<details>
+<summary>Pourquoi la qualité baisse souvent vers la fin des reads Illumina ?</summary>
+
+Au cours du séquençage Illumina, le signal fluorescent devient parfois moins net avec les cycles.  
+Cela provoque souvent une baisse progressive de qualité vers la fin des reads.
+
+</details>
+
+---
+
+<a id="nettoyage-fastp"></a>
+## 6. Nettoyage avec fastp
+
+Après le contrôle qualité, les reads peuvent être nettoyés avec `fastp`.
+
+### Objectif
+
+Le trimming permet de retirer :
+
+- les bases de mauvaise qualité ;
+- les adaptateurs ;
+- les reads trop courts.
+
+### Paramètres Galaxy
+
+Outil : **fastp**
+
+```text
+Single-end or paired reads: Paired Collection
+Select paired collection(s): Paired Reads
+```
+
+### Filtrage par longueur
+
+```text
+Length required: 30
+```
+
+### Coupe selon la qualité
+
+```text
+Cut by quality in front (5’): Yes
+Cut by quality in tail (3’): Yes
+Cutting window size: 4
+Cutting mean quality: 20
+```
+
+### Rapport
+
+```text
+Output JSON report: Yes
+```
+
+Après fastp :
+
+- supprimer le tag `#unfiltered` ;
+- ajouter le tag `#filtered`.
+
+---
+
+## Question — Quel est l’effet attendu du trimming ?
+
+<details>
+<summary>Afficher la réponse</summary>
+
+Le trimming peut :
+
+- réduire légèrement la longueur moyenne des reads ;
+- augmenter la proportion de bases Q20 et Q30 ;
+- supprimer les adaptateurs ;
+- améliorer la qualité globale des données.
+
+Le contenu GC ne doit normalement pas changer fortement.
+
+</details>
+
+---
+
+<a id="assemblage-shovill"></a>
+## 7. Assemblage avec Shovill
+
+Une fois les reads nettoyés, on peut assembler le génome.
+
+### Pourquoi Shovill ?
+
+`Shovill` est un assembleur basé sur SPAdes, optimisé pour les petits génomes bactériens.
+
+### Paramètres Galaxy
+
+Outil : **Shovill**
+
+```text
+Input reads type: Paired Collection
+Paired collection: sortie paired-end de fastp
+Estimated genome size: 2914567
+```
+
+### Sorties principales
+
+Shovill produit :
+
+1. un fichier log ;
+2. un fichier FASTA contenant les contigs ;
+3. un graphe d’assemblage.
+
+---
+
+## Question — Qu’est-ce qu’un contig ?
+
+<details>
+<summary>Afficher la réponse</summary>
+
+Un contig est une séquence continue reconstruite à partir de reads qui se chevauchent.
+
+Avec des reads courts Illumina, un génome bactérien est souvent assemblé en plusieurs contigs.
+
+</details>
+
+---
+
+<a id="evaluation-quast"></a>
+## 8. Évaluation avec QUAST
+
+`QUAST` permet d’évaluer la qualité d’un assemblage génomique.
+
+### Paramètres Galaxy
+
+Outil : **QUAST**
+
+```text
+Assembly mode: Co-assembly
+Contigs/scaffolds file: sortie Contigs de Shovill
+```
+
+### Métriques importantes
+
+Observer dans le rapport QUAST :
+
+- nombre de contigs ;
+- longueur totale de l’assemblage ;
+- N50 ;
+- taille du plus grand contig ;
+- contenu GC.
+
+---
+
+## Question — Comment interpréter un rapport QUAST ?
+
+<details>
+<summary>Afficher la réponse</summary>
+
+Un bon assemblage bactérien devrait avoir :
+
+- une longueur totale proche de la taille attendue du génome ;
+- un nombre limité de contigs ;
+- un N50 élevé ;
+- un contenu GC cohérent avec l’espèce.
+
+Cependant, avec des reads courts, il est fréquent de ne pas obtenir un génome fermé en un seul contig.
+
+</details>
+
+---
+
+<a id="conclusion"></a>
+## 9. Conclusion
+
+Workflow réalisé :
+
+```text
+Importation FASTQ
+        ↓
+Contrôle qualité
+        ↓
+Nettoyage avec fastp
+        ↓
+Assemblage avec Shovill
+        ↓
+Évaluation avec QUAST
+```
+
+### Points clés
+
+- Le contrôle qualité est indispensable avant l’assemblage.
+- `fastp` améliore la qualité des reads.
+- `Shovill` est adapté aux petits génomes bactériens.
+- Les reads courts peuvent donner un assemblage fragmenté.
+- `QUAST` permet d’évaluer quantitativement l’assemblage.
+
+---
+
+
+
+
+
 
 ## Recherche de variants
 
@@ -209,4 +577,6 @@ https://zenodo.org/record/10669812/files/DRR187559_2.fastqsanger.bz2
 
 
 ---
+
+
 
