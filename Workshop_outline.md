@@ -56,9 +56,10 @@ Les technologies de séquençage modernes permettent de générer un grand nombr
 Il est donc nécessaire de comprendre, d'identifier et d'éliminer les types d'erreurs susceptibles d'affecter l'interprétation des analyses ultérieures. Le contrôle qualité des séquences constitue ainsi une première étape essentielle de votre analyse. Détecter les erreurs au plus tôt permet de gagner du temps par la suite.
 
 ## Téléchargé un fichier de séquence brute à partir de la base de données SRA
-1. créez un nouveau historique
-2. renommez le
-3. importer les données NGS via Faster Download and Extract Reads in FASTQ en utilisant le ID SRR suivant 
+1. Créez un nouveau historique
+2. Renommez le
+3. Comment explorer la base de données SRA (Demo NCBI)
+4. Importer les données NGS via Faster Download and Extract Reads in FASTQ en utilisant le ID SRR suivant 
 ````
 SRR3111247
 ````
@@ -69,8 +70,8 @@ GGAATGCCTGATGGCGGTTCGGCACCTGGTTTGCTGAGAGACATCGCTCGCTGCGCATACCATGACGAATAGGGACTGTC
 +
 B>:A<9>A@9(BBB95@BD@?C@C????ACCA>>CCDC@>9@A:>>CCFEGHJIHEA>CFC9GGHIJJIGGGD9?GHEIBFIJIIIIHHHDDDFFFFCC@
 ````
-
-Qu'est ce que signifie le score de qualité ?
+<detailS>
+<summary>Qu'est ce que signifie le score de qualité ?</summary>
 
 Le score de qualité de chaque séquence est une chaîne de caractères, un pour chaque base de la séquence nucléotidique, utilisée pour caractériser la probabilité d'une identification erronée de chaque base. Ce score est encodé à l'aide de la table de caractères ASCII (avec quelques différences historiques ).
 
@@ -92,7 +93,8 @@ Chaque nucléotide est donc associé à un caractère ASCII représentant son sc
 | 50 | 1 sur 100 000 | 99,999% |
 | 60 | 1 sur 1 000 000 | 99,9999% |
 
-Que représentent les valeurs de 0 à 42 ? Ces nombres, intégrés dans une formule, nous indiquent la probabilité d’une erreur pour cette base. Voici la formule, où Q est notre score de qualité (0 à 42) et P la probabilité d’une erreur :
+Que représentent les valeurs de 0 à 42 ?
+Ces nombres, intégrés dans une formule, nous indiquent la probabilité d’une erreur pour cette base. Voici la formule, où Q est notre score de qualité (0 à 42) et P la probabilité d’une erreur :
 ```
 Q = -10 log10(P)
 ```
@@ -102,21 +104,24 @@ Question: Comment calculer la précision de la base nucléotidique avec le code 
 
 Cela peut être calculé comme suit
 
-**Le code ASCII /est 47**
+Le code ASCII /est 47
 
-**score de qualité = 47-33=14**
+score de qualité = 47-33=14
 
-**Formule pour calculer la probabilité d'erreur :P =10− Q / 10**
+Formule pour calculer la probabilité d'erreur :P =10−<sup>Q/10</sup>
 
-**Probabilité d'erreur =10− 14 / 10 = 0,03981 = 3,981 %**
+Probabilité d'erreur =10− 14 / 10 = 0,03981 = 3,981 %
 
-**Par conséquent, la précision est de 100 - 3,981 = 96,019 %.**
+Par conséquent, la précision est de 100 - 3,981 = 96,019 %.
 
+</details>
 
-## Lancer l'outil FATSQC sur ces données
-1. commbien des reads nous avons sur ces données?
-2. Quelle la taille des reads?
-3. Qu'est ce qu'il faut faire pour améliorer  ce jeux de données?
+## Évaluez la qualité avec FastQC
+Une autre méthode pour vérifier la qualité des séquences consiste à utiliser FastQC . Cet outil propose un ensemble d'analyses modulaires permettant de détecter d'éventuels problèmes dans vos données avant toute analyse ultérieure. 
+
+1. Quel encodage Phred est utilisé dans le fichier FASTQ pour ces séquences ?
+2. commbien des reads nous avons sur ces données?
+3. Quelle la taille des reads?
 ## Lancer fastp sur ce jeux de données en utlisant ces paramètres :
 * cut-off de 50 pb en taille.
 * Phred score de 20
@@ -128,8 +133,17 @@ Cela peut être calculé comme suit
 https://zenodo.org/record/3977236/files/female_oral2.fastq-4143.gz
 ````
 2. Lancer FASTQC et inspecter le resultats
-3. Comment vous trouvez ces données en terme de qualité
+3. Comment vous trouvez ces données en terme de qualité?
+4. Utiliser blastn/VecScreen pour voir quels sont les dapatateurs trouvés
+5. Utiliser cutadapt pour enlever les adaptateurs et améliorer les sequences brutes
+6. Quel pourcentage de lectures contient un adaptateur ?
+7. Quel pourcentage de lectures a été tronqué en raison d'une mauvaise qualité ?
+8. Quel pourcentage de lectures a été supprimé car trop courtes ?
+
+Nous pouvons examiner nos données tronquées avec  FastQC et faire une comparaison des resultats.
+
 ---
+
 # 🧬Assemblage génomique
 Dans ce tuotriel nous allons faire un assemblage d'un seul genome puis nous allons l'annoter puis le visualiser
  1. Creer un nouveau historique
