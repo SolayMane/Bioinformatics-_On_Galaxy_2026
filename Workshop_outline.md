@@ -522,6 +522,70 @@ Cependant, avec des reads courts, il est fréquent de ne pas obtenir un génome 
 </details>
 
 ---
+## 9. Visualisation de l'assemblage sous JBrowse
+### Paramètres Galaxy
+<img width="298" height="392" alt="image" src="https://github.com/user-attachments/assets/33e045de-e780-4e19-b956-849623ca6bb7" />
+
+
+Outil : **JBrowse**
+
+```text
+Reference genome to display: Use a genome frome history
+Contigs/scaffolds file: sortie Contigs de Shovill
+Clicke on Insert Track Group + Insert Annotation Track : GFF/GFF3/BED Features
+```
+
+<img width="1303" height="445" alt="image" src="https://github.com/user-attachments/assets/fb41909c-7b33-4edc-bbe6-f1c0dcd9020e" />
+
+## 10. Visualisation de l'assemblage avec Circos
+Pour publier l'asemblage d'un génome dans le cadre d'un projet, nous avons besoin d'une figure plus élégante avec une identification claire de la sequence, circos est un outuils ideale pour générer des représentations graphiques circulaires de données génomiques. Cet outil permet de cartographier l'architecture du chromosome en affichant simultanément, sous forme d'anneaux concentriques colorés, l'emplacement exact et la densité des gènes sur les brins direct et inverse, facilitant ainsi la visualisation globale et l'analyse comparative des structures de notre assemblage.
+
+### Paramètres Galaxy
+
+Outil : **Circos**
+
+## 10. Visualisation de l'assemblage avec Circos
+
+Pour publier l'asemblage d'un génome dans le cadre d'un projet, nous avons besoin d'une figure plus élégante avec une identification claire de la sequence, circos est un outuils ideale pour générer des représentations graphiques circulaires de données génomiques. Cet outil permet de cartographier l'architecture du chromosome en affichant simultanément, sous forme d'anneaux concentriques colorés, l'emplacement exact et la densité des gènes sur les brins direct et inverse, facilitant ainsi la visualisation globale et l'analyse comparative des structures de notre assemblage.
+
+Voici les étapes méthodologiques pour réaliser cette figure sous Galaxy :
+
+### Étape 1 : Filtrage et séparation des gènes par brin (GFF)
+Avant d'utiliser Circos, le fichier d'annotation GFF doit être séparé en deux sous-ensembles distincts selon l'orientation des gènes.
+* Utiliser l'outil **Filter data on any column using simple expressions**.
+* **Brin direct (+)** : Appliquer l'expression `c3=='gene' and c7=='+'` pour isoler les gènes *forward*.
+* **Brin inverse (-)** : Appliquer l'expression `c3=='gene' and c7=='-'` pour isoler les gènes *reverse*.
+
+### Étape 2 : Extraction des coordonnées pour Circos
+Circos nécessite un format simplifié à 3 colonnes (`Chromosome`, `Début`, `Fin`) pour positionner les éléments sur le cercle.
+* Utiliser l'outil **Cut columns from a table**.
+* Extraire les colonnes avec la configuration `c1,c4,c5`.
+* Répéter l'opération pour le fichier du brin direct et celui du brin inverse.
+
+### Étape 3 : Configuration du squelette circulaire (Karyotype)
+Cette étape définit la structure externe et la forme parfaitement circulaire du génome bactérien.
+* Ouvrir l'outil **Circos visualizes data**.
+* Dans l'onglet **Karyotype**, sélectionner le fichier FASTA du génome comme source de référence.
+* Dans la section **Ideogram**, régler le paramètre **Spacing Between Ideograms** sur **`0`** (zéro degré) pour fusionner les extrémités et obtenir un cercle fermé sans discontinuité.
+
+### Étape 4 : Superposition des pistes de gènes (2D Data Tracks)
+Les fichiers de coordonnées extraits à l'étape 2 sont intégrés sous forme de deux anneaux concentriques indépendants.
+* **Piste 1 (Brin direct)** : 
+  * Insérer une piste de type **Tile**.
+  * Définir un rayon extérieur (**Outside Radius**) à `0.95` et intérieur à `0.88`.
+  * Assigner une couleur spécifique (ex: `blue`).
+* **Piste 2 (Brin inverse)** : 
+  * Insérer une seconde piste de type **Tile**.
+  * Définir un rayon extérieur à `0.86` et intérieur à `0.79` pour éviter tout chevauchement vertical.
+  * Assigner une couleur contrastante (ex: `red`).
+
+### Étape 5 : Génération de la figure
+* Cliquer sur **Run Tool** pour lancer le pipeline graphique.
+* Récupérer la cartographie haute résolution exportée automatiquement aux formats vectoriel (**SVG**) et image (**PNG**) pour la publication.
+
+
+
+
 
 <a id="conclusion"></a>
 ## 9. Conclusion
@@ -538,6 +602,10 @@ Nettoyage avec fastp
 Assemblage avec Shovill
         ↓
 Évaluation avec QUAST
+        ↓
+Visualisation des contigs avec annotation sous JBrowse
+        ↓
+Visualisation sous circos
 ```
 
 ### Points clés
