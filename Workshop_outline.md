@@ -573,7 +573,7 @@ Assemblage avec Shovill
 <a id="contexte-biologique"></a>
 ## 2. Contexte biologique
 
-Cet atelier utilise des données de séquençage Illumina provenant d’une souche de **Salmonella galinarum** agent pathogen de la typhose aviaire.
+Cet atelier utilise des données de séquençage Illumina provenant de **Salmonella galinarum**. Salmonella Gallinarum est une bactérie hautement spécifique aux oiseaux, responsable de la typhoïde aviaire. Cette maladie grave touche principalement les poules et les dindes, mais elle ne présente presque aucun risque pour l'être humain.
  
 Assembler son génome permet ensuite de réaliser plusieurs analyses :
 - recherche de gènes de résistance aux antibiotiques ;
@@ -752,23 +752,756 @@ Cependant, avec des reads courts, il est fréquent de ne pas obtenir un génome 
 </details>
 
 ---
-## 9. Annotation avec prokka
-L'annotation génomique est le processus qui consiste à identifier les éléments fonctionnels d'une séquence d'ADN après son assemblage. Si l'assemblage permet d'obtenir les "pages du livre" du génome, l'annotation en écrit l'index et le dictionnaire pour en comprendre le sens.
+---
 
-Prokka est le logiciel standard de bioinformatique utilisé pour l'annotation rapide et automatisée de génomes de procaryotes (bactéries et archées). Développé par Torsten Seemann, son principal avantage est sa vitesse : il peut annoter un génome bactérien complet en moins de 10 minutes.
+## 🧬 9. Annotation génomique avec Prokka
 
-<img width="308" height="434" alt="image" src="https://github.com/user-attachments/assets/d4fd26ee-ab5a-4445-b862-880e424ee237" />
 
+L'annotation génomique est le processus qui consiste à identifier les éléments fonctionnels d'une séquence d'ADN après son assemblage.
+
+Si l’assemblage permet d’obtenir les **“pages du livre”** du génome, alors l’annotation permet :
+
+- d’identifier les gènes ;
+- de prédire leurs fonctions ;
+- de localiser les ARNr et ARNt ;
+- de comprendre l’organisation biologique du génome.
+
+---
+
+### 🚀 Qu’est-ce que Prokka ?
+
+`Prokka` est un logiciel standard de bioinformatique utilisé pour :
+
+- l’annotation rapide ;
+- l’annotation automatisée ;
+- des génomes bactériens et archéens.
+
+Développé par **Torsten Seemann**, Prokka est très populaire car il permet d’annoter un génome bactérien complet en quelques minutes.
+
+---
+
+### 🛠️ Outil Galaxy
+
+```text
+Prokka
+```
+
+---
+
+### 📥 Entrée
+
+```text
+Contigs assemblés (.fasta)
+```
+
+---
+
+### 📤 Résultats générés par Prokka
+
+Prokka produit plusieurs fichiers importants.
+
+---
+
+### 📂 1. Fichiers de séquences (FASTA)
+
+#### `.faa` — Fasta Amino Acid
+
+Contient les séquences protéiques des CDS prédits.
+
+#### Utilisations
+
+- analyses de pangenome ;
+- alignements protéiques ;
+- annotation fonctionnelle ;
+- phylogénie.
+
+#### Outils compatibles
+
+- Roary
+- Panaroo
+- BLASTp
+
+---
+
+#### `.ffn` — Fasta Functional Nucleotide
+
+Contient les séquences nucléotidiques des régions annotées :
+
+- CDS ;
+- ARNr ;
+- ARNt.
+
+---
+
+#### `.fna` — Fasta Nucleic Acid
+
+Copie du génome d’entrée renommée avec le préfixe Prokka.
+
+---
+
+### 📂 2. Fichiers d’annotation complète
+
+#### `.gff` — General Feature Format v3
+
+⚠️ Fichier le plus important.
+
+Il contient :
+
+- coordonnées génomiques ;
+- type des gènes ;
+- fonctions annotées ;
+- informations biologiques.
+
+#### Utilisations
+
+- visualisation génomique ;
+- analyses comparatives ;
+- annotation fonctionnelle.
+
+#### Outils compatibles
+
+- JBrowse
+- IGV
+- Artemis
+
+---
+
+#### `.gbk` — GenBank
+
+Contient :
+
+- la séquence ADN ;
+- toutes les annotations.
+
+Format standard compatible avec :
+
+- NCBI ;
+- Artemis ;
+- Mauve.
+
+---
+
+### 📂 3. Rapports et statistiques
+
+#### `.txt` — Résumé texte
+
+Rapport synthétique contenant :
+
+- nombre total de bases ;
+- nombre de CDS ;
+- nombre d’ARNt ;
+- nombre d’ARNr ;
+- protéines hypothétiques.
+
+---
+
+#### `.log` — Journal d’exécution
+
+Historique technique du pipeline Prokka.
+
+Permet de vérifier :
+
+- les erreurs ;
+- les outils exécutés ;
+- les problèmes éventuels.
+
+---
+
+### 📂 4. Fichiers pour soumission NCBI
+
+#### `.tbl` — Feature Table
+
+Tableau contenant :
+
+- coordonnées des gènes ;
+- produits annotés.
+
+Utilisé pour les soumissions NCBI.
+
+---
+
+#### `.sqn` — Sequin file
+
+Format ASN.1 compatible avec :
+
+```text
+NCBI Sequin
+```
+
+Permet la soumission de génomes annotés.
+
+---
+
+#### `.err` — Error report
+
+Contient les erreurs pouvant bloquer une soumission :
+
+- codons invalides ;
+- problèmes d’annotation ;
+- gènes incomplets.
+
+---
+
+## ❓ Questions interactives
+
+### Pourquoi le fichier `.gff` est-il important ?
+
+<details>
+<summary>👁️ Afficher la réponse</summary>
+
+Le fichier GFF contient :
+
+- les coordonnées exactes des gènes ;
+- les annotations fonctionnelles ;
+- les types de features biologiques.
+
+Il est indispensable pour :
+
+- JBrowse ;
+- IGV ;
+- analyses comparatives ;
+- visualisation génomique.
+
+</details>
+
+---
+
+## Quelle différence entre `.faa` et `.ffn` ?
+
+<details>
+<summary>👁️ Afficher la réponse</summary>
+
+- `.faa` → séquences protéiques ;
+- `.ffn` → séquences nucléotidiques des gènes.
+
+</details>
+
+---
+
+### Pourquoi certaines protéines sont annotées “hypothetical protein” ?
+
+<details>
+<summary>👁️ Afficher la réponse</summary>
+
+Ces protéines sont prédites mais :
+
+- aucune fonction connue n’a été trouvée ;
+- aucun homologue fiable n’existe dans les bases de données.
+
+</details>
+
+---
+
+### ✅ À retenir
+
+- Prokka est un outil rapide d’annotation bactérienne.
+- Le fichier `.gff` est central pour les analyses downstream.
+- `.faa` contient les protéines.
+- `.ffn` contient les séquences nucléotidiques annotées.
+- `.gbk` est le format standard GenBank.
+- Les fichiers `.tbl` et `.sqn` servent aux soumissions NCBI.
+   
 ## Recherche de variants
 
 
 
 ---
-## Analyse des AMRs
+--visualisation avec circos plot des genes et des snps
+-- visaulisaiton avec jbrowse et inspection des genes snp et des mappings
 
+
+## 🦠 Détection des gènes de résistance aux antibiotiques (AMR) sous Galaxy
+
+> Adapté du tutoriel Galaxy Training Network :
+>
+> « Identification of AMR genes in an assembled bacterial genome »
+>
+> Source : [https://training.galaxyproject.org/training-material/topics/genome-annotation/tutorials/amr-gene-detection/tutorial.html#visualisation-of-the-args](https://training.galaxyproject.org/training-material/topics/genome-annotation/tutorials/amr-gene-detection/tutorial.html#visualisation-of-the-args)
 
 ---
-## Analyse des AMRs
+
+
+<a id="introduction"></a>
+# 🔬 Introduction
+
+La résistance aux antibiotiques (AMR : Antimicrobial Resistance) représente un problème majeur de santé publique.
+
+Le séquençage génomique permet aujourd’hui de détecter les gènes de résistance présents dans les génomes bactériens.
+
+Dans ce tutoriel Galaxy, nous allons :
+
+* détecter les gènes AMR ;
+* identifier les gènes plasmidiques ;
+* visualiser les gènes dans leur contexte génomique ;
+* explorer les résultats biologiquement.
+
+---
+
+<a id="contexte"></a>
+
+# 🦠 Contexte biologique
+
+Le jeu de données correspond à une souche de :
+
+```text
+Methicillin-Resistant Staphylococcus aureus (MRSA)
+```
+
+Le MRSA est un pathogène hospitalier important.
+
+Les objectifs biologiques sont :
+
+* identifier les gènes de résistance ;
+* comprendre leur localisation ;
+* visualiser les gènes sur les contigs ;
+* identifier les plasmides potentiels.
+
+---
+
+<a id="workflow"></a>
+
+# 🧪 Workflow global
+
+```text
+Contigs assemblés
+        ↓
+staramr
+        ↓
+Extraction des ARGs
+        ↓
+Conversion en GFF3
+        ↓
+Annotation avec Bakta
+        ↓
+Visualisation avec JBrowse
+        ↓
+Interprétation biologique
+```
+
+---
+
+<a id="galaxy"></a>
+
+# 🚀 Préparation de Galaxy
+
+## Étapes
+
+1. Ouvrir Galaxy.
+2. Créer un nouvel historique.
+3. Renommer l’historique.
+
+Exemple :
+
+```text
+AMR_MRSA_Galaxy
+```
+
+---
+
+## 📥 Importation des données
+
+Importer les contigs assemblés dans Galaxy.
+
+Les données correspondent à un génome bactérien déjà assemblé.
+
+---
+
+## ❓ Pourquoi utiliser des contigs assemblés ?
+
+<details>
+<summary>👁️ Afficher la réponse</summary>
+
+Les outils de détection AMR fonctionnent généralement mieux sur des génomes assemblés.
+
+Les contigs permettent :
+
+* d’obtenir des gènes complets ;
+* d’analyser le contexte génomique ;
+* d’identifier des plasmides ;
+* de visualiser les gènes dans JBrowse.
+
+</details>
+
+---
+
+<a id="staramr"></a>
+
+# 🧬 Détection des gènes AMR avec staramr
+
+## 🎯 Objectif
+
+Identifier :
+
+* les gènes de résistance aux antibiotiques ;
+* les gènes plasmidiques.
+
+---
+
+## 🛠️ Outil Galaxy
+
+```text
+staramr
+```
+
+---
+
+## ⚙️ Paramètres
+
+Entrée :
+
+```text
+Contigs assemblés
+```
+
+Lancer l’analyse avec les paramètres par défaut.
+
+---
+
+## 📄 Fichiers générés
+
+Les fichiers importants sont :
+
+| Fichier              | Description         |
+| -------------------- | ------------------- |
+| summary.tsv          | résumé des ARGs     |
+| detailed_summary.tsv | détails des gènes   |
+| resfinder.tsv        | résultats ResFinder |
+| plasmidfinder.tsv    | plasmides détectés  |
+
+---
+
+## ❓ Questions
+
+1. Combien de gènes AMR ont été détectés ?
+2. Quel gène est associé à la résistance à la méthicilline ?
+3. Des plasmides ont-ils été détectés ?
+
+---
+
+## ❓ Quel gène est attendu chez MRSA ?
+
+<details>
+<summary>👁️ Afficher la réponse</summary>
+
+Le gène attendu est :
+
+```text
+mecA
+```
+
+Ce gène code une protéine PBP2a impliquée dans la résistance à la méthicilline.
+
+</details>
+
+---
+
+<a id="exploration"></a>
+
+# 📊 Exploration des résultats
+
+Le fichier :
+
+```text
+detailed_summary.tsv
+```
+
+contient :
+
+* les gènes détectés ;
+* leur position ;
+* leur couverture ;
+* leur identité ;
+* le type de résistance.
+
+---
+
+## ❓ Pourquoi certains gènes ne sont-ils pas retenus ?
+
+<details>
+<summary>👁️ Afficher la réponse</summary>
+
+Certains hits possèdent :
+
+* une faible identité ;
+* une couverture insuffisante ;
+* des fragments partiels.
+
+Ils peuvent donc être filtrés.
+
+</details>
+
+---
+
+<a id="extraction"></a>
+
+# ✂️ Extraction des ARGs et gènes plasmidiques
+
+## 🎯 Objectif
+
+Extraire uniquement les lignes contenant des gènes détectés.
+
+---
+
+## 🛠️ Outil Galaxy
+
+```text
+Select lines that match an expression
+```
+
+---
+
+## Expression utilisée
+
+```text
+[0-9]+\.[0-9]+\t
+```
+
+Cette expression sélectionne les lignes contenant :
+
+* une identité ;
+* un overlap ;
+* un vrai hit.
+
+---
+
+## ❓ Combien de gènes ont été conservés ?
+
+<details>
+<summary>👁️ Afficher la réponse</summary>
+
+Le tutoriel conserve :
+
+```text
+12 gènes
+```
+
+</details>
+
+---
+
+<a id="gff3"></a>
+
+# 🧾 Création d’un fichier GFF3
+
+## 🎯 Pourquoi convertir en GFF3 ?
+
+Le format GFF3 permet de visualiser les gènes dans des navigateurs génomiques comme JBrowse.
+
+---
+
+## 🛠️ Outil Galaxy
+
+```text
+Table to GFF3
+```
+
+---
+
+## Paramètres importants
+
+| Champ GFF3 | Colonne |
+| ---------- | ------- |
+| Record ID  | 9       |
+| Start      | 10      |
+| End        | 11      |
+| Type       | 3       |
+| Score      | 6       |
+
+---
+
+## Ajouter les qualifiers
+
+Ajouter :
+
+| Qualifier | Valeur     |
+| --------- | ---------- |
+| name      | colonne 2  |
+| phenotype | colonne 4  |
+| accession | colonne 12 |
+
+---
+
+## ❓ Qu’est-ce qu’un fichier GFF3 ?
+
+<details>
+<summary>👁️ Afficher la réponse</summary>
+
+Le format GFF3 décrit :
+
+* les gènes ;
+* leurs positions ;
+* leurs annotations ;
+* leurs attributs.
+
+Il est utilisé pour la visualisation génomique.
+
+</details>
+
+---
+
+<a id="bakta"></a>
+
+# 🧬 Annotation des contigs avec Bakta
+
+## 🎯 Objectif
+
+Annoter les gènes présents sur les contigs.
+
+---
+
+## 🛠️ Outil Galaxy
+
+```text
+Bakta
+```
+
+---
+
+## Résultats attendus
+
+Bakta identifie :
+
+* CDS ;
+* ARNs ;
+* protéines ;
+* annotations fonctionnelles.
+
+---
+
+## ❓ Pourquoi utiliser Bakta ?
+
+<details>
+<summary>👁️ Afficher la réponse</summary>
+
+Bakta permet d’obtenir une annotation bactérienne rapide et standardisée.
+
+Il est considéré comme un successeur moderne de Prokka.
+
+</details>
+
+---
+
+<a id="jbrowse"></a>
+
+# 🧬 Visualisation avec JBrowse
+
+## 🎯 Objectif
+
+Visualiser :
+
+* les contigs ;
+* les ARGs ;
+* les gènes plasmidiques ;
+* les annotations ;
+* la couverture.
+
+---
+
+## 🛠️ Outil Galaxy
+
+```text
+JBrowse
+```
+
+---
+
+## Tracks à ajouter
+
+### Référence
+
+```text
+Contigs assemblés
+```
+
+### Track Bakta
+
+```text
+Annotation_and_sequences
+```
+
+### Track ARGs
+
+```text
+GFF3 généré précédemment
+```
+
+---
+
+## ❓ Pourquoi utiliser JBrowse ?
+
+<details>
+<summary>👁️ Afficher la réponse</summary>
+
+JBrowse permet de visualiser les gènes dans leur contexte génomique.
+
+On peut observer :
+
+* les gènes voisins ;
+* les plasmides ;
+* les répétitions ;
+* les zones riches en ARGs.
+
+</details>
+
+---
+
+## ❓ Questions biologiques
+
+1. Sur quels contigs trouve-t-on les ARGs ?
+2. Certains ARGs semblent-ils plasmidiques ?
+3. Plusieurs ARGs sont-ils regroupés ?
+
+---
+
+<a id="interpretation"></a>
+
+# 🧠 Interprétation biologique
+
+Les gènes AMR détectés peuvent être associés :
+
+* à des plasmides ;
+* à des transposons ;
+* à des régions génomiques mobiles.
+
+La visualisation permet d’explorer :
+
+* la transmission horizontale ;
+* les cassettes de résistance ;
+* les îlots génomiques.
+
+---
+
+# 📈 Exemple d’interprétation
+
+Le gène :
+
+```text
+aac(6')-aph(2'')
+```
+
+correspond à une résistance aux aminoglycosides.
+
+Bakta identifie ce gène comme :
+
+```text
+bifunctional aminoglycoside N-acetyltransferase
+```
+
+---
+
+<a id="retenir"></a>
+
+# ✅ À retenir
+
+* staramr permet de détecter les ARGs et plasmides.
+* Les contigs assemblés facilitent l’analyse AMR.
+* Le format GFF3 est essentiel pour la visualisation.
+* prokka fournit une annotation bactérienne moderne.
+* JBrowse permet une interprétation génomique avancée.
+
+---
+
+
 
 
 ---
