@@ -582,8 +582,256 @@ Cependant, avec des reads courts, il est fréquent de ne pas obtenir un génome 
 
 </details>
 
+## 🧬 9. Annotation génomique avec Prokka
+
+
+L'annotation génomique est le processus qui consiste à identifier les éléments fonctionnels d'une séquence d'ADN après son assemblage.
+
+Si l’assemblage permet d’obtenir les **“pages du livre”** du génome, alors l’annotation permet :
+
+- d’identifier les gènes ;
+- de prédire leurs fonctions ;
+- de localiser les ARNr et ARNt ;
+- de comprendre l’organisation biologique du génome.
+
 ---
-## 9. Visualisation de l'assemblage sous JBrowse
+
+### 🚀 Qu’est-ce que Prokka ?
+
+`Prokka` est un logiciel standard de bioinformatique utilisé pour :
+
+- l’annotation rapide ;
+- l’annotation automatisée ;
+- des génomes bactériens et archéens.
+
+Développé par **Torsten Seemann**, Prokka est très populaire car il permet d’annoter un génome bactérien complet en quelques minutes.
+
+---
+
+### 🛠️ Outil Galaxy
+
+```text
+Prokka
+```
+
+---
+
+### 📥 Entrée
+
+```text
+Contigs assemblés (.fasta)
+```
+
+---
+
+### 📤 Résultats générés par Prokka
+
+Prokka produit plusieurs fichiers importants.
+
+---
+
+### 📂 1. Fichiers de séquences (FASTA)
+
+#### `.faa` — Fasta Amino Acid
+
+Contient les séquences protéiques des CDS prédits.
+
+#### Utilisations
+
+- analyses de pangenome ;
+- alignements protéiques ;
+- annotation fonctionnelle ;
+- phylogénie.
+
+#### Outils compatibles
+
+- Roary
+- Panaroo
+- BLASTp
+
+---
+
+#### `.ffn` — Fasta Functional Nucleotide
+
+Contient les séquences nucléotidiques des régions annotées :
+
+- CDS ;
+- ARNr ;
+- ARNt.
+
+---
+
+#### `.fna` — Fasta Nucleic Acid
+
+Copie du génome d’entrée renommée avec le préfixe Prokka.
+
+---
+
+### 📂 2. Fichiers d’annotation complète
+
+#### `.gff` — General Feature Format v3
+
+⚠️ Fichier le plus important.
+
+Il contient :
+
+- coordonnées génomiques ;
+- type des gènes ;
+- fonctions annotées ;
+- informations biologiques.
+
+#### Utilisations
+
+- visualisation génomique ;
+- analyses comparatives ;
+- annotation fonctionnelle.
+
+#### Outils compatibles
+
+- JBrowse
+- IGV
+- Artemis
+
+---
+
+#### `.gbk` — GenBank
+
+Contient :
+
+- la séquence ADN ;
+- toutes les annotations.
+
+Format standard compatible avec :
+
+- NCBI ;
+- Artemis ;
+- Mauve.
+
+---
+
+### 📂 3. Rapports et statistiques
+
+#### `.txt` — Résumé texte
+
+Rapport synthétique contenant :
+
+- nombre total de bases ;
+- nombre de CDS ;
+- nombre d’ARNt ;
+- nombre d’ARNr ;
+- protéines hypothétiques.
+
+---
+
+#### `.log` — Journal d’exécution
+
+Historique technique du pipeline Prokka.
+
+Permet de vérifier :
+
+- les erreurs ;
+- les outils exécutés ;
+- les problèmes éventuels.
+
+---
+
+### 📂 4. Fichiers pour soumission NCBI
+
+#### `.tbl` — Feature Table
+
+Tableau contenant :
+
+- coordonnées des gènes ;
+- produits annotés.
+
+Utilisé pour les soumissions NCBI.
+
+---
+
+#### `.sqn` — Sequin file
+
+Format ASN.1 compatible avec :
+
+```text
+NCBI Sequin
+```
+
+Permet la soumission de génomes annotés.
+
+---
+
+#### `.err` — Error report
+
+Contient les erreurs pouvant bloquer une soumission :
+
+- codons invalides ;
+- problèmes d’annotation ;
+- gènes incomplets.
+
+---
+
+## ❓ Questions interactives
+
+### Pourquoi le fichier `.gff` est-il important ?
+
+<details>
+<summary>👁️ Afficher la réponse</summary>
+
+Le fichier GFF contient :
+
+- les coordonnées exactes des gènes ;
+- les annotations fonctionnelles ;
+- les types de features biologiques.
+
+Il est indispensable pour :
+
+- JBrowse ;
+- IGV ;
+- analyses comparatives ;
+- visualisation génomique.
+
+</details>
+
+---
+
+## Quelle différence entre `.faa` et `.ffn` ?
+
+<details>
+<summary>👁️ Afficher la réponse</summary>
+
+- `.faa` → séquences protéiques ;
+- `.ffn` → séquences nucléotidiques des gènes.
+
+</details>
+
+---
+
+### Pourquoi certaines protéines sont annotées “hypothetical protein” ?
+
+<details>
+<summary>👁️ Afficher la réponse</summary>
+
+Ces protéines sont prédites mais :
+
+- aucune fonction connue n’a été trouvée ;
+- aucun homologue fiable n’existe dans les bases de données.
+
+</details>
+
+---
+
+### ✅ À retenir
+
+- Prokka est un outil rapide d’annotation bactérienne.
+- Le fichier `.gff` est central pour les analyses downstream.
+- `.faa` contient les protéines.
+- `.ffn` contient les séquences nucléotidiques annotées.
+- `.gbk` est le format standard GenBank.
+- Les fichiers `.tbl` et `.sqn` servent aux soumissions NCBI.
+   
+
+---
+## 10. Visualisation de l'assemblage sous JBrowse
 ### Paramètres Galaxy
 <img width="298" height="392" alt="image" src="https://github.com/user-attachments/assets/33e045de-e780-4e19-b956-849623ca6bb7" />
 
@@ -599,7 +847,7 @@ Clicke on Insert Track Group + Insert Annotation Track : GFF/GFF3/BED Features
 <img width="1303" height="445" alt="image" src="https://github.com/user-attachments/assets/fb41909c-7b33-4edc-bbe6-f1c0dcd9020e" />
 
 
-## 10. Visualisation de l'assemblage avec Circos
+## 11. Visualisation de l'assemblage avec Circos
 
 Outil : **Circos**
 Pour publier l'asemblage d'un génome dans le cadre d'un projet, nous avons besoin d'une figure plus élégante avec une identification claire de la sequence. Circos est un outil ideale pour générer des représentations graphiques circulaires de données génomiques. Cet outil permet de cartographier l'architecture du chromosome en affichant simultanément, sous forme d'anneaux concentriques colorés, l'emplacement exact et la densité des gènes sur les brins direct et inverse, facilitant ainsi la visualisation globale et l'analyse comparative des structures de notre assemblage.
@@ -910,252 +1158,9 @@ Cependant, avec des reads courts, il est fréquent de ne pas obtenir un génome 
 ---
 ---
 
-## 🧬 9. Annotation génomique avec Prokka
+## 🧬 9. Annotation génomique avec Prokka (voir ci-dissous)
 
 
-L'annotation génomique est le processus qui consiste à identifier les éléments fonctionnels d'une séquence d'ADN après son assemblage.
-
-Si l’assemblage permet d’obtenir les **“pages du livre”** du génome, alors l’annotation permet :
-
-- d’identifier les gènes ;
-- de prédire leurs fonctions ;
-- de localiser les ARNr et ARNt ;
-- de comprendre l’organisation biologique du génome.
-
----
-
-### 🚀 Qu’est-ce que Prokka ?
-
-`Prokka` est un logiciel standard de bioinformatique utilisé pour :
-
-- l’annotation rapide ;
-- l’annotation automatisée ;
-- des génomes bactériens et archéens.
-
-Développé par **Torsten Seemann**, Prokka est très populaire car il permet d’annoter un génome bactérien complet en quelques minutes.
-
----
-
-### 🛠️ Outil Galaxy
-
-```text
-Prokka
-```
-
----
-
-### 📥 Entrée
-
-```text
-Contigs assemblés (.fasta)
-```
-
----
-
-### 📤 Résultats générés par Prokka
-
-Prokka produit plusieurs fichiers importants.
-
----
-
-### 📂 1. Fichiers de séquences (FASTA)
-
-#### `.faa` — Fasta Amino Acid
-
-Contient les séquences protéiques des CDS prédits.
-
-#### Utilisations
-
-- analyses de pangenome ;
-- alignements protéiques ;
-- annotation fonctionnelle ;
-- phylogénie.
-
-#### Outils compatibles
-
-- Roary
-- Panaroo
-- BLASTp
-
----
-
-#### `.ffn` — Fasta Functional Nucleotide
-
-Contient les séquences nucléotidiques des régions annotées :
-
-- CDS ;
-- ARNr ;
-- ARNt.
-
----
-
-#### `.fna` — Fasta Nucleic Acid
-
-Copie du génome d’entrée renommée avec le préfixe Prokka.
-
----
-
-### 📂 2. Fichiers d’annotation complète
-
-#### `.gff` — General Feature Format v3
-
-⚠️ Fichier le plus important.
-
-Il contient :
-
-- coordonnées génomiques ;
-- type des gènes ;
-- fonctions annotées ;
-- informations biologiques.
-
-#### Utilisations
-
-- visualisation génomique ;
-- analyses comparatives ;
-- annotation fonctionnelle.
-
-#### Outils compatibles
-
-- JBrowse
-- IGV
-- Artemis
-
----
-
-#### `.gbk` — GenBank
-
-Contient :
-
-- la séquence ADN ;
-- toutes les annotations.
-
-Format standard compatible avec :
-
-- NCBI ;
-- Artemis ;
-- Mauve.
-
----
-
-### 📂 3. Rapports et statistiques
-
-#### `.txt` — Résumé texte
-
-Rapport synthétique contenant :
-
-- nombre total de bases ;
-- nombre de CDS ;
-- nombre d’ARNt ;
-- nombre d’ARNr ;
-- protéines hypothétiques.
-
----
-
-#### `.log` — Journal d’exécution
-
-Historique technique du pipeline Prokka.
-
-Permet de vérifier :
-
-- les erreurs ;
-- les outils exécutés ;
-- les problèmes éventuels.
-
----
-
-### 📂 4. Fichiers pour soumission NCBI
-
-#### `.tbl` — Feature Table
-
-Tableau contenant :
-
-- coordonnées des gènes ;
-- produits annotés.
-
-Utilisé pour les soumissions NCBI.
-
----
-
-#### `.sqn` — Sequin file
-
-Format ASN.1 compatible avec :
-
-```text
-NCBI Sequin
-```
-
-Permet la soumission de génomes annotés.
-
----
-
-#### `.err` — Error report
-
-Contient les erreurs pouvant bloquer une soumission :
-
-- codons invalides ;
-- problèmes d’annotation ;
-- gènes incomplets.
-
----
-
-## ❓ Questions interactives
-
-### Pourquoi le fichier `.gff` est-il important ?
-
-<details>
-<summary>👁️ Afficher la réponse</summary>
-
-Le fichier GFF contient :
-
-- les coordonnées exactes des gènes ;
-- les annotations fonctionnelles ;
-- les types de features biologiques.
-
-Il est indispensable pour :
-
-- JBrowse ;
-- IGV ;
-- analyses comparatives ;
-- visualisation génomique.
-
-</details>
-
----
-
-## Quelle différence entre `.faa` et `.ffn` ?
-
-<details>
-<summary>👁️ Afficher la réponse</summary>
-
-- `.faa` → séquences protéiques ;
-- `.ffn` → séquences nucléotidiques des gènes.
-
-</details>
-
----
-
-### Pourquoi certaines protéines sont annotées “hypothetical protein” ?
-
-<details>
-<summary>👁️ Afficher la réponse</summary>
-
-Ces protéines sont prédites mais :
-
-- aucune fonction connue n’a été trouvée ;
-- aucun homologue fiable n’existe dans les bases de données.
-
-</details>
-
----
-
-### ✅ À retenir
-
-- Prokka est un outil rapide d’annotation bactérienne.
-- Le fichier `.gff` est central pour les analyses downstream.
-- `.faa` contient les protéines.
-- `.ffn` contient les séquences nucléotidiques annotées.
-- `.gbk` est le format standard GenBank.
-- Les fichiers `.tbl` et `.sqn` servent aux soumissions NCBI.
    
 # 🧬 Partie V — Recherche de variants
 
