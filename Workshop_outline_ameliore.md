@@ -882,29 +882,10 @@ Les fichiers de coordonnées extraits à l'étape 2 sont intégrés sous forme d
 * Récupérer la cartographie haute résolution exportée automatiquement aux formats vectoriel (**SVG**) et image (**PNG**) pour la publication.
 
 
+<img width="3000" height="3000" alt="Galaxy148- Circos Plot" src="https://github.com/user-attachments/assets/7af89cc7-22e1-45de-827c-d31e579d69df" />
 
 
 
-<a id="conclusion"></a>
-## 9. Conclusion
-
-Workflow réalisé :
-
-```text
-Importation FASTQ
-        ↓
-Contrôle qualité
-        ↓
-Nettoyage avec fastp
-        ↓
-Assemblage avec Shovill
-        ↓
-Évaluation avec QUAST
-        ↓
-Visualisation des contigs avec annotation sous JBrowse
-        ↓
-Visualisation sous circos
-```
 
 ### Points clés
 
@@ -915,255 +896,6 @@ Visualisation sous circos
 - `QUAST` permet d’évaluer quantitativement l’assemblage.
 
 ---
-
-
-
-## 🔄 Workflow complet d’assemblage bactérien
-
-```text
-Reads Illumina
-       │
-       ▼
-FastQC / Falco
-       │
-       ▼
-fastp
-       │
-       ▼
-Shovill
-       │
-       ▼
-Contigs
-       │
-       ▼
-QUAST
-       │
-       ├──────────────┐
-       ▼              ▼
-JBrowse            Circos
-       │              │
-       └──────┬───────┘
-              ▼
-     Interprétation biologique
-```
-
----
-
-## Cas d'étude 2 : Assemblage de plusieurs génomes bactériens
-
-
-
-<a id="objectifs"></a>
-## 1. Objectifs
-
-À la fin de cet atelier, les participants pourront :
-
-- importer des reads Illumina paired-end à partir d'un historique Galaxy ;
-- évaluer la qualité des reads ;
-- nettoyer les reads avec `fastp` ;
-- assembler un génome bactérien avec `Shovill` ;
-- évaluer l’assemblage avec `QUAST`.
-- Annoter les génomes avec ``Prokka``
-- Visualiser les genome sous ``jbrowse``
-
----
-
-<a id="contexte-biologique"></a>
-## 2. Contexte biologique
-
-Cet atelier utilise des données de séquençage Illumina provenant de **Salmonella galinarum**. Salmonella Gallinarum est une bactérie hautement spécifique aux oiseaux, responsable de la typhoïde aviaire. Cette maladie grave touche principalement les poules et les dindes, mais elle ne présente presque aucun risque pour l'être humain.
- 
-Assembler son génome permet ensuite de réaliser plusieurs analyses :
-- recherche de gènes de résistance aux antibiotiques ;
-- comparaison entre souches ;
-- typage génomique ;
-- étude épidémiologique.
-
----
-
-<a id="preparation-historique"></a>
-## 3. Préparation de l’historique Galaxy
-
-Avant de commencer, créer un nouvel historique Galaxy.
-
-
----
-
-<a id="importation-donnees"></a>
-## 4. Importation des données
-### Étapes
-
-1. Ouvrir Galaxy.
-2. ouvirie le lien ci dissous de l'historique partagé
-   ``https://usegalaxy.eu/u/solay/h/inh-workshop-2026``
-2. Importer l'historique entier
-
-<img width="905" height="500" alt="image" src="https://github.com/user-attachments/assets/3485978e-26ae-4bb5-b253-33c32a958cd2" />
-
-3. Vous pouvez renomer l'historique
-
-
-## 5. Contrôle qualité des reads
-
-Le séquençage peut introduire plusieurs erreurs :
-
-- mauvaise qualité en fin de read ;
-- erreurs d’appel de bases ;
-- adaptateurs résiduels ;
-- reads trop courts ;
-- biais de composition GC.
-
-Avant l’assemblage, il est donc nécessaire de contrôler la qualité des données.
-
-### Outil utilisé
-
-Dans le tutoriel original, l’outil utilisé est :
-
-```text
-Falco ou FastQC
-```
-
-Falco est une alternative rapide à FastQC pour les données courtes de type Illumina.
-
-### Paramètre Galaxy
-
-Outil : **Falco**
-
-```text
-Raw read data from your current history: Paired Reads
-```
-
-### Résultats à examiner
-
-Dans le rapport HTML, observer :
-
-- Per base sequence quality ;
-- Per sequence quality scores ;
-- Per base sequence content ;
-- GC content ;
-- Adapter content.
-
----
-
-## 6. Nettoyage avec fastp
-
-Après le contrôle qualité, les reads peuvent être nettoyés avec `fastp`.
-
-### Objectif
-
-Le trimming permet de retirer :
-
-- les bases de mauvaise qualité ;
-- les adaptateurs ;
-- les reads trop courts.
-
-### Paramètres Galaxy
-
-Outil : **fastp**
-
-```text
-Single-end or paired reads: Paired Collection
-Select paired collection(s): Paired Reads
-```
-### Filtrage par longueur
-
-```text
-Length required: 30
-```
-### Coupe selon la qualité
-
-### Rapport
-
-```text
-Output JSON report: Yes
-```
-
-## Question — Quel est l’effet attendu du trimming ?
-
-<details>
-<summary>Afficher la réponse</summary>
-
-Le trimming peut :
-
-- réduire légèrement la longueur moyenne des reads ;
-- augmenter la proportion de bases Q20 et Q30 ;
-- supprimer les adaptateurs ;
-- améliorer la qualité globale des données.
-
-Le contenu GC ne doit normalement pas changer fortement.
-
-</details>
-
----
-
-<a id="assemblage-shovill"></a>
-## 7. Assemblage avec Shovill
-
-Une fois les reads nettoyés, on peut assembler le génome.
-
-### Pourquoi Shovill ?
-
-`Shovill` est un assembleur basé sur SPAdes, optimisé pour les petits génomes bactériens.
-
-
-### Sorties principales
-
-Shovill produit :
-
-1. un fichier log ;
-2. un fichier FASTA contenant les contigs ;
-3. un graphe d’assemblage.
-
----
-
-<a id="evaluation-quast"></a>
-## 8. Évaluation avec QUAST
-
-`QUAST` permet d’évaluer la qualité d’un assemblage génomique.
-
-### Métriques importantes
-
-Observer dans le rapport QUAST :
-
-- nombre de contigs ;
-- longueur totale de l’assemblage ;
-- N50 ;
-- taille du plus grand contig ;
-- contenu GC.
-
----
-
-## Question — Comment interpréter un rapport QUAST ?
-
-<details>
-<summary>Afficher la réponse</summary>
-
-Un bon assemblage bactérien devrait avoir :
-
-- une longueur totale proche de la taille attendue du génome ;
-- un nombre limité de contigs ;
-- un N50 élevé ;
-- un contenu GC cohérent avec l’espèce.
-
-Cependant, avec des reads courts, il est fréquent de ne pas obtenir un génome fermé en un seul contig.
-
-</details>
-
----
----
-
-## 🧬 9. Annotation génomique avec Prokka (voir ci-dissous)
-
-
-   
-# 🧬 Partie V — Recherche de variants
-
-
-
----
---visualisation avec circos plot des genes et des snps
--- visaulisaiton avec jbrowse et inspection des genes snp et des mappings
-
 
 # 🦠 Partie VI — Détection des gènes de résistance aux antibiotiques (AMR) sous Galaxy
 
@@ -1655,6 +1387,226 @@ bifunctional aminoglycoside N-acetyltransferase
 * JBrowse permet une interprétation génomique avancée.
 
 ---
+
+
+
+## Cas d'étude 2 : Assemblage de plusieurs génomes bactériens
+
+
+
+<a id="objectifs"></a>
+## 1. Objectifs
+
+À la fin de cet atelier, les participants pourront :
+
+- importer des reads Illumina paired-end à partir d'un historique Galaxy ;
+- évaluer la qualité des reads ;
+- nettoyer les reads avec `fastp` ;
+- assembler un génome bactérien avec `Shovill` ;
+- évaluer l’assemblage avec `QUAST`.
+- Annoter les génomes avec ``Prokka``
+- Visualiser les genome sous ``jbrowse``
+
+---
+
+<a id="contexte-biologique"></a>
+## 2. Contexte biologique
+
+Cet atelier utilise des données de séquençage Illumina provenant de **Salmonella galinarum**. Salmonella Gallinarum est une bactérie hautement spécifique aux oiseaux, responsable de la typhoïde aviaire. Cette maladie grave touche principalement les poules et les dindes, mais elle ne présente presque aucun risque pour l'être humain.
+ 
+Assembler son génome permet ensuite de réaliser plusieurs analyses :
+- recherche de gènes de résistance aux antibiotiques ;
+- comparaison entre souches ;
+- typage génomique ;
+- étude épidémiologique.
+
+---
+
+<a id="preparation-historique"></a>
+## 3. Préparation de l’historique Galaxy
+
+Avant de commencer, créer un nouvel historique Galaxy.
+
+
+---
+
+<a id="importation-donnees"></a>
+## 4. Importation des données
+### Étapes
+
+1. Ouvrir Galaxy.
+2. ouvirie le lien ci dissous de l'historique partagé
+   ``https://usegalaxy.eu/u/solay/h/inh-workshop-2026``
+2. Importer l'historique entier
+
+<img width="905" height="500" alt="image" src="https://github.com/user-attachments/assets/3485978e-26ae-4bb5-b253-33c32a958cd2" />
+
+3. Vous pouvez renomer l'historique
+
+
+## 5. Contrôle qualité des reads
+
+Le séquençage peut introduire plusieurs erreurs :
+
+- mauvaise qualité en fin de read ;
+- erreurs d’appel de bases ;
+- adaptateurs résiduels ;
+- reads trop courts ;
+- biais de composition GC.
+
+Avant l’assemblage, il est donc nécessaire de contrôler la qualité des données.
+
+### Outil utilisé
+
+Dans le tutoriel original, l’outil utilisé est :
+
+```text
+Falco ou FastQC
+```
+
+Falco est une alternative rapide à FastQC pour les données courtes de type Illumina.
+
+### Paramètre Galaxy
+
+Outil : **Falco**
+
+```text
+Raw read data from your current history: Paired Reads
+```
+
+### Résultats à examiner
+
+Dans le rapport HTML, observer :
+
+- Per base sequence quality ;
+- Per sequence quality scores ;
+- Per base sequence content ;
+- GC content ;
+- Adapter content.
+
+---
+
+## 6. Nettoyage avec fastp
+
+Après le contrôle qualité, les reads peuvent être nettoyés avec `fastp`.
+
+### Objectif
+
+Le trimming permet de retirer :
+
+- les bases de mauvaise qualité ;
+- les adaptateurs ;
+- les reads trop courts.
+
+### Paramètres Galaxy
+
+Outil : **fastp**
+
+```text
+Single-end or paired reads: Paired Collection
+Select paired collection(s): Paired Reads
+```
+### Filtrage par longueur
+
+```text
+Length required: 30
+```
+### Coupe selon la qualité
+
+### Rapport
+
+```text
+Output JSON report: Yes
+```
+
+## Question — Quel est l’effet attendu du trimming ?
+
+<details>
+<summary>Afficher la réponse</summary>
+
+Le trimming peut :
+
+- réduire légèrement la longueur moyenne des reads ;
+- augmenter la proportion de bases Q20 et Q30 ;
+- supprimer les adaptateurs ;
+- améliorer la qualité globale des données.
+
+Le contenu GC ne doit normalement pas changer fortement.
+
+</details>
+
+---
+
+<a id="assemblage-shovill"></a>
+## 7. Assemblage avec Shovill
+
+Une fois les reads nettoyés, on peut assembler le génome.
+
+### Pourquoi Shovill ?
+
+`Shovill` est un assembleur basé sur SPAdes, optimisé pour les petits génomes bactériens.
+
+
+### Sorties principales
+
+Shovill produit :
+
+1. un fichier log ;
+2. un fichier FASTA contenant les contigs ;
+3. un graphe d’assemblage.
+
+---
+
+<a id="evaluation-quast"></a>
+## 8. Évaluation avec QUAST
+
+`QUAST` permet d’évaluer la qualité d’un assemblage génomique.
+
+### Métriques importantes
+
+Observer dans le rapport QUAST :
+
+- nombre de contigs ;
+- longueur totale de l’assemblage ;
+- N50 ;
+- taille du plus grand contig ;
+- contenu GC.
+
+---
+
+## Question — Comment interpréter un rapport QUAST ?
+
+<details>
+<summary>Afficher la réponse</summary>
+
+Un bon assemblage bactérien devrait avoir :
+
+- une longueur totale proche de la taille attendue du génome ;
+- un nombre limité de contigs ;
+- un N50 élevé ;
+- un contenu GC cohérent avec l’espèce.
+
+Cependant, avec des reads courts, il est fréquent de ne pas obtenir un génome fermé en un seul contig.
+
+</details>
+
+---
+---
+
+## 🧬 9. Annotation génomique avec Prokka (voir ci-dissous)
+
+
+
+
+
+   
+# 🧬 Partie V — Recherche de variants
+
+
+
+---
+--visualisation avec circos plot des genes et des snps
+-- visaulisaiton avec jbrowse et inspection des genes snp et des mappings
 
 
 
