@@ -6,7 +6,7 @@
 # 📚 Sommaire
 
 * [Introduction](#-introduction)
-* [Workflow bioinformatique](#-workflow-bioinformatique)
+* [Workflow bioinformatique Global ](#-workflow-bioinformatique-global)
 * [QC des données](#qc-des-donnees)
 * [Assemblage génomique](#-assemblage-genomique)
 * [Recherche de variants](#recherche-de-variants)
@@ -26,14 +26,6 @@ Ce support permet aux participants de :
 * Copier les liens d'acces aux données;
 * apprendre progressivement les concepts clés.
 
----
-
-
-
----
-
-# 🌌 Introduction à Galaxy
-
 Galaxy est une plateforme bioinformatique accessible via navigateur web permettant :
 
 - l’analyse de données NGS ;
@@ -43,67 +35,69 @@ Galaxy est une plateforme bioinformatique accessible via navigateur web permetta
 
 ---
 
-# 🧪 Workflow bioinformatique global
+# 🧪 Vu d'ensemble des analyses bioinformatiques
 
-```text
-                ┌───────────────────┐
-                │   Données FASTQ   │
-                └─────────┬─────────┘
-                          │
-                          ▼
-                ┌───────────────────┐
-                │ Contrôle Qualité  │
-                │   FastQC / Falco  │
-                └─────────┬─────────┘
-                          │
-                          ▼
-                ┌───────────────────┐
-                │ Nettoyage Reads   │
-                │ fastp / cutadapt  │
-                └─────────┬─────────┘
-                          │
-            ┌─────────────┴─────────────┐
-            ▼                           ▼
-┌───────────────────┐      ┌────────────────────┐
-│ Alignement Reads  │      │ Assemblage Genome  │
-│ bwa / bowtie2     │      │ Shovill / SPAdes   │
-└─────────┬─────────┘      └─────────┬──────────┘
-          │                           │
-          ▼                           ▼
-┌───────────────────┐      ┌────────────────────┐
-│ Variant Calling   │      │ Annotation Genome  │
-│ Snippy / Freebayes│      │ Prokka / Bakta     │
-└─────────┬─────────┘      └─────────┬──────────┘
-          │                           │
-          └─────────────┬─────────────┘
-                        ▼
-             ┌────────────────────┐
-             │ Visualisation      │
-             │ JBrowse / Circos   │
-             └─────────┬──────────┘
-                       ▼
-             ┌────────────────────┐
-             │ Interprétation     │
-             │ biologique         │
-             └────────────────────┘
+```mermaid
+flowchart TD
+
+    A("📄 Données FASTQ")
+    B("🔍 Contrôle Qualité<br/>FastQC / Falco")
+    C("🧹 Nettoyage Reads<br/>fastp / cutadapt")
+
+    D("🎯 Alignement Reads<br/>bwa / bowtie2")
+    E("🧩 Assemblage Genome<br/>Shovill / SPAdes")
+    X(" Variants calling<br/>Snippy: ref vs multistrains")
+    Z("Analyse phylogénomique<br/>Buscophylo")
+
+    
+    F("🧬 Variant Calling<br/> Freebayes")
+    G("📝 Annotation Genome<br/>Prokka / Bakta")
+
+    H("📊 Visualisation<br/>JBrowse / Circos")
+    I("🧠 Interprétation biologique")
+
+    A --> B
+    B --> C
+
+    C --> D
+    C --> E
+    C --> X
+    E --> Z
+    X --> Z
+    D --> F
+    E --> G
+    X --> H
+    F --> H
+    G --> H
+
+    H --> I
+
+    %% =========================
+    %% Couleurs des noeuds
+    %% =========================
+
+    style A fill:#e3f2fd,stroke:#1565c0,stroke-width:3px,color:#000
+    style B fill:#e8f5e9,stroke:#2e7d32,stroke-width:3px,color:#000
+    style C fill:#fff8e1,stroke:#ff8f00,stroke-width:3px,color:#000
+
+    style D fill:#f3e5f5,stroke:#6a1b9a,stroke-width:3px,color:#000
+    style E fill:#e0f7fa,stroke:#00838f,stroke-width:3px,color:#000
+
+    style F fill:#fce4ec,stroke:#c2185b,stroke-width:3px,color:#000
+    style G fill:#fff3e0,stroke:#ef6c00,stroke-width:3px,color:#000
+
+    style H fill:#e8eaf6,stroke:#283593,stroke-width:3px,color:#000
+    style I fill:#e8f5e9,stroke:#1b5e20,stroke-width:3px,color:#000
+
+    %% =========================
+    %% Style des liens
+    %% =========================
+
+    linkStyle default stroke:#424242,stroke-width:2px
 ```
 
 ---
 
-
-```text
-FASTQ brut
-    ↓
-Contrôle qualité (FastQC)
-    ↓
-Trimming / nettoyage
-    ↓
-Alignement / assemblage Recherche de variants / Annotation / Recherche de Gene AMR
-    ↓
-Analyse biologique
-```
-
----
 
 
 # 🧪 Partie II — Contrôle qualité des données NGS
