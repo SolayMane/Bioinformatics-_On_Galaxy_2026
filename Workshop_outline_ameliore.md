@@ -1094,32 +1094,81 @@ detailed_summary.tsv
 
 contient :
 
-* les gènes détectés ;
-* leur position ;
-* leur couverture ;
-* leur identité ;
-* le type de résistance.
+* Isolate ID : L'identifiant du ou des fichiers d'isolats/génomes transmis à staramr.
+* Data : Le gène particulier détecté à partir de ResFinder, PlasmidFinder, PointFinder, ou le type de séquence.
+* Data Type : Le type de gène (Résistance ou Plasmide), ou MLST.
+* Predicted Phenotype : Le phénotype RAM (résistance aux antimicrobiens) prédit trouvé dans ResFinder/PointFinder. Les plasmides seront laissés vides par défaut.
+* CGE Predicted Phenotype : Le phénotype RAM prédit par le CGE trouvé dans ResFinder/PointFinder. Les plasmides seront laissés vides par défaut.
+* %Identity : Le pourcentage d'identité du meilleur HSP BLAST avec le gène.
+* %Overlap : Le pourcentage de chevauchement du meilleur HSP BLAST avec le gène (calculé comme : longueur du hsp / longueur totale * 100).
+* HSP Length/Total Length : La longueur du meilleur HSP BLAST par rapport à la longueur totale du gène (nucléotides).
+* Contig : L'identifiant du contig contenant ce gène.
+* Start : Le début du gène (sera supérieur à "End" si sur le brin moins).
+* End : La fin du gène.
+* Accession : Le numéro d'accession du gène provenant de la base de données ResFinder ou PlasmidFinder.
+
+`plasmidfinder.tsv `: Un fichier tabulaire contenant chaque type de plasmide RAM (résistance aux antimicrobiens) et des informations BLAST supplémentaires issues de la base de données PlasmidFinder, à raison d'un type de plasmide par ligne avec les colonnes suivantes :
+* Isolate ID : L'identifiant du ou des fichiers d'isolats/génomes transmis à staramr.
+* Plasmid : Le type de plasmide particulier détecté.
+* %Identity : Le pourcentage d'identité du meilleur HSP BLAST avec le type de plasmide.
+* %Overlap : Le pourcentage de chevauchement du meilleur HSP BLAST avec le type de plasmide (calculé comme : longueur du hsp / longueur totale * 100).
+* HSP Length/Total Length : La longueur du meilleur HSP BLAST par rapport à la longueur totale du type de plasmide (nucléotides).
+* Contig : L'identifiant du contig contenant ce type de plasmide.
+* Start : Le début du type de plasmide (sera supérieur à "End" si sur le brin moins).
+* End : La fin du type de plasmide.
+* Accession : Le numéro d'accession du type de plasmide dans la base de données PlasmidFinder.
 
 ---
 
-## ❓ Pourquoi certains gènes ne sont-ils pas retenus ?
+## ❓ Quels sont les différents types de séquences identifiés ?
 
 <details>
 <summary>👁️ Afficher la réponse</summary>
 
-Certains hits possèdent :
+L'inspection des résultats de staramr révèle la présence de :
 
-* une faible identité ;
-* une couverture insuffisante ;
-* des fragments partiels.
-
-Ils peuvent donc être filtrés.
+* **1 MLST** ;
+* **5 gènes rep** (gènes plasmidiques) ;
+* **7 gènes de résistance**.
 
 </details>
 
----
+## ❓ Où sont situés les gènes plasmidiques ?
 
-<a id="extraction"></a>
+<details>
+<summary>👁️ Afficher la réponse</summary>
+
+Les gènes plasmidiques sont localisés sur les contigs suivants :
+
+* **contig00019** (contient 3 gènes — cohérent avec Lozano et al. 2012) ;
+* **contig00024** ;
+* **contig00002**.
+
+</details>
+
+## ❓ Où sont situés les gènes de résistance ?
+
+<details>
+<summary>👁️ Afficher la réponse</summary>
+
+La répartition des gènes de résistance se décline ainsi :
+
+* **4/7** sont situés sur des contigs contenant des gènes plasmidiques (`contig00002`, `contig00019`, `contig00024`) ;
+* **3/7** sont situés sur des contigs sans gènes plasmidiques (`contig00022`, `contig00021`).
+
+</details>
+
+## ❓ En recherchant le numéro d'accession (M13771) sur NCBI, d'où provient la première résistance ?
+
+<details>
+<summary>👁️ Afficher la réponse</summary>
+
+La recherche du numéro d'accession **M13771** sur NCBI montre que :
+
+* Il s'agit de la **6’-aminoglycoside acétyltransférase phosphotransférase (AAC(6’)-APH(2’))**, une protéine de résistance bifonctionnelle issue de ***Streptococcus faecalis*** ;
+* Cette résistance provient probablement d'un **transfert horizontal** depuis *Streptococcus faecalis* vers un plasmide de *Staphylococcus aureus*.
+
+</details>
 
 # ✂️ Extraction des ARGs et gènes plasmidiques
 
