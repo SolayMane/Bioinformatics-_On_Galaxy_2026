@@ -1170,6 +1170,49 @@ La recherche du numéro d'accession **M13771** sur NCBI montre que :
 
 </details>
 
+
+
+# 🔍 Obtenir plus d'informations sur les ARG via la base de données CARD
+
+Pour obtenir plus d'informations sur les gènes de résistance aux antibiotiques (ARG), nous pouvons consulter la base de données [CARD](https://card.mcmaster.ca/) (*Comprehensive Antibiotic Resistance Database*) (Jia et al. 2016).
+
+CARD s'avère très utile pour vérifier l'ensemble des gènes de résistance et s'assurer de la cohérence de la présence d'un gène de résistance spécifique chez une bactérie donnée.
+
+---
+
+## ❓ À quelle famille appartient le gène mecA ?
+
+<details>
+<summary>👁️ Afficher la réponse</summary>
+
+D'après la base de données CARD, le gène *mecA* appartient à la famille des **PBP2 résistantes à la méthicilline** (Methicillin resistant PBP2).
+
+</details>
+
+## ❓ Est-il attendu de trouver ce gène dans cette souche de SARM et pourquoi ?
+
+<details>
+<summary>👁️ Afficher la réponse</summary>
+
+**Oui**, c'est tout à fait attendu. La souche étudiée est un *Staphylococcus aureus* résistant à la méthicilline (SARM). Comme le gène *mecA* possède une correspondance parfaite de résistome (*resistome match*) avec *S. aureus*, sa présence est logique dans cette souche multi-résistante.
+
+</details>
+
+## ❓ Le numéro d'accession de l'entrée CARD est-il lié à celui fourni par staramr ?
+
+<details>
+<summary>👁️ Afficher la réponse</summary>
+
+**Non**, ils sont totalement indépendants. C'est malheureusement un problème très fréquent en bioinformatique : chaque base de données crée son propre système de numérotation pour ses entrées (souvent appelées "accessions"), ce qui nécessite ensuite le développement d'outils tiers pour lier ces bases entre elles.
+
+</details>
+
+
+
+
+
+
+
 # ✂️ Extraction des ARGs et gènes plasmidiques
 
 ## 🎯 Objectif
