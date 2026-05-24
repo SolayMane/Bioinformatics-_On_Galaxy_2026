@@ -1210,9 +1210,6 @@ D'après la base de données CARD, le gène *mecA* appartient à la famille des 
 
 
 
-
-
-
 # ✂️ Extraction des ARGs et gènes plasmidiques
 
 ## 🎯 Objectif
