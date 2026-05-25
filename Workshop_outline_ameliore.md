@@ -1804,7 +1804,13 @@ FASTQ nettoyés avec fastp
 
 ---
 
-# 🧬 Étape 8 — Visualisation avec JBrowse
+# Étape 8 — Visualisation des SNP avec Circos
+(Vous pouvez suivre la meme procèdure decrite dans la partie Assembmlage génomique)
+
+<img width="3000" height="3000" alt="Galaxy174- Circos Plot" src="https://github.com/user-attachments/assets/fc9dd4ad-407f-4259-8eeb-989977754148" />
+
+
+# 🧬 Étape 9 — Visualisation avec JBrowse
 
 ## Objectif
 
@@ -1869,14 +1875,6 @@ BAM Snippy
 
 ---
 
-## ❓ Questions biologiques
-
-1. Certaines régions possèdent-elles un GC atypique ?
-2. Observe-t-on des gènes mobiles ?
-3. Les SNPs sont-ils regroupés ?
-4. Existe-t-il des gènes AMR dans ces régions ?
-
----
 
 # 🧠 Interprétation biologique
 
