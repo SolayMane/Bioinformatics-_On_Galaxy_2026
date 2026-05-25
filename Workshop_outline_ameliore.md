@@ -228,13 +228,11 @@ https://zenodo.org/record/61771/files/GSM461178_untreat_paired_subset_2.fastq
 6.  Combien de séquences courtes supprimées?
 ---
 
-# 🧬 Partie III — Assemblage génomique bactérien
+
+
+## 🧬 Cas d'étude 1 :Assemblage d’un génome bactérien MRSA avec des données Illumina MiSeq
 L'assemblage génomique consiste à reconstruire la séquence complète d'un génome à partir de millions de fragments courts d'ADN (les reads) obtenus par séquençage. C'est un puzzle informatique géant à résoudre sans modèle de départ
 Dans cette étape nous allons faire plusier assemblage génomique sur différents jeux de données.
-
-
-
-## Cas d'étude 1 :Assemblage d’un génome bactérien MRSA avec des données Illumina MiSeq
 
 > Source : galaxy training
 ---
@@ -897,7 +895,8 @@ Les fichiers de coordonnées extraits à l'étape 2 sont intégrés sous forme d
 
 ---
 
-# 🦠 Partie VI — Détection des gènes de résistance aux antibiotiques (AMR) sous Galaxy
+
+# 🦠 Cas d'étude 2 :Détection des gènes de résistance aux antibiotiques (AMR) sous Galaxy
 
 > Adapté du tutoriel Galaxy Training Network :
 >
