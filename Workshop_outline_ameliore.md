@@ -1864,7 +1864,8 @@ BAM Snippy
 - plasmides ;
 - îlots génomiques.
 
-<img width="1356" height="570" alt="image" src="https://github.com/user-attachments/assets/47d6eab4-60d6-4279-bef8-d6a1227d3858" />
+<img width="1138" height="655" alt="image" src="https://github.com/user-attachments/assets/4cb0fcd7-ed23-475d-a7b6-2164aa830f54" />
+
 
 ---
 
