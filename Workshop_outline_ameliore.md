@@ -228,8 +228,7 @@ https://zenodo.org/record/61771/files/GSM461178_untreat_paired_subset_2.fastq
 6.  Combien de séquences courtes supprimées?
 ---
 
-
-
+<a id="assemblage-genomique"></a>
 ## 🧬 Cas d'étude 1 :Assemblage d’un génome bactérien MRSA avec des données Illumina MiSeq
 L'assemblage génomique consiste à reconstruire la séquence complète d'un génome à partir de millions de fragments courts d'ADN (les reads) obtenus par séquençage. C'est un puzzle informatique géant à résoudre sans modèle de départ
 Dans cette étape nous allons faire plusier assemblage génomique sur différents jeux de données.
@@ -1916,9 +1915,8 @@ Ces événements favorisent :
 - SRA Toolkit
 
 
-
-## Cas d'étude 4 : Assemblage de plusieurs génomes bactériens
-
+<a id="notions-de-workflow"></a>
+## Cas d'étude 4 : Notions de Workflow
 
 
 <a id="objectifs"></a>
