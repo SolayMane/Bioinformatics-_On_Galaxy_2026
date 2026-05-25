@@ -10,6 +10,7 @@
 * [Contrôle qualité des données NGS](#qc-des-donnees)
 * [Assemblage génomique](#-assemblage-genomique)
 * [Détection des gènes de résistance aux antibiotiques (AMR) sous Galaxy](#amr)
+* [Visualisation d’un transfert horizontal de gène (HGT)](#hgt)
 * [Recherche de variants](#recherche-de-variants)
 * [Notion de Workflow](#notion-de-workflow)
 * [Tutoriel sur sars-cov2](#tutoriel-sur-sars-cov2)
@@ -894,7 +895,7 @@ Les fichiers de coordonnées extraits à l'étape 2 sont intégrés sous forme d
 
 ---
 
-<a id"=amr"></a>
+<a id="amr"></a>
 # 🦠 Cas d'étude 2 :Détection des gènes de résistance aux antibiotiques (AMR) sous Galaxy
 
 > Adapté du tutoriel Galaxy Training Network :
@@ -1474,7 +1475,7 @@ bifunctional aminoglycoside N-acetyltransferase
 * JBrowse permet une interprétation génomique avancée.
 
 ---
-
+<a id="hgt"></a>
 # 🧬 Cas d'étude 3 — Visualisation d’un transfert horizontal de gène (HGT)
 
 ## 📖 Introduction
