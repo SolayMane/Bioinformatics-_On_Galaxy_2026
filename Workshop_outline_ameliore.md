@@ -35,7 +35,7 @@ Galaxy est une plateforme bioinformatique accessible via navigateur web permetta
 
 ---
 <a id="vu"></a>
-# 🧪 Vu d ensemble des analyses bioinformatiques
+# 🧪 Vu d'ensemble des analyses bioinformatiques
 
 ```mermaid
 flowchart TD
@@ -99,8 +99,8 @@ flowchart TD
 ---
 
 
-
-# 🧪 Partie II — Contrôle qualité des données NGS
+<a id="qc-des-donnee"></a>
+# 🧪 Contrôle qualité des données NGS
 
 
 Lors du séquençage, les bases nucléotidiques d'un échantillon d'ADN ou d'ARN (bibliothèque) sont déterminées par le séquenceur. Pour chaque fragment de la bibliothèque, une séquence est générée, également appelée lecture , qui est simplement une succession de nucléotides.
