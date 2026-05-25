@@ -6,7 +6,7 @@
 # 📚 Sommaire
 
 * [Introduction](#-introduction)
-* [Workflow bioinformatique Global ](#-workflow-bioinformatique-global)
+* [Vu d'ensemble des analyses bioinformatiques ](#-vu-d'ensemble-des-analyses-bioinformatiques)
 * [QC des données](#qc-des-donnees)
 * [Assemblage génomique](#-assemblage-genomique)
 * [Recherche de variants](#recherche-de-variants)
@@ -1863,6 +1863,8 @@ BAM Snippy
 - contenu GC différent ;
 - plasmides ;
 - îlots génomiques.
+
+<img width="1356" height="570" alt="image" src="https://github.com/user-attachments/assets/47d6eab4-60d6-4279-bef8-d6a1227d3858" />
 
 ---
 
