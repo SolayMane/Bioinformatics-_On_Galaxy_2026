@@ -238,7 +238,7 @@ Dans cette étape nous allons faire plusier assemblage génomique sur différent
 ---
 
 <a id="objectifs"></a>
-## 1. Objectifs
+### 1. Objectifs
 
 À la fin de cet atelier, les participants pourront :
 
@@ -252,7 +252,7 @@ Dans cette étape nous allons faire plusier assemblage génomique sur différent
 ---
 
 <a id="contexte-biologique"></a>
-## 2. Contexte biologique
+### 2. Contexte biologique
 
 Cet atelier utilise des données de séquençage Illumina MiSeq provenant d’une souche de **Staphylococcus aureus résistant à la méthicilline** (**MRSA**).
 
@@ -267,7 +267,7 @@ Assembler son génome permet ensuite de réaliser plusieurs analyses :
 ---
 
 <a id="preparation-historique"></a>
-## 3. Préparation de l’historique Galaxy
+### 3. Préparation de l’historique Galaxy
 
 Avant de commencer, créer un nouvel historique Galaxy.
 
@@ -291,7 +291,7 @@ Un historique séparé permet d’organiser l’analyse, d’éviter de mélange
 ---
 
 <a id="importation-donnees"></a>
-## 4. Importation des données
+### 4. Importation des données
 
 Importer les deux fichiers FASTQ paired-end suivants :
 
@@ -336,7 +336,7 @@ Paired Reads
 
 ---
 
-## Question — Que contient un fichier FASTQ ?
+### Question — Que contient un fichier FASTQ ?
 
 <details>
 <summary>Afficher la réponse</summary>
@@ -362,7 +362,7 @@ IIIIHHHHFFFF
 ---
 
 <a id="controle-qualite"></a>
-## 5. Contrôle qualité des reads
+### 5. Contrôle qualité des reads
 
 Le séquençage peut introduire plusieurs erreurs :
 
@@ -404,7 +404,7 @@ Dans le rapport HTML, observer :
 
 ---
 
-## Interprétation rapide : Per base sequence quality
+### Interprétation rapide : Per base sequence quality
 
 - Axe X : position de la base dans le read.
 - Axe Y : score de qualité Phred.
@@ -423,7 +423,7 @@ Cela provoque souvent une baisse progressive de qualité vers la fin des reads.
 ---
 
 <a id="nettoyage-fastp"></a>
-## 6. Nettoyage avec fastp
+### 6. Nettoyage avec fastp
 
 Après le contrôle qualité, les reads peuvent être nettoyés avec `fastp`.
 
@@ -472,7 +472,7 @@ Après fastp :
 
 ---
 
-## Question — Quel est l’effet attendu du trimming ?
+### Question — Quel est l’effet attendu du trimming ?
 
 <details>
 <summary>Afficher la réponse</summary>
@@ -491,7 +491,7 @@ Le contenu GC ne doit normalement pas changer fortement.
 ---
 
 <a id="assemblage-shovill"></a>
-## 7. Assemblage avec Shovill
+### 7. Assemblage avec Shovill
 
 Une fois les reads nettoyés, on peut assembler le génome.
 
@@ -519,7 +519,7 @@ Shovill produit :
 
 ---
 
-## Question — Qu’est-ce qu’un contig ?
+### Question — Qu’est-ce qu’un contig ?
 
 <details>
 <summary>Afficher la réponse</summary>
@@ -533,7 +533,7 @@ Avec des reads courts Illumina, un génome bactérien est souvent assemblé en p
 ---
 
 <a id="evaluation-quast"></a>
-## 8. Évaluation avec QUAST
+### 8. Évaluation avec QUAST
 
 `QUAST` permet d’évaluer la qualité d’un assemblage génomique.
 
@@ -558,7 +558,7 @@ Observer dans le rapport QUAST :
 
 ---
 
-## Question — Comment interpréter un rapport QUAST ?
+### Question — Comment interpréter un rapport QUAST ?
 
 <details>
 <summary>Afficher la réponse</summary>
@@ -574,7 +574,7 @@ Cependant, avec des reads courts, il est fréquent de ne pas obtenir un génome 
 
 </details>
 
-## 🧬 9. Annotation génomique avec Prokka
+### 🧬 9. Annotation génomique avec Prokka
 
 
 L'annotation génomique est le processus qui consiste à identifier les éléments fonctionnels d'une séquence d'ADN après son assemblage.
@@ -762,7 +762,7 @@ Contient les erreurs pouvant bloquer une soumission :
 
 ---
 
-## ❓ Questions interactives
+### ❓ Questions interactives
 
 ### Pourquoi le fichier `.gff` est-il important ?
 
@@ -786,7 +786,7 @@ Il est indispensable pour :
 
 ---
 
-## Quelle différence entre `.faa` et `.ffn` ?
+### Quelle différence entre `.faa` et `.ffn` ?
 
 <details>
 <summary>👁️ Afficher la réponse</summary>
@@ -823,7 +823,7 @@ Ces protéines sont prédites mais :
    
 
 ---
-## 10. Visualisation de l'assemblage sous JBrowse
+### 10. Visualisation de l'assemblage sous JBrowse
 ### Paramètres Galaxy
 <img width="298" height="392" alt="image" src="https://github.com/user-attachments/assets/33e045de-e780-4e19-b956-849623ca6bb7" />
 
@@ -839,32 +839,32 @@ Clicke on Insert Track Group + Insert Annotation Track : GFF/GFF3/BED Features
 <img width="1303" height="445" alt="image" src="https://github.com/user-attachments/assets/fb41909c-7b33-4edc-bbe6-f1c0dcd9020e" />
 
 
-## 11. Visualisation de l'assemblage avec Circos
+### 11. Visualisation de l'assemblage avec Circos
 
 Outil : **Circos**
 Pour publier l'asemblage d'un génome dans le cadre d'un projet, nous avons besoin d'une figure plus élégante avec une identification claire de la sequence. Circos est un outil ideale pour générer des représentations graphiques circulaires de données génomiques. Cet outil permet de cartographier l'architecture du chromosome en affichant simultanément, sous forme d'anneaux concentriques colorés, l'emplacement exact et la densité des gènes sur les brins direct et inverse, facilitant ainsi la visualisation globale et l'analyse comparative des structures de notre assemblage.
 
 Voici les étapes méthodologiques pour réaliser cette figure sous Galaxy :
 
-### Étape 1 : Filtrage et séparation des gènes par brin (GFF)
+#### Étape 1 : Filtrage et séparation des gènes par brin (GFF)
 Avant d'utiliser Circos, le fichier d'annotation GFF doit être séparé en deux sous-ensembles distincts selon l'orientation des gènes.
 * Utiliser l'outil **Filter data on any column using simple expressions**.
 * **Brin direct (+)** : Appliquer l'expression `c3=='gene' and c7=='+'` pour isoler les gènes *forward*.
 * **Brin inverse (-)** : Appliquer l'expression `c3=='gene' and c7=='-'` pour isoler les gènes *reverse*.
 
-### Étape 2 : Extraction des coordonnées pour Circos
+#### Étape 2 : Extraction des coordonnées pour Circos
 Circos nécessite un format simplifié à 3 colonnes (`Chromosome`, `Début`, `Fin`) pour positionner les éléments sur le cercle.
 * Utiliser l'outil **Cut columns from a table**.
 * Extraire les colonnes avec la configuration `c1,c4,c5`.
 * Répéter l'opération pour le fichier du brin direct et celui du brin inverse.
 
-### Étape 3 : Configuration du squelette circulaire (Karyotype)
+#### Étape 3 : Configuration du squelette circulaire (Karyotype)
 Cette étape définit la structure externe et la forme parfaitement circulaire du génome bactérien.
 * Ouvrir l'outil **Circos visualizes data**.
 * Dans l'onglet **Karyotype**, sélectionner le fichier FASTA du génome comme source de référence.
 * Dans la section **Ideogram**, régler le paramètre **Spacing Between Ideograms** sur **`0`** (zéro degré) pour fusionner les extrémités et obtenir un cercle fermé sans discontinuité.
 
-### Étape 4 : Superposition des pistes de gènes (2D Data Tracks)
+#### Étape 4 : Superposition des pistes de gènes (2D Data Tracks)
 Les fichiers de coordonnées extraits à l'étape 2 sont intégrés sous forme de deux anneaux concentriques indépendants.
 * **Piste 1 (Brin direct)** : 
   * Insérer une piste de type **Tile**.
@@ -875,7 +875,7 @@ Les fichiers de coordonnées extraits à l'étape 2 sont intégrés sous forme d
   * Définir un rayon extérieur à `0.86` et intérieur à `0.79` pour éviter tout chevauchement vertical.
   * Assigner une couleur contrastante (ex: `red`).
 
-### Étape 5 : Génération de la figure
+#### Étape 5 : Génération de la figure
 * Cliquer sur **Run Tool** pour lancer le pipeline graphique.
 * Récupérer la cartographie haute résolution exportée automatiquement aux formats vectoriel (**SVG**) et image (**PNG**) pour la publication.
 
@@ -896,7 +896,7 @@ Les fichiers de coordonnées extraits à l'étape 2 sont intégrés sous forme d
 ---
 
 <a id="amr"></a>
-# 🦠 Cas d'étude 2 :Détection des gènes de résistance aux antibiotiques (AMR) sous Galaxy
+## 🦠 Cas d'étude 2 :Détection des gènes de résistance aux antibiotiques (AMR) sous Galaxy
 
 > Adapté du tutoriel Galaxy Training Network :
 >
@@ -908,7 +908,7 @@ Les fichiers de coordonnées extraits à l'étape 2 sont intégrés sous forme d
 
 
 <a id="introduction"></a>
-# 🔬 Introduction
+### 🔬 Introduction
 
 La résistance aux antibiotiques (AMR : Antimicrobial Resistance) représente un problème majeur de santé publique.
 
@@ -925,7 +925,7 @@ Dans ce tutoriel Galaxy, nous allons :
 
 <a id="contexte"></a>
 
-# 🦠 Contexte biologique
+### 🦠 Contexte biologique
 
 Le jeu de données correspond à une souche de :
 
@@ -946,7 +946,7 @@ Les objectifs biologiques sont :
 
 <a id="workflow"></a>
 
-# 🧪 Workflow global
+### 🧪 Workflow global
 
 ```text
 Contigs assemblés
@@ -968,9 +968,9 @@ Interprétation biologique
 
 <a id="galaxy"></a>
 
-# 🚀 Préparation de Galaxy
+### 🚀 Préparation de Galaxy
 
-## Étapes
+#### Étapes
 
 1. Ouvrir Galaxy.
 2. Créer un nouvel historique.
@@ -984,7 +984,7 @@ AMR_MRSA_Galaxy
 
 ---
 
-## 📥 Importation des données
+#### 📥 Importation des données
 
 Importer les contigs assemblés dans Galaxy.
 
@@ -992,7 +992,7 @@ Les données correspondent à un génome bactérien déjà assemblé.
 
 ---
 
-## ❓ Pourquoi utiliser des contigs assemblés ?
+### ❓ Pourquoi utiliser des contigs assemblés ?
 
 <details>
 <summary>👁️ Afficher la réponse</summary>
@@ -1012,9 +1012,9 @@ Les contigs permettent :
 
 <a id="staramr"></a>
 
-# 🧬 Détection des gènes AMR avec staramr
+### 🧬 Détection des gènes AMR avec staramr
 
-## 🎯 Objectif
+### 🎯 Objectif
 
 Identifier :
 
@@ -1023,7 +1023,7 @@ Identifier :
 
 ---
 
-## 🛠️ Outil Galaxy
+### 🛠️ Outil Galaxy
 
 ```text
 staramr
@@ -1031,7 +1031,7 @@ staramr
 
 ---
 
-## ⚙️ Paramètres
+### ⚙️ Paramètres
 
 Entrée :
 
@@ -1043,7 +1043,7 @@ Lancer l’analyse avec les paramètres par défaut.
 
 ---
 
-## 📄 Fichiers générés
+### 📄 Fichiers générés
 
 Les fichiers importants sont :
 
@@ -1056,7 +1056,7 @@ Les fichiers importants sont :
 
 ---
 
-## ❓ Questions
+### ❓ Questions
 
 1. Combien de gènes AMR ont été détectés ?
 2. Quel gène est associé à la résistance à la méthicilline ?
@@ -1064,7 +1064,7 @@ Les fichiers importants sont :
 
 ---
 
-## ❓ Quel gène est attendu chez MRSA ?
+### ❓ Quel gène est attendu chez MRSA ?
 
 <details>
 <summary>👁️ Afficher la réponse</summary>
@@ -1083,7 +1083,7 @@ Ce gène code une protéine PBP2a impliquée dans la résistance à la méthicil
 
 <a id="exploration"></a>
 
-# 📊 Exploration des résultats
+### 📊 Exploration des résultats
 
 Le fichier :
 
@@ -1119,7 +1119,7 @@ contient :
 
 ---
 
-## ❓ Quels sont les différents types de séquences identifiés ?
+### ❓ Quels sont les différents types de séquences identifiés ?
 
 <details>
 <summary>👁️ Afficher la réponse</summary>
@@ -1132,7 +1132,7 @@ L'inspection des résultats de staramr révèle la présence de :
 
 </details>
 
-## ❓ Où sont situés les gènes plasmidiques ?
+### ❓ Où sont situés les gènes plasmidiques ?
 
 <details>
 <summary>👁️ Afficher la réponse</summary>
@@ -1145,7 +1145,7 @@ Les gènes plasmidiques sont localisés sur les contigs suivants :
 
 </details>
 
-## ❓ Où sont situés les gènes de résistance ?
+### ❓ Où sont situés les gènes de résistance ?
 
 <details>
 <summary>👁️ Afficher la réponse</summary>
@@ -1157,7 +1157,7 @@ La répartition des gènes de résistance se décline ainsi :
 
 </details>
 
-## ❓ En recherchant le numéro d'accession (M13771) sur NCBI, d'où provient la première résistance ?
+### ❓ En recherchant le numéro d'accession (M13771) sur NCBI, d'où provient la première résistance ?
 
 <details>
 <summary>👁️ Afficher la réponse</summary>
@@ -1171,7 +1171,7 @@ La recherche du numéro d'accession **M13771** sur NCBI montre que :
 
 
 
-# 🔍 Obtenir plus d'informations sur les ARG via la base de données CARD
+## 🔍 Obtenir plus d'informations sur les ARG via la base de données CARD
 
 Pour obtenir plus d'informations sur les gènes de résistance aux antibiotiques (ARG), nous pouvons consulter la base de données [CARD](https://card.mcmaster.ca/) (*Comprehensive Antibiotic Resistance Database*) (Jia et al. 2016).
 
@@ -1179,7 +1179,7 @@ CARD s'avère très utile pour vérifier l'ensemble des gènes de résistance et
 
 ---
 
-## ❓ À quelle famille appartient le gène mecA ?
+### ❓ À quelle famille appartient le gène mecA ?
 
 <details>
 <summary>👁️ Afficher la réponse</summary>
@@ -1188,7 +1188,7 @@ D'après la base de données CARD, le gène *mecA* appartient à la famille des 
 
 </details>
 
-## ❓ Est-il attendu de trouver ce gène dans cette souche de SARM et pourquoi ?
+### ❓ Est-il attendu de trouver ce gène dans cette souche de SARM et pourquoi ?
 
 <details>
 <summary>👁️ Afficher la réponse</summary>
@@ -1197,7 +1197,7 @@ D'après la base de données CARD, le gène *mecA* appartient à la famille des 
 
 </details>
 
-## ❓ Le numéro d'accession de l'entrée CARD est-il lié à celui fourni par staramr ?
+### ❓ Le numéro d'accession de l'entrée CARD est-il lié à celui fourni par staramr ?
 
 <details>
 <summary>👁️ Afficher la réponse</summary>
@@ -1209,15 +1209,15 @@ D'après la base de données CARD, le gène *mecA* appartient à la famille des 
 
 
 
-# ✂️ Extraction des ARGs et gènes plasmidiques
+## ✂️ Extraction des ARGs et gènes plasmidiques
 
-## 🎯 Objectif
+### 🎯 Objectif
 
 Extraire uniquement les lignes contenant des gènes détectés.
 
 ---
 
-## 🛠️ Outil Galaxy
+### 🛠️ Outil Galaxy
 
 ```text
 Select lines that match an expression
@@ -1225,7 +1225,7 @@ Select lines that match an expression
 
 ---
 
-## Expression utilisée
+### Expression utilisée
 
 ```text
 [0-9]+\.[0-9]+\t
@@ -1239,7 +1239,7 @@ Cette expression sélectionne les lignes contenant :
 
 ---
 
-## ❓ Combien de gènes ont été conservés ?
+### ❓ Combien de gènes ont été conservés ?
 
 <details>
 <summary>👁️ Afficher la réponse</summary>
@@ -1256,15 +1256,15 @@ Le tutoriel conserve :
 
 <a id="gff3"></a>
 
-# 🧾 Création d’un fichier GFF3
+### 🧾 Création d’un fichier GFF3
 
-## 🎯 Pourquoi convertir en GFF3 ?
+### 🎯 Pourquoi convertir en GFF3 ?
 
 Le format GFF3 permet de visualiser les gènes dans des navigateurs génomiques comme JBrowse.
 
 ---
 
-## 🛠️ Outil Galaxy
+### 🛠️ Outil Galaxy
 
 ```text
 Table to GFF3
@@ -1272,7 +1272,7 @@ Table to GFF3
 
 ---
 
-## Paramètres importants
+### Paramètres importants
 
 | Champ GFF3 | Colonne |
 | ---------- | ------- |
@@ -1284,7 +1284,7 @@ Table to GFF3
 
 ---
 
-## Ajouter les qualifiers
+### Ajouter les qualifiers
 
 Ajouter :
 
@@ -1296,7 +1296,7 @@ Ajouter :
 
 ---
 
-## ❓ Qu’est-ce qu’un fichier GFF3 ?
+### ❓ Qu’est-ce qu’un fichier GFF3 ?
 
 <details>
 <summary>👁️ Afficher la réponse</summary>
@@ -1316,15 +1316,15 @@ Il est utilisé pour la visualisation génomique.
 
 <a id="bakta"></a>
 
-# 🧬 Annotation des contigs avec Bakta
+### 🧬 Annotation des contigs avec Bakta
 
-## 🎯 Objectif
+### 🎯 Objectif
 
 Annoter les gènes présents sur les contigs.
 
 ---
 
-## 🛠️ Outil Galaxy
+### 🛠️ Outil Galaxy
 
 ```text
 Bakta
@@ -1332,7 +1332,7 @@ Bakta
 
 ---
 
-## Résultats attendus
+### Résultats attendus
 
 Bakta identifie :
 
@@ -1343,7 +1343,7 @@ Bakta identifie :
 
 ---
 
-## ❓ Pourquoi utiliser Bakta ?
+### ❓ Pourquoi utiliser Bakta ?
 
 <details>
 <summary>👁️ Afficher la réponse</summary>
@@ -1358,9 +1358,9 @@ Il est considéré comme un successeur moderne de Prokka.
 
 <a id="jbrowse"></a>
 
-# 🧬 Visualisation avec JBrowse
+### 🧬 Visualisation avec JBrowse
 
-## 🎯 Objectif
+### 🎯 Objectif
 
 Visualiser :
 
@@ -1372,7 +1372,7 @@ Visualiser :
 
 ---
 
-## 🛠️ Outil Galaxy
+### 🛠️ Outil Galaxy
 
 ```text
 JBrowse
@@ -1380,7 +1380,7 @@ JBrowse
 
 ---
 
-## Tracks à ajouter
+### Tracks à ajouter
 
 ### Référence
 
@@ -1402,7 +1402,7 @@ GFF3 généré précédemment
 
 ---
 
-## ❓ Pourquoi utiliser JBrowse ?
+### ❓ Pourquoi utiliser JBrowse ?
 
 <details>
 <summary>👁️ Afficher la réponse</summary>
@@ -1420,7 +1420,7 @@ On peut observer :
 
 ---
 
-## ❓ Questions biologiques
+### ❓ Questions biologiques
 
 1. Sur quels contigs trouve-t-on les ARGs ?
 2. Certains ARGs semblent-ils plasmidiques ?
@@ -1430,7 +1430,7 @@ On peut observer :
 
 <a id="interpretation"></a>
 
-# 🧠 Interprétation biologique
+### 🧠 Interprétation biologique
 
 Les gènes AMR détectés peuvent être associés :
 
@@ -1446,7 +1446,7 @@ La visualisation permet d’explorer :
 
 ---
 
-# 📈 Exemple d’interprétation
+### 📈 Exemple d’interprétation
 
 Le gène :
 
@@ -1466,7 +1466,7 @@ bifunctional aminoglycoside N-acetyltransferase
 
 <a id="retenir"></a>
 
-# ✅ À retenir
+### ✅ À retenir
 
 * staramr permet de détecter les ARGs et plasmides.
 * Les contigs assemblés facilitent l’analyse AMR.
@@ -1476,9 +1476,9 @@ bifunctional aminoglycoside N-acetyltransferase
 
 ---
 <a id="hgt"></a>
-# 🧬 Cas d'étude 3 — Visualisation d’un transfert horizontal de gène (HGT)
+## 🧬 Cas d'étude 3 — Visualisation d’un transfert horizontal de gène (HGT)
 
-## 📖 Introduction
+### 📖 Introduction
 
 Le transfert horizontal de gènes (HGT : Horizontal Gene Transfer) correspond au transfert de matériel génétique entre organismes sans relation de descendance directe.
 
@@ -1500,7 +1500,7 @@ Dans cette étude de cas sous Galaxy, nous allons :
 
 ---
 
-# 🎯 Objectifs pédagogiques
+### 🎯 Objectifs pédagogiques
 
 À la fin de cette étude de cas, les participants pourront :
 
@@ -1514,7 +1514,7 @@ Dans cette étude de cas sous Galaxy, nous allons :
 
 ---
 
-# 🧪 Workflow global
+### 🧪 Workflow global
 
 ```text
 Données SRA
@@ -1534,9 +1534,9 @@ Identification des régions HGT
 
 ---
 
-# 🚀 Étape 1 — Création d’un nouvel historique Galaxy
+### 🚀 Étape 1 — Création d’un nouvel historique Galaxy
 
-## Étapes
+### Étapes
 
 1. Ouvrir Galaxy.
 2. Créer un nouvel historique.
@@ -1548,15 +1548,15 @@ HGT_Analysis_SRR3111247
 
 ---
 
-# 📥 Étape 2 — Téléchargement des données SRA
+### 📥 Étape 2 — Téléchargement des données SRA
 
-## Objectif
+### Objectif
 
 Importer les reads Illumina bruts.
 
 ---
 
-## Outil Galaxy
+### Outil Galaxy
 
 ```text
 Faster Download and Extract Reads in FASTQ
@@ -1564,7 +1564,7 @@ Faster Download and Extract Reads in FASTQ
 
 ---
 
-## Accession SRA
+### Accession SRA
 
 ```text
 SRR3111247
@@ -1572,7 +1572,7 @@ SRR3111247
 
 ---
 
-## ❓ Questions
+### ❓ Questions
 
 1. Les données sont-elles single-end ou paired-end ?
 2. Combien de reads sont présents ?
@@ -1580,15 +1580,15 @@ SRR3111247
 
 ---
 
-# 🌍 Étape 3 — Récupération de la référence PPO9019
+### 🌍 Étape 3 — Récupération de la référence PPO9019
 
-## Objectif
+### Objectif
 
 Télécharger le génome de référence depuis NCBI.
 
 ---
 
-## Étapes
+### Étapes
 
 1. Ouvrir :
 
@@ -1612,7 +1612,7 @@ Genome FASTA
 
 ---
 
-## ❓ Pourquoi utiliser une référence ?
+### ❓ Pourquoi utiliser une référence ?
 
 <details>
 <summary>👁️ Afficher la réponse</summary>
@@ -1628,15 +1628,15 @@ La référence sert à :
 
 ---
 
-# 📊 Étape 4 — Contrôle qualité avec FastQC
+### 📊 Étape 4 — Contrôle qualité avec FastQC
 
-## Objectif
+### Objectif
 
 Évaluer la qualité des reads avant analyse.
 
 ---
 
-## Outil Galaxy
+### Outil Galaxy
 
 ```text
 FastQC
@@ -1644,7 +1644,7 @@ FastQC
 
 ---
 
-## Points à observer
+### Points à observer
 
 - qualité des bases ;
 - contenu GC ;
@@ -1654,7 +1654,7 @@ FastQC
 
 ---
 
-## ❓ Questions
+### ❓ Questions
 
 1. Les reads présentent-ils des adaptateurs ?
 2. La qualité diminue-t-elle en fin de reads ?
@@ -1662,15 +1662,15 @@ FastQC
 
 ---
 
-# ✂️ Étape 5 — Nettoyage avec fastp
+### ✂️ Étape 5 — Nettoyage avec fastp
 
-## Objectif
+### Objectif
 
 Améliorer la qualité des reads avant mapping.
 
 ---
 
-## Outil Galaxy
+### Outil Galaxy
 
 ```text
 fastp
@@ -1678,7 +1678,7 @@ fastp
 
 ---
 
-## Paramètres recommandés
+### Paramètres recommandés
 
 ```text
 Minimum length: 50
@@ -1687,7 +1687,7 @@ Phred cutoff: 20
 
 ---
 
-## Actions réalisées
+### Actions réalisées
 
 - suppression des adaptateurs ;
 - trimming qualité ;
@@ -1695,7 +1695,7 @@ Phred cutoff: 20
 
 ---
 
-## ❓ Questions
+### ❓ Questions
 
 1. Quel pourcentage de reads a été filtré ?
 2. La qualité a-t-elle été améliorée ?
@@ -1703,15 +1703,15 @@ Phred cutoff: 20
 
 ---
 
-# 🧬 Étape 6 — Annotation du génome avec Bakta
+### 🧬 Étape 6 — Annotation du génome avec Bakta
 
-## Objectif
+### Objectif
 
 Identifier les gènes présents sur la référence PPO9019.
 
 ---
 
-## Outil Galaxy
+### Outil Galaxy
 
 ```text
 Bakta
@@ -1719,7 +1719,7 @@ Bakta
 
 ---
 
-## Entrée
+### Entrée
 
 ```text
 Genome FASTA PPO9019
@@ -1727,7 +1727,7 @@ Genome FASTA PPO9019
 
 ---
 
-## Résultats générés
+### Résultats générés
 
 - GFF3 ;
 - protéines ;
@@ -1736,7 +1736,7 @@ Genome FASTA PPO9019
 
 ---
 
-## ❓ Pourquoi annoter le génome ?
+### ❓ Pourquoi annoter le génome ?
 
 <details>
 <summary>👁️ Afficher la réponse</summary>
@@ -1752,9 +1752,9 @@ L’annotation permet :
 
 ---
 
-# 🧬 Étape 7 — Recherche de SNPs avec Snippy
+### 🧬 Étape 7 — Recherche de SNPs avec Snippy
 
-## Objectif
+### Objectif
 
 Identifier les variations entre :
 
@@ -1763,7 +1763,7 @@ Identifier les variations entre :
 
 ---
 
-## Outil Galaxy
+### Outil Galaxy
 
 ```text
 Snippy
@@ -1771,7 +1771,7 @@ Snippy
 
 ---
 
-## Entrées
+### Entrées
 
 ### Référence
 
@@ -1787,7 +1787,7 @@ FASTQ nettoyés avec fastp
 
 ---
 
-## Résultats générés
+### Résultats générés
 
 - fichier VCF ;
 - alignement ;
@@ -1796,7 +1796,7 @@ FASTQ nettoyés avec fastp
 
 ---
 
-## ❓ Questions
+### ❓ Questions
 
 1. Combien de SNPs ont été détectés ?
 2. Certaines régions présentent-elles beaucoup de variations ?
@@ -1804,15 +1804,15 @@ FASTQ nettoyés avec fastp
 
 ---
 
-# Étape 8 — Visualisation des SNP avec Circos
+### Étape 8 — Visualisation des SNP avec Circos
 (Vous pouvez suivre la meme procèdure decrite dans la partie Assembmlage génomique)
 
 <img width="3000" height="3000" alt="Galaxy174- Circos Plot" src="https://github.com/user-attachments/assets/fc9dd4ad-407f-4259-8eeb-989977754148" />
 
 
-# 🧬 Étape 9 — Visualisation avec JBrowse
+### 🧬 Étape 9 — Visualisation avec JBrowse
 
-## Objectif
+### Objectif
 
 Visualiser :
 
@@ -1823,7 +1823,7 @@ Visualiser :
 
 ---
 
-## Outil Galaxy
+### Outil Galaxy
 
 ```text
 JBrowse
@@ -1831,7 +1831,7 @@ JBrowse
 
 ---
 
-## Tracks à ajouter
+### Tracks à ajouter
 
 ### Référence
 
@@ -1859,9 +1859,9 @@ BAM Snippy
 
 ---
 
-# 🔍 Recherche des régions candidates HGT
+### 🔍 Recherche des régions candidates HGT
 
-## Signes possibles d’un HGT
+### Signes possibles d’un HGT
 
 - forte densité de SNPs ;
 - présence de gènes de résistance ;
@@ -1876,7 +1876,7 @@ BAM Snippy
 ---
 
 
-# 🧠 Interprétation biologique
+### 🧠 Interprétation biologique
 
 Le transfert horizontal de gènes peut être associé à :
 
@@ -1894,7 +1894,7 @@ Ces événements favorisent :
 
 ---
 
-# ✅ À retenir
+### ✅ À retenir
 
 - FastQC permet d’évaluer les reads.
 - fastp améliore la qualité des données.
@@ -1905,7 +1905,7 @@ Ces événements favorisent :
 
 ---
 
-# 📚 Outils utilisés
+### 📚 Outils utilisés
 
 - FastQC
 - fastp
@@ -1921,7 +1921,7 @@ Ces événements favorisent :
 
 
 <a id="objectifs"></a>
-## 1. Objectifs
+### 1. Objectifs
 
 À la fin de cet atelier, les participants pourront :
 
@@ -1936,7 +1936,7 @@ Ces événements favorisent :
 ---
 
 <a id="contexte-biologique"></a>
-## 2. Contexte biologique
+### 2. Contexte biologique
 
 Cet atelier utilise des données de séquençage Illumina provenant de **Salmonella galinarum**. Salmonella Gallinarum est une bactérie hautement spécifique aux oiseaux, responsable de la typhoïde aviaire. Cette maladie grave touche principalement les poules et les dindes, mais elle ne présente presque aucun risque pour l'être humain.
  
