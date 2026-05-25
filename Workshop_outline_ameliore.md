@@ -7,7 +7,7 @@
 
 * [Introduction](#-introduction)
 * [Vu d'ensemble des analyses bioinformatiques ](#vu)
-* [QC des données](#qc-des-donnees)
+* [Contrôle qualité des données NGS](#qc-des-donnees)
 * [Assemblage génomique](#-assemblage-genomique)
 * [Recherche de variants](#recherche-de-variants)
 * [Analyse des AMRs](#analyse-des-amrs)
