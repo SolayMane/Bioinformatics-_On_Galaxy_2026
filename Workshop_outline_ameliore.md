@@ -1476,9 +1476,447 @@ bifunctional aminoglycoside N-acetyltransferase
 
 ---
 
+# 🧬 Cas d'étude 3 — Visualisation d’un transfert horizontal de gène (HGT)
+
+## 📖 Introduction
+
+Le transfert horizontal de gènes (HGT : Horizontal Gene Transfer) correspond au transfert de matériel génétique entre organismes sans relation de descendance directe.
+
+Chez les bactéries, ce mécanisme joue un rôle majeur dans :
+
+- l’acquisition de résistances aux antibiotiques ;
+- l’adaptation environnementale ;
+- l’évolution bactérienne ;
+- la transmission de plasmides et d’éléments mobiles.
+
+Dans cette étude de cas sous Galaxy, nous allons :
+
+- télécharger des données NGS depuis le SRA ;
+- récupérer une référence génomique depuis NCBI ;
+- réaliser un contrôle qualité ;
+- annoter le génome avec Bakta ;
+- rechercher les SNPs avec Snippy ;
+- visualiser les résultats sous JBrowse.
+
+---
+
+# 🎯 Objectifs pédagogiques
+
+À la fin de cette étude de cas, les participants pourront :
+
+- importer des données depuis le SRA ;
+- récupérer une référence bactérienne depuis NCBI ;
+- nettoyer des reads Illumina ;
+- annoter un génome bactérien ;
+- détecter des SNPs ;
+- visualiser des régions candidates de HGT ;
+- interpréter biologiquement les résultats.
+
+---
+
+# 🧪 Workflow global
+
+```text
+Données SRA
+      ↓
+FastQC
+      ↓
+fastp
+      ↓
+Annotation Bakta
+      ↓
+Snippy (SNP calling)
+      ↓
+JBrowse
+      ↓
+Identification des régions HGT
+```
+
+---
+
+# 🚀 Étape 1 — Création d’un nouvel historique Galaxy
+
+## Étapes
+
+1. Ouvrir Galaxy.
+2. Créer un nouvel historique.
+3. Renommer l’historique :
+
+```text
+HGT_Analysis_SRR3111247
+```
+
+---
+
+# 📥 Étape 2 — Téléchargement des données SRA
+
+## Objectif
+
+Importer les reads Illumina bruts.
+
+---
+
+## Outil Galaxy
+
+```text
+Faster Download and Extract Reads in FASTQ
+```
+
+---
+
+## Accession SRA
+
+```text
+SRR3111247
+```
+
+---
+
+## ❓ Questions
+
+1. Les données sont-elles single-end ou paired-end ?
+2. Combien de reads sont présents ?
+3. Quelle est la taille des reads ?
+
+---
+
+# 🌍 Étape 3 — Récupération de la référence PPO9019
+
+## Objectif
+
+Télécharger le génome de référence depuis NCBI.
+
+---
+
+## Étapes
+
+1. Ouvrir :
+
+```text
+NCBI Genome
+```
+
+2. Rechercher :
+
+```text
+PPO9019
+```
+
+3. Télécharger :
+
+```text
+Genome FASTA
+```
+
+4. Importer la séquence dans Galaxy.
+
+---
+
+## ❓ Pourquoi utiliser une référence ?
+
+<details>
+<summary>👁️ Afficher la réponse</summary>
+
+La référence sert à :
+
+- aligner les reads ;
+- détecter les SNPs ;
+- visualiser les variations ;
+- comparer les régions génomiques.
+
+</details>
+
+---
+
+# 📊 Étape 4 — Contrôle qualité avec FastQC
+
+## Objectif
+
+Évaluer la qualité des reads avant analyse.
+
+---
+
+## Outil Galaxy
+
+```text
+FastQC
+```
+
+---
+
+## Points à observer
+
+- qualité des bases ;
+- contenu GC ;
+- adaptateurs ;
+- duplication ;
+- qualité globale.
+
+---
+
+## ❓ Questions
+
+1. Les reads présentent-ils des adaptateurs ?
+2. La qualité diminue-t-elle en fin de reads ?
+3. Les données semblent-elles exploitables ?
+
+---
+
+# ✂️ Étape 5 — Nettoyage avec fastp
+
+## Objectif
+
+Améliorer la qualité des reads avant mapping.
+
+---
+
+## Outil Galaxy
+
+```text
+fastp
+```
+
+---
+
+## Paramètres recommandés
+
+```text
+Minimum length: 50
+Phred cutoff: 20
+```
+
+---
+
+## Actions réalisées
+
+- suppression des adaptateurs ;
+- trimming qualité ;
+- suppression des reads courts.
+
+---
+
+## ❓ Questions
+
+1. Quel pourcentage de reads a été filtré ?
+2. La qualité a-t-elle été améliorée ?
+3. Les adaptateurs ont-ils disparu ?
+
+---
+
+# 🧬 Étape 6 — Annotation du génome avec Bakta
+
+## Objectif
+
+Identifier les gènes présents sur la référence PPO9019.
+
+---
+
+## Outil Galaxy
+
+```text
+Bakta
+```
+
+---
+
+## Entrée
+
+```text
+Genome FASTA PPO9019
+```
+
+---
+
+## Résultats générés
+
+- GFF3 ;
+- protéines ;
+- CDS ;
+- annotations fonctionnelles.
+
+---
+
+## ❓ Pourquoi annoter le génome ?
+
+<details>
+<summary>👁️ Afficher la réponse</summary>
+
+L’annotation permet :
+
+- d’identifier les gènes ;
+- de localiser les régions fonctionnelles ;
+- d’interpréter les mutations détectées ;
+- d’identifier les régions candidates de HGT.
+
+</details>
+
+---
+
+# 🧬 Étape 7 — Recherche de SNPs avec Snippy
+
+## Objectif
+
+Identifier les variations entre :
+
+- les reads ;
+- le génome de référence PPO9019.
+
+---
+
+## Outil Galaxy
+
+```text
+Snippy
+```
+
+---
+
+## Entrées
+
+### Référence
+
+```text
+Genome PPO9019
+```
+
+### Reads
+
+```text
+FASTQ nettoyés avec fastp
+```
+
+---
+
+## Résultats générés
+
+- fichier VCF ;
+- alignement ;
+- consensus ;
+- rapport SNP.
+
+---
+
+## ❓ Questions
+
+1. Combien de SNPs ont été détectés ?
+2. Certaines régions présentent-elles beaucoup de variations ?
+3. Ces régions pourraient-elles correspondre à un HGT ?
+
+---
+
+# 🧬 Étape 8 — Visualisation avec JBrowse
+
+## Objectif
+
+Visualiser :
+
+- les SNPs ;
+- les gènes annotés ;
+- les régions variables ;
+- les zones candidates de transfert horizontal.
+
+---
+
+## Outil Galaxy
+
+```text
+JBrowse
+```
+
+---
+
+## Tracks à ajouter
+
+### Référence
+
+```text
+Genome PPO9019
+```
+
+### Annotation
+
+```text
+GFF3 Bakta
+```
+
+### Variants
+
+```text
+VCF Snippy
+```
+
+### Alignement
+
+```text
+BAM Snippy
+```
+
+---
+
+# 🔍 Recherche des régions candidates HGT
+
+## Signes possibles d’un HGT
+
+- forte densité de SNPs ;
+- présence de gènes de résistance ;
+- présence de transposases ;
+- contenu GC différent ;
+- plasmides ;
+- îlots génomiques.
+
+---
+
+## ❓ Questions biologiques
+
+1. Certaines régions possèdent-elles un GC atypique ?
+2. Observe-t-on des gènes mobiles ?
+3. Les SNPs sont-ils regroupés ?
+4. Existe-t-il des gènes AMR dans ces régions ?
+
+---
+
+# 🧠 Interprétation biologique
+
+Le transfert horizontal de gènes peut être associé à :
+
+- plasmides ;
+- phages ;
+- transposons ;
+- intégrons ;
+- îlots génomiques.
+
+Ces événements favorisent :
+
+- l’évolution bactérienne ;
+- la virulence ;
+- la résistance aux antibiotiques.
+
+---
+
+# ✅ À retenir
+
+- FastQC permet d’évaluer les reads.
+- fastp améliore la qualité des données.
+- Bakta annote les gènes bactériens.
+- Snippy détecte les SNPs.
+- JBrowse facilite la visualisation génomique.
+- Les régions très variables peuvent suggérer un HGT.
+
+---
+
+# 📚 Outils utilisés
+
+- FastQC
+- fastp
+- Bakta
+- Snippy
+- JBrowse
+- NCBI Genome
+- SRA Toolkit
 
 
-## Cas d'étude 2 : Assemblage de plusieurs génomes bactériens
+
+## Cas d'étude 4 : Assemblage de plusieurs génomes bactériens
 
 
 
