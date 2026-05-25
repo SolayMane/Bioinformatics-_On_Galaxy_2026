@@ -230,7 +230,7 @@ https://zenodo.org/record/61771/files/GSM461178_untreat_paired_subset_2.fastq
 ---
 
 <a id="assemblage-genomique"></a>
-## 🧬 Cas d'étude 1 :Assemblage d’un génome bactérien MRSA avec des données Illumina MiSeq
+# 🧬 Cas d'étude 1 :Assemblage d’un génome bactérien MRSA avec des données Illumina MiSeq
 L'assemblage génomique consiste à reconstruire la séquence complète d'un génome à partir de millions de fragments courts d'ADN (les reads) obtenus par séquençage. C'est un puzzle informatique géant à résoudre sans modèle de départ
 Dans cette étape nous allons faire plusier assemblage génomique sur différents jeux de données.
 
@@ -361,7 +361,7 @@ IIIIHHHHFFFF
 
 ---
 
-<a id="controle-qualite"></a>
+
 ### 5. Contrôle qualité des reads
 
 Le séquençage peut introduire plusieurs erreurs :
@@ -896,7 +896,7 @@ Les fichiers de coordonnées extraits à l'étape 2 sont intégrés sous forme d
 ---
 
 <a id="amr"></a>
-## 🦠 Cas d'étude 2 :Détection des gènes de résistance aux antibiotiques (AMR) sous Galaxy
+# 🦠 Cas d'étude 2 :Détection des gènes de résistance aux antibiotiques (AMR) sous Galaxy
 
 > Adapté du tutoriel Galaxy Training Network :
 >
@@ -1476,7 +1476,7 @@ bifunctional aminoglycoside N-acetyltransferase
 
 ---
 <a id="hgt"></a>
-## 🧬 Cas d'étude 3 — Visualisation d’un transfert horizontal de gène (HGT)
+# 🧬 Cas d'étude 3 — Visualisation d’un transfert horizontal de gène (HGT)
 
 ### 📖 Introduction
 
@@ -1917,25 +1917,15 @@ Ces événements favorisent :
 
 
 <a id="notions-de-workflow"></a>
-## Cas d'étude 4 : Notions de Workflow
+# Cas d'étude 4 : Notions de Workflow
 
 
 <a id="objectifs"></a>
 ### 1. Objectifs
 
-À la fin de cet atelier, les participants pourront :
+Dans cette partie nous alons creer un workflow pour faire une analyse bioinformatque complete des données de séquençage de 5 souche bacteriennes incluant; QC des données, l'assemblage avec shoville, recherche des variants avec snippy, recherche des gènes AMR.
 
-- importer des reads Illumina paired-end à partir d'un historique Galaxy ;
-- évaluer la qualité des reads ;
-- nettoyer les reads avec `fastp` ;
-- assembler un génome bactérien avec `Shovill` ;
-- évaluer l’assemblage avec `QUAST`.
-- Annoter les génomes avec ``Prokka``
-- Visualiser les genome sous ``jbrowse``
 
----
-
-<a id="contexte-biologique"></a>
 ### 2. Contexte biologique
 
 Cet atelier utilise des données de séquençage Illumina provenant de **Salmonella galinarum**. Salmonella Gallinarum est une bactérie hautement spécifique aux oiseaux, responsable de la typhoïde aviaire. Cette maladie grave touche principalement les poules et les dindes, mais elle ne présente presque aucun risque pour l'être humain.
@@ -1947,6 +1937,458 @@ Assembler son génome permet ensuite de réaliser plusieurs analyses :
 - étude épidémiologique.
 
 ---
+
+
+---
+
+<a id="workflow-case-study"></a>
+# 🧬 Cas d'étude 4 — Notions de Workflow sous Galaxy
+
+## 📖 Introduction
+
+En bioinformatique, les analyses comportent souvent plusieurs étapes :
+
+- contrôle qualité ;
+- nettoyage des données ;
+- assemblage ;
+- annotation ;
+- recherche de variants ;
+- détection de gènes AMR.
+
+Lorsque plusieurs échantillons doivent être analysés, répéter manuellement chaque étape devient :
+
+- long ;
+- fastidieux ;
+- peu reproductible ;
+- source d’erreurs.
+
+Les **workflows Galaxy** permettent d’autatiser ces analyses sous forme de pipeline reproductible.
+
+---
+
+<a id="objectifs-workflow"></a>
+# 🎯 1. Objectifs
+
+Dans cette partie, nous allons créer un workflow Galaxy permettant de réaliser automatiquement une analyse bioinformatique complète de 5 souches bactériennes incluant :
+
+- contrôle qualité des données ;
+- trimming avec fastp ;
+- assemblage génomique avec Shovill ;
+- recherche de variants avec Snippy ;
+- recherche des gènes AMR.
+
+---
+
+<a id="contexte-biologique-workflow"></a>
+# 🦠 2. Contexte biologique
+
+Cet atelier utilise des données de séquençage Illumina provenant de :
+
+```text
+Salmonella Gallinarum
+```
+
+Salmonella Gallinarum est une bactérie hautement spécifique aux oiseaux, responsable de la :
+
+```text
+Typhoïde aviaire
+```
+
+Cette maladie touche principalement :
+
+- les poules ;
+- les dindes.
+
+Elle présente très peu de risque pour l’être humain.
+
+---
+
+## 🎯 Intérêt biologique
+
+Assembler et analyser ces génomes permet de :
+
+- rechercher des gènes de résistance aux antibiotiques ;
+- comparer plusieurs souches ;
+- réaliser du typage génomique ;
+- effectuer des études épidémiologiques ;
+- détecter des variants SNPs ;
+- explorer la diversité génétique.
+
+---
+
+# 🧪 Workflow global
+
+```text
+FASTQ paired-end
+        ↓
+FastQC
+        ↓
+fastp
+        ↓
+Shovill
+        ↓
+Snippy
+        ↓
+Recherche AMR
+        ↓
+Interprétation biologique
+```
+
+---
+
+# 🚀 3. Création d’un nouvel historique Galaxy
+
+## Étapes
+
+1. Ouvrir Galaxy.
+2. Créer un nouvel historique.
+3. Renommer l’historique :
+
+```text
+Workflow_Salmonella_Gallinarum
+```
+
+---
+
+# 📥 4. Importation des données
+
+## Objectif
+
+Importer les 5 jeux de données paired-end.
+
+---
+
+## Sources possibles
+
+- historique partagé ;
+- SRA ;
+- fichiers FASTQ locaux.
+
+---
+
+## Vérification des données
+
+Les données doivent être organisées en :
+
+```text
+Collections paired-end
+```
+
+---
+
+# 📊 5. Étape QC avec FastQC
+
+## 🎯 Objectif
+
+Évaluer la qualité des reads avant traitement.
+
+---
+
+## 🛠️ Outil Galaxy
+
+```text
+FastQC
+```
+
+---
+
+## Paramètres
+
+Entrée :
+
+```text
+Collection paired-end des 5 souches
+```
+
+---
+
+## Résultats à observer
+
+- qualité des bases ;
+- contenu GC ;
+- adaptateurs ;
+- duplication ;
+- qualité globale.
+
+---
+
+## ❓ Questions
+
+1. Les 5 échantillons ont-ils une qualité similaire ?
+2. Observe-t-on des adaptateurs ?
+3. Certains échantillons sont-ils plus bruités ?
+
+---
+
+# ✂️ 6. Nettoyage des données avec fastp
+
+## 🎯 Objectif
+
+Améliorer la qualité des données avant assemblage.
+
+---
+
+## 🛠️ Outil Galaxy
+
+```text
+fastp
+```
+
+---
+
+## Paramètres recommandés
+
+```text
+Minimum length: 50
+Phred cutoff: 20
+```
+
+---
+
+## Actions réalisées
+
+- suppression des adaptateurs ;
+- trimming qualité ;
+- suppression des reads courts.
+
+---
+
+## ❓ Questions
+
+1. Quel pourcentage de reads a été supprimé ?
+2. La qualité s’est-elle améliorée ?
+3. Quel échantillon possédait le plus d’adaptateurs ?
+
+---
+
+# 🧩 7. Assemblage avec Shovill
+
+## 🎯 Objectif
+
+Assembler les génomes bactériens.
+
+---
+
+## 🛠️ Outil Galaxy
+
+```text
+Shovill
+```
+
+---
+
+## Paramètres recommandés
+
+```text
+Genome size: 5 Mb
+Assembler: SPAdes
+```
+
+---
+
+## Résultats produits
+
+- contigs FASTA ;
+- statistiques d’assemblage ;
+- graphe d’assemblage.
+
+---
+
+## ❓ Questions
+
+1. Quel échantillon possède le meilleur assemblage ?
+2. Quel génome semble le plus fragmenté ?
+3. Combien de contigs sont générés ?
+
+---
+
+# 🧬 8. Recherche de variants avec Snippy
+
+## 🎯 Objectif
+
+Identifier les SNPs entre les souches et une référence.
+
+---
+
+## 🛠️ Outil Galaxy
+
+```text
+Snippy
+```
+
+---
+
+## Entrées
+
+### Référence
+
+```text
+Genome de référence Salmonella Gallinarum
+```
+
+### Reads
+
+```text
+FASTQ nettoyés avec fastp
+```
+
+---
+
+## Résultats générés
+
+- VCF ;
+- consensus ;
+- alignements ;
+- rapport SNP.
+
+---
+
+## ❓ Questions
+
+1. Combien de SNPs sont détectés ?
+2. Certaines souches sont-elles très proches ?
+3. Existe-t-il des régions hypervariables ?
+
+---
+
+# 🦠 9. Recherche des gènes AMR
+
+## 🎯 Objectif
+
+Identifier les gènes de résistance aux antibiotiques.
+
+---
+
+## 🛠️ Outils possibles
+
+```text
+staramr
+```
+
+ou :
+
+```text
+AMRFinderPlus
+```
+
+---
+
+## Résultats attendus
+
+- gènes AMR détectés ;
+- type de résistance ;
+- couverture ;
+- identité.
+
+---
+
+## ❓ Questions
+
+1. Des gènes AMR sont-ils détectés ?
+2. Les 5 souches possèdent-elles les mêmes résistances ?
+3. Certains gènes sont-ils plasmidiques ?
+
+---
+
+# 🔄 10. Création du Workflow Galaxy
+
+## 🎯 Objectif
+
+Automatiser toutes les étapes précédentes.
+
+---
+
+## Étapes
+
+1. Cliquer sur :
+
+```text
+Extract Workflow
+```
+
+2. Nommer le workflow :
+
+```text
+Workflow_Salmonella_Gallinarum
+```
+
+3. Organiser les étapes.
+
+---
+
+## Workflow final
+
+```text
+Input FASTQ
+      ↓
+FastQC
+      ↓
+fastp
+      ↓
+Shovill
+      ↓
+Snippy
+      ↓
+AMR detection
+```
+
+---
+
+# ❓ Pourquoi utiliser un workflow ?
+
+<details>
+<summary>👁️ Afficher la réponse</summary>
+
+Les workflows permettent :
+
+- d’automatiser les analyses ;
+- de gagner du temps ;
+- de limiter les erreurs ;
+- de rendre les analyses reproductibles ;
+- d’analyser plusieurs échantillons simultanément.
+
+</details>
+
+---
+
+# 🧠 Interprétation biologique
+
+Comparer :
+
+- les assemblages ;
+- les SNPs ;
+- les profils AMR.
+
+Discuter :
+
+- diversité génétique ;
+- proximité phylogénétique ;
+- transmission possible ;
+- émergence de résistances.
+
+---
+
+# ✅ À retenir
+
+- Galaxy permet de construire des workflows reproductibles.
+- FastQC contrôle la qualité des reads.
+- fastp améliore les données.
+- Shovill assemble les génomes bactériens.
+- Snippy détecte les SNPs.
+- Les outils AMR détectent les résistances.
+- Les workflows facilitent l’analyse multi-échantillons.
+
+---
+
+# 📚 Outils utilisés
+
+- FastQC
+- fastp
+- Shovill
+- Snippy
+- staramr
+- AMRFinderPlus
+- Galaxy Workflow
 
 <a id="preparation-historique"></a>
 ## 3. Préparation de l’historique Galaxy
