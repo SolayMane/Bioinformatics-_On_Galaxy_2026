@@ -6,7 +6,7 @@
 # 📚 Sommaire
 
 * [Introduction](#-introduction)
-* [Vu d'ensemble des analyses bioinformatiques ](#-vu-d'ensemble-des-analyses-bioinformatiques)
+* [Vu d'ensemble des analyses bioinformatiques ](#-vu-d-ensemble-des-analyses-bioinformatiques)
 * [QC des données](#qc-des-donnees)
 * [Assemblage génomique](#-assemblage-genomique)
 * [Recherche de variants](#recherche-de-variants)
@@ -35,7 +35,7 @@ Galaxy est une plateforme bioinformatique accessible via navigateur web permetta
 
 ---
 
-# 🧪 Vu d'ensemble des analyses bioinformatiques
+# 🧪 Vu d ensemble des analyses bioinformatiques
 
 ```mermaid
 flowchart TD
