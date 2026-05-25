@@ -50,7 +50,7 @@ flowchart TD
     Z("Analyse phylogénomique<br/>Buscophylo")
 
     
-    F("🧬 Variant Calling<br/> Freebayes")
+    
     G("📝 Annotation Genome<br/>Prokka / Bakta")
 
     H("📊 Visualisation<br/>JBrowse / Circos")
@@ -64,7 +64,7 @@ flowchart TD
     C --> X
     E --> Z
     X --> Z
-    D --> F
+    D --> H
     E --> G
     X --> H
     F --> H
