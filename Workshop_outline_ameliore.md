@@ -8,7 +8,7 @@
 * [Introduction](#-introduction)
 * [Vu d'ensemble des analyses bioinformatiques ](#vu)
 * [Contrôle qualité des données NGS](#qc-des-donnees)
-* [Assemblage génomique](#-assemblage-genomique)
+* [Assemblage génomique](#assemblage-genomique)
 * [Détection des gènes de résistance aux antibiotiques (AMR) sous Galaxy](#amr)
 * [Visualisation d’un transfert horizontal de gène (HGT)](#hgt)
 * [Recherche de variants](#recherche-de-variants)
@@ -237,7 +237,7 @@ Dans cette étape nous allons faire plusier assemblage génomique sur différent
 > Source : galaxy training
 ---
 
-<a id="objectifs"></a>
+
 ### 1. Objectifs
 
 À la fin de cet atelier, les participants pourront :
@@ -251,7 +251,6 @@ Dans cette étape nous allons faire plusier assemblage génomique sur différent
 
 ---
 
-<a id="contexte-biologique"></a>
 ### 2. Contexte biologique
 
 Cet atelier utilise des données de séquençage Illumina MiSeq provenant d’une souche de **Staphylococcus aureus résistant à la méthicilline** (**MRSA**).
@@ -266,7 +265,7 @@ Assembler son génome permet ensuite de réaliser plusieurs analyses :
 
 ---
 
-<a id="preparation-historique"></a>
+
 ### 3. Préparation de l’historique Galaxy
 
 Avant de commencer, créer un nouvel historique Galaxy.
@@ -290,7 +289,6 @@ Un historique séparé permet d’organiser l’analyse, d’éviter de mélange
 
 ---
 
-<a id="importation-donnees"></a>
 ### 4. Importation des données
 
 Importer les deux fichiers FASTQ paired-end suivants :
@@ -422,7 +420,7 @@ Cela provoque souvent une baisse progressive de qualité vers la fin des reads.
 
 ---
 
-<a id="nettoyage-fastp"></a>
+
 ### 6. Nettoyage avec fastp
 
 Après le contrôle qualité, les reads peuvent être nettoyés avec `fastp`.
@@ -490,7 +488,6 @@ Le contenu GC ne doit normalement pas changer fortement.
 
 ---
 
-<a id="assemblage-shovill"></a>
 ### 7. Assemblage avec Shovill
 
 Une fois les reads nettoyés, on peut assembler le génome.
@@ -532,7 +529,7 @@ Avec des reads courts Illumina, un génome bactérien est souvent assemblé en p
 
 ---
 
-<a id="evaluation-quast"></a>
+
 ### 8. Évaluation avec QUAST
 
 `QUAST` permet d’évaluer la qualité d’un assemblage génomique.
@@ -907,7 +904,6 @@ Les fichiers de coordonnées extraits à l'étape 2 sont intégrés sous forme d
 ---
 
 
-<a id="introduction"></a>
 ### 🔬 Introduction
 
 La résistance aux antibiotiques (AMR : Antimicrobial Resistance) représente un problème majeur de santé publique.
@@ -923,7 +919,7 @@ Dans ce tutoriel Galaxy, nous allons :
 
 ---
 
-<a id="contexte"></a>
+
 
 ### 🦠 Contexte biologique
 
@@ -944,7 +940,7 @@ Les objectifs biologiques sont :
 
 ---
 
-<a id="workflow"></a>
+
 
 ### 🧪 Workflow global
 
@@ -966,7 +962,7 @@ Interprétation biologique
 
 ---
 
-<a id="galaxy"></a>
+
 
 ### 🚀 Préparation de Galaxy
 
@@ -1010,7 +1006,7 @@ Les contigs permettent :
 
 ---
 
-<a id="staramr"></a>
+
 
 ### 🧬 Détection des gènes AMR avec staramr
 
@@ -1081,7 +1077,6 @@ Ce gène code une protéine PBP2a impliquée dans la résistance à la méthicil
 
 ---
 
-<a id="exploration"></a>
 
 ### 📊 Exploration des résultats
 
@@ -1254,7 +1249,6 @@ Le tutoriel conserve :
 
 ---
 
-<a id="gff3"></a>
 
 ### 🧾 Création d’un fichier GFF3
 
@@ -1314,7 +1308,6 @@ Il est utilisé pour la visualisation génomique.
 
 ---
 
-<a id="bakta"></a>
 
 ### 🧬 Annotation des contigs avec Bakta
 
@@ -1356,7 +1349,7 @@ Il est considéré comme un successeur moderne de Prokka.
 
 ---
 
-<a id="jbrowse"></a>
+
 
 ### 🧬 Visualisation avec JBrowse
 
@@ -1428,7 +1421,7 @@ On peut observer :
 
 ---
 
-<a id="interpretation"></a>
+
 
 ### 🧠 Interprétation biologique
 
@@ -1464,7 +1457,7 @@ bifunctional aminoglycoside N-acetyltransferase
 
 ---
 
-<a id="retenir"></a>
+
 
 ### ✅ À retenir
 
@@ -1805,7 +1798,7 @@ FASTQ nettoyés avec fastp
 ---
 
 ### Étape 8 — Visualisation des SNP avec Circos
-(Vous pouvez suivre la meme procèdure decrite dans la partie Assembmlage génomique)
+(Vous pouvez suivre la meme procèdure decrite dans la partie Assemblage génomique)
 
 <img width="3000" height="3000" alt="Galaxy174- Circos Plot" src="https://github.com/user-attachments/assets/fc9dd4ad-407f-4259-8eeb-989977754148" />
 
@@ -1916,32 +1909,8 @@ Ces événements favorisent :
 - SRA Toolkit
 
 
+
 <a id="notions-de-workflow"></a>
-# Cas d'étude 4 : Notions de Workflow
-
-
-<a id="objectifs"></a>
-### 1. Objectifs
-
-Dans cette partie nous alons creer un workflow pour faire une analyse bioinformatque complete des données de séquençage de 5 souche bacteriennes incluant; QC des données, l'assemblage avec shoville, recherche des variants avec snippy, recherche des gènes AMR.
-
-
-### 2. Contexte biologique
-
-Cet atelier utilise des données de séquençage Illumina provenant de **Salmonella galinarum**. Salmonella Gallinarum est une bactérie hautement spécifique aux oiseaux, responsable de la typhoïde aviaire. Cette maladie grave touche principalement les poules et les dindes, mais elle ne présente presque aucun risque pour l'être humain.
- 
-Assembler son génome permet ensuite de réaliser plusieurs analyses :
-- recherche de gènes de résistance aux antibiotiques ;
-- comparaison entre souches ;
-- typage génomique ;
-- étude épidémiologique.
-
----
-
-
----
-
-<a id="workflow-case-study"></a>
 # 🧬 Cas d'étude 4 — Notions de Workflow sous Galaxy
 
 ## 📖 Introduction
@@ -1966,7 +1935,7 @@ Les **workflows Galaxy** permettent d’autatiser ces analyses sous forme de pip
 
 ---
 
-<a id="objectifs-workflow"></a>
+
 # 🎯 1. Objectifs
 
 Dans cette partie, nous allons créer un workflow Galaxy permettant de réaliser automatiquement une analyse bioinformatique complète de 5 souches bactériennes incluant :
@@ -1979,7 +1948,7 @@ Dans cette partie, nous allons créer un workflow Galaxy permettant de réaliser
 
 ---
 
-<a id="contexte-biologique-workflow"></a>
+
 # 🦠 2. Contexte biologique
 
 Cet atelier utilise des données de séquençage Illumina provenant de :
@@ -2029,32 +1998,29 @@ Shovill
         ↓
 Snippy
         ↓
-Recherche AMR
+Recherche AMR(staramr)
         ↓
 Interprétation biologique
 ```
 
 ---
 
-# 🚀 3. Création d’un nouvel historique Galaxy
 
-## Étapes
+
+# 📥 Importation des données
+
+### Étapes
 
 1. Ouvrir Galaxy.
-2. Créer un nouvel historique.
-3. Renommer l’historique :
+2. ouvirie le lien ci dissous de l'historique partagé
+   ``https://usegalaxy.eu/u/solay/h/inh-workshop-2026``
+2. Importer l'historique entier
 
-```text
-Workflow_Salmonella_Gallinarum
-```
+<img width="905" height="500" alt="image" src="https://github.com/user-attachments/assets/3485978e-26ae-4bb5-b253-33c32a958cd2" />
 
----
+3. Vous pouvez renomer l'historique
 
-# 📥 4. Importation des données
 
-## Objectif
-
-Importer les 5 jeux de données paired-end.
 
 ---
 
