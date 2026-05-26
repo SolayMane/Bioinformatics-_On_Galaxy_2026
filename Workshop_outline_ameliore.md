@@ -1,5 +1,5 @@
 
-# Workshop Analyse Bioinformatique sous Galaxy 2026 — 
+# Workshop Analyses Bioinformatique sous Galaxy 2026 — 
 
 ---
 
@@ -11,9 +11,8 @@
 * [Assemblage génomique](#assemblage-genomique)
 * [Détection des gènes de résistance aux antibiotiques (AMR) sous Galaxy](#amr)
 * [Visualisation d’un transfert horizontal de gène (HGT)](#hgt)
-* [Recherche de variants](#recherche-de-variants)
 * [Notion de Workflow](#notion-de-workflow)
-* [Tutoriel sur sars-cov2](#tutoriel-sur-sars-cov2)
+* [Tutoriel sur sars-cov2](#sars-cov2)
 
 ---
 
@@ -2591,4 +2590,6 @@ Ce workshop couvre :
 - la visualisation génomique avancée sous Galaxy.
 
 L’objectif est de fournir un support pédagogique reproductible et professionnel pour les ateliers de bioinformatique sous Galaxy.
-
+<a id="sars-cov2"></a>
+# Tutoriel sur sars-cov2
+[Pour le sars-cov2, nous allons suivre ce tutoriel sur Galaxy Training] (https://training.galaxyproject.org/training-material/topics/variant-analysis/tutorials/sars-cov-2-variant-discovery/tutorial.html)
