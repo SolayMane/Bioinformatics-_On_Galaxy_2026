@@ -368,8 +368,16 @@ PRJDB3920	SAMD00034152	DRX036164	https://zenodo.org/records/3263975/files/DRX036
 ```
 
 - Filtré la prmeire colonne par `First or Last N Rows`
-- 
-
+- La colonne `D`contien deux lien de téléchargement. Il faut la séparer en deux colonnes par :
+```text
+From Column, select Using a Regular Expression
+“From Column”: D
+Select Create columns matching expression groups
+“Regular Expression”: (.*);(.*)
+“Number of Groups”: 2`Column, select Using a Regular Expression`
+```
+- A partir de `Rules` on choisit `Remove Column(s)`pour supprimer la colonne `D`
+- On a maintenant deux coloonnes avec les urls de téléchargement et on a besoin d'une seule colonne
 ## 📷 Exemple du Rule Builder
 
 ![](https://training.galaxyproject.org/training-material/topics/galaxy-interface/tutorials/upload-rules/rule-based-upload-1.png)
