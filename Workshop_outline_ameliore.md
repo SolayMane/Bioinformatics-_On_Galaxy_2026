@@ -109,7 +109,7 @@ Les technologies de séquençage modernes permettent de générer un grand nombr
 
 Il est donc nécessaire de comprendre, d'identifier et d'éliminer les types d'erreurs susceptibles d'affecter l'interprétation des analyses ultérieures. Le contrôle qualité des séquences constitue ainsi une première étape essentielle de votre analyse. Détecter les erreurs au plus tôt permet de gagner du temps par la suite.
 
-## Téléchargé un fichier de séquence brute à partir de la base de données SRA
+## 1. Téléchargé un fichier de séquence brute à partir de la base de données SRA
 En bioinformatique, la base de données SRA (Sequence Read Archive) est le plus grand référentiel public mondial de données de séquençage de l'ADN et de l'ARN à haut débit.
 Elle fait partie intégrante de l'INSDC (International Nucleotide Sequence Database Collaboration). Les données soumises à l'une des plateformes suivantes sont automatiquement synchronisées entre elles :
 NCBI SRA (États-Unis)
@@ -195,7 +195,7 @@ Une autre méthode pour vérifier la qualité des séquences consiste à utilise
 
 6. comparer le resultat de filtrage avec le resultat précédant de FASTQC.
 
-## Téléchargé des données à partir d'un lien
+## 2. Téléchargement des données à partir d'un lien
 ### Traiement des données en single end
 
 
@@ -229,6 +229,13 @@ https://zenodo.org/record/61771/files/GSM461178_untreat_paired_subset_2.fastq
 ---
 
 <a id="assemblage-genomique"></a>
+
+## 3. Téléchargement des jeux de données avec des règles
+Cette approche pourrait servir à manipuler des listes de fichiers téléchargés provenant de formats très variés, mais nous commencerons par une description tabulaire des fichiers d'une étude issue de l' [European Nucleotide Archive](ebi.ac.uk/ena/browser/). Nous utiliserons les données d'une étude portant sur [l'ARN ribosomique 16S](https://www.ebi.ac.uk/ena/data/view/PRJDA60709).
+
+
+
+
 # 🧬 Cas d'étude 1 :Assemblage d’un génome bactérien MRSA avec des données Illumina MiSeq
 L'assemblage génomique consiste à reconstruire la séquence complète d'un génome à partir de millions de fragments courts d'ADN (les reads) obtenus par séquençage. C'est un puzzle informatique géant à résoudre sans modèle de départ
 Dans cette étape nous allons faire plusier assemblage génomique sur différents jeux de données.
