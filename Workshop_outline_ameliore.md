@@ -258,7 +258,7 @@ qui permet :
 - d’importer automatiquement des dizaines de fichiers ;
 - de construire des collections ;
 - d’associer automatiquement les reads paired-end ;
-- d’automatiser l’organisation des données. :contentReference[oaicite:0]{index=0}
+- d’automatiser l’organisation des données.
 
 ---
 
@@ -273,7 +273,7 @@ Dans cette partie, nous allons apprendre à :
 - préparer des données pour des workflows Galaxy. 
 
 ---
-On va faire trois important basées sur des règles :
+On va faire trois importation basées sur des règles :
 
 
 1. Téléchargement des jeux de données avec des règles
@@ -330,13 +330,13 @@ Pour importer ces fichiers dans Galaxy, nous devrons effectuer quelques opérati
 Supprimez cet en-tête des données (il ne contient pas d'URL que Galaxy peut télécharger).
 Définissez la colonne `C`comme le `nom` de l'ensemble de données.
 Définissez la colonne `D` comme l'`URL` du jeu de données (il s'agit de l'emplacement à partir duquel Galaxy peut télécharger les données).
-Indiquez à Galaxy de traiter ces fichiers comme `fastqsanger.gz` des fichiers.
+Indiquez à Galaxy de traiter ces fichiers comme type `fastqsanger.gz`.
 
-Nous allons filtrer la premiere ligne
+
 
 ### 2. Création d'une liste de données simple
 
-Cet exemple illustrera l'utilisation de tels ensembles de données historiques comme source pour les chargements de collections ; cela peut s'avérer utile lorsque vous souhaitez appliquer les outils de manipulation tabulaire Galaxy existants aux métadonnées avant traitement, par exemple.
+Cet exemple illustrera l'utilisation de tels ensembles de données comme source pour les chargements de collections ; cela peut s'avérer utile lorsque vous souhaitez appliquer les outils de manipulation tabulaire Galaxy existants aux métadonnées avant traitement, par exemple.
 
 Utilisez les meme données précedantes:
 
@@ -350,10 +350,9 @@ PRJDA60709	SAMD00016381	DRX000479	https://zenodo.org/records/3263975/files/DRR00
 PRJDA60709	SAMD00016382	DRX000480	https://zenodo.org/records/3263975/files/DRR000775.fastqsanger.gz
 ```
 
-les meme étapes qu'avant, sauf cette fois ci au lieu de définir un name pour la colonne C on identifie une list.
+les memes étapes qu'avant, sauf cette fois ci au lieu de définir un `name` pour la colonne `C` on identifie une `list`.
 
 ### 3. Création d'une liste de paires de jeux de données
-
 
 Pour cette partie utilisez cette exemple :
 ```text
@@ -367,7 +366,7 @@ PRJDB3920	SAMD00034153	DRX036152	https://zenodo.org/records/3263975/files/DRX036
 PRJDB3920	SAMD00034152	DRX036164	https://zenodo.org/records/3263975/files/DRX036164_1.fastq.gz;https://zenodo.org/records/3263975/files/DRX036164_2.fastq.gz
 ```
 
-- Filtré la prmeire colonne par `First or Last N Rows`
+- Filtré la première colonne par `First or Last N Rows`
 - La colonne `D`contien deux lien de téléchargement. Il faut la séparer en deux colonnes par :
 ```text
 From Column, select Using a Regular Expression
@@ -377,278 +376,35 @@ Select Create columns matching expression groups
 “Number of Groups”: 2`Column, select Using a Regular Expression`
 ```
 - A partir de `Rules` on choisit `Remove Column(s)`pour supprimer la colonne `D`
-- On a maintenant deux coloonnes avec les urls de téléchargement et on a besoin d'une seule colonne
-## 📷 Exemple du Rule Builder
-
-![](https://training.galaxyproject.org/training-material/topics/galaxy-interface/tutorials/upload-rules/rule-based-upload-1.png)
-
----
-
-# ✂️ Étape 4 — Construire les règles
-
-Après avoir collé les données :
-
-Cliquer sur :
-
+- On a maintenant deux coloonnes avec les urls de téléchargement et on a besoin d'une seule colonne uniquement. Donc, on va `spliter` les colonnes :
 ```text
-Build
+From Rules select Split Column(s)
+“Odd Row Column(s)”: D
+“Even Row Column(s)”: E
+Click Apply
 ```
-
-Galaxy ouvre l’éditeur de règles. :contentReference[oaicite:5]{index=5}
-
----
-
-## Exemple de règles
-
-### Identifier la colonne URL
-
+Ceci produit `ABCD` et `ABCE`
+- Maintenant, il faut informer Galaxy lequel des ces fichier ets `R1` et leqeul est `R2`:
+  
 ```text
-Set URL column
+From Column, select Using a Regular Expression
+“Column”: D
+Select Create columns matching expression groups
+“Regular Expression”: .*_(\d).fastq.gz
+“Number of groups”: 1
 ```
-
----
-
-### Nommer les datasets
-
+- Inverser les colonnes `D`et `E`:
 ```text
-Add column metadata
+From Rule select Swap Columns
+“Swap Column”: D
+“With Column”: E
 ```
-
----
-
-### Construire les collections
-
+- Modifier la définition des colonnes :
 ```text
-Create list
+Open the column definitions back up (Rules Menu, Add / Modify Column Definitions)
+“paired-end indicator”: column D
+“URL”: column E
 ```
-
-ou :
-
-```text
-Create paired collection
-```
-
----
-
-# ❓ Pourquoi utiliser des règles ?
-
-<details>
-<summary>👁️ Afficher la réponse</summary>
-
-Les règles permettent :
-
-- d’éviter les erreurs manuelles ;
-- d’automatiser l’importation ;
-- d’organiser les données ;
-- de préparer directement les workflows Galaxy.
-
-</details>
-
----
-
-# 🧬 Étape 5 — Création d’une liste de datasets
-
-Galaxy peut transformer automatiquement :
-
-```text
-FASTQ1
-FASTQ2
-FASTQ3
-FASTQ4
-```
-
-en :
-
-```text
-Dataset Collection
-```
-
-Cette collection pourra être utilisée directement dans :
-
-- FastQC ;
-- fastp ;
-- Shovill ;
-- Snippy ;
-- workflows Galaxy. :contentReference[oaicite:6]{index=6}
-
----
-
-## 📷 Collections Galaxy
-
-![](https://training.galaxyproject.org/training-material/topics/galaxy-interface/tutorials/upload-rules/collection-building.png)
-
----
-
-# 🧬 Étape 6 — Création de collections paired-end
-
-Galaxy peut détecter :
-
-```text
-Sample1_R1.fastq.gz
-Sample1_R2.fastq.gz
-```
-
-et créer automatiquement :
-
-```text
-Sample1
- ├── R1
- └── R2
-```
-
-Cette étape est essentielle pour :
-
-- l’assemblage ;
-- le mapping ;
-- la recherche de variants. :contentReference[oaicite:7]{index=7}
-
----
-
-# 📷 Exemple paired collection
-
-![](https://training.galaxyproject.org/training-material/topics/galaxy-interface/tutorials/upload-rules/paired-collection.png)
-
----
-
-# 🧬 Étape 7 — Construction dynamique des URLs
-
-Dans certains cas :
-
-```text
-Accession seulement
-```
-
-est disponible.
-
-Exemple :
-
-```text
-E7C0H6
-```
-
-Galaxy peut construire automatiquement :
-
-```text
-https://...
-```
-
-à partir de règles personnalisées. :contentReference[oaicite:8]{index=8}
-
----
-
-# ❓ Pourquoi construire des URLs automatiquement ?
-
-<details>
-<summary>👁️ Afficher la réponse</summary>
-
-Certaines bases de données ne fournissent :
-
-- que des accessions ;
-- pas de liens directs.
-
-Les Rules permettent alors de générer automatiquement les URLs.
-
-</details>
-
----
-
-# 🧬 Étape 8 — Collections imbriquées
-
-Galaxy peut créer :
-
-```text
-Projet
- ├── Échantillon 1
- │      ├── R1
- │      └── R2
- │
- ├── Échantillon 2
- │      ├── R1
- │      └── R2
-```
-
-Ces structures sont très utiles pour :
-
-- les grands projets ;
-- les workflows multi-échantillons ;
-- les analyses comparatives. :contentReference[oaicite:9]{index=9}
-
----
-
-# 🧠 Cas pratique
-
-Vous disposez de :
-
-```text
-10 souches bactériennes
-```
-
-Chaque souche contient :
-
-```text
-R1
-R2
-```
-
-Sans Rules :
-
-```text
-20 imports manuels
-```
-
-Avec Rules :
-
-```text
-1 import
-+
-1 collection
-```
-
----
-
-# ❓ Questions
-
-1. Quel est l’intérêt des collections ?
-2. Pourquoi utiliser les Rules pour les grands projets ?
-3. Quelle différence entre une liste et une collection paired-end ?
-4. Pourquoi les workflows Galaxy utilisent-ils souvent des collections ?
-
----
-
-# 🧠 Interprétation pratique
-
-Les Rule Based Uploaders deviennent indispensables lorsque :
-
-- plusieurs dizaines d’échantillons doivent être analysés ;
-- des workflows automatisés sont utilisés ;
-- les données proviennent du SRA ou de l’ENA ;
-- des analyses reproductibles sont nécessaires. 
-
----
-
-# ✅ À retenir
-
-- Le Rule Based Uploader automatise l’importation des données.
-- Il permet de construire des collections Galaxy.
-- Les collections facilitent les workflows.
-- Les paired collections sont essentielles pour les données Illumina paired-end.
-- Les Rules réduisent fortement les erreurs manuelles.
-- Cette approche est indispensable pour les projets multi-échantillons. 
-
----
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 # 🧬 Cas d'étude 1 :Assemblage d’un génome bactérien MRSA avec des données Illumina MiSeq
 L'assemblage génomique consiste à reconstruire la séquence complète d'un génome à partir de millions de fragments courts d'ADN (les reads) obtenus par séquençage. C'est un puzzle informatique géant à résoudre sans modèle de départ
