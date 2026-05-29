@@ -230,8 +230,414 @@ https://zenodo.org/record/61771/files/GSM461178_untreat_paired_subset_2.fastq
 
 <a id="assemblage-genomique"></a>
 
-## 3. Téléchargement des jeux de données avec des règles
-Cette approche pourrait servir à manipuler des listes de fichiers téléchargés provenant de formats très variés, mais nous commencerons par une description tabulaire des fichiers d'une étude issue de l' [European Nucleotide Archive](ebi.ac.uk/ena/browser/). Nous utiliserons les données d'une étude portant sur [l'ARN ribosomique 16S](https://www.ebi.ac.uk/ena/data/view/PRJDA60709).
+## 3. Téléchargement des données basé sur des règles
+Importation massive des données avec les règles Galaxy (Rule Based Uploader)
+
+
+Lors des analyses bioinformatiques modernes, il est fréquent de devoir importer :
+
+- des dizaines de fichiers FASTQ ;
+- plusieurs échantillons paired-end ;
+- des données provenant du SRA ou de l’ENA ;
+- des projets multi-échantillons.
+
+Importer manuellement chaque fichier devient rapidement :
+
+- long ;
+- fastidieux ;
+- source d’erreurs.
+
+Galaxy propose un système puissant appelé :
+
+```text
+Rule Based Uploader
+```
+
+qui permet :
+
+- d’importer automatiquement des dizaines de fichiers ;
+- de construire des collections ;
+- d’associer automatiquement les reads paired-end ;
+- d’automatiser l’organisation des données. :contentReference[oaicite:0]{index=0}
+
+---
+
+### 🎯 Objectifs
+
+Dans cette partie, nous allons apprendre à :
+
+- utiliser le Rule Based Uploader ;
+- importer plusieurs fichiers simultanément ;
+- construire automatiquement des collections ;
+- créer des paires R1/R2 ;
+- préparer des données pour des workflows Galaxy. 
+
+---
+On va faire trois important basées sur des règles :
+
+
+1. Téléchargement des jeux de données avec des règles
+2. Création d'une liste de données simple
+3. Création d'une liste de paires de jeux de données
+
+### 📋 1. Téléchargement des jeux de données avec des règles
+
+Nous allons utiliser une sauvegarde de Zenodo. Vous pouvez sélectionner les données ci-dessous et les copier dans votre presse-papiers.
+Le Rule Builder utilise généralement un tableau TSV.
+
+Exemple :
+
+```text
+study_accession	sample_accession	experiment_accession	fastq_ftp
+PRJDA60709	SAMD00016379	DRX000475	https://zenodo.org/records/3263975/files/DRR000770.fastqsanger.gz
+PRJDA60709	SAMD00016383	DRX000476	https://zenodo.org/records/3263975/files/DRR000771.fastqsanger.gz
+PRJDA60709	SAMD00016380	DRX000477	https://zenodo.org/records/3263975/files/DRR000772.fastqsanger.gz
+PRJDA60709	SAMD00016378	DRX000478	https://zenodo.org/records/3263975/files/DRR000773.fastqsanger.gz
+PRJDA60709	SAMD00016381	DRX000479	https://zenodo.org/records/3263975/files/DRR000774.fastqsanger.gz
+PRJDA60709	SAMD00016382	DRX000480	https://zenodo.org/records/3263975/files/DRR000775.fastqsanger.gz
+```
+
+Ces données décrivent :
+
+- l’étude ;
+- l’échantillon ;
+- l’expérience ;
+- le lien FASTQ. 
+
+---
+
+Cliquez sur l'icône de téléchargement en haut à gauche.
+
+
+
+Par défaut, la boîte de dialogue de téléchargement simple habituelle s'affiche. Cette boîte de dialogue propose des options plus avancées, accessibles via différents onglets en haut.
+
+Cliquez sur « Basé sur des règles », comme indiqué ci-dessous.
+
+<img width="2560" height="732" alt="image" src="https://github.com/user-attachments/assets/8394d592-239d-4696-845c-5cdb7118b62b" />
+
+Collez vos données tabulaires directement dans la zone de texte de cette page, comme indiqué ci-dessous.
+
+Cliquez sur le bouton « Créer ».
+
+<img width="1440" height="658" alt="image" src="https://github.com/user-attachments/assets/0f79ecdf-ca2c-493c-bfb9-23cfcea391e7" />
+
+
+Plutôt que de modifier les données, nous allons définir des règles pour les manipuler et configurer des « définitions de colonnes » qui indiquent à Galaxy comment utiliser les métadonnées lors du chargement ou de la création d'une collection.
+
+Pour importer ces fichiers dans Galaxy, nous devrons effectuer quelques opérations :
+
+Supprimez cet en-tête des données (il ne contient pas d'URL que Galaxy peut télécharger).
+Définissez la colonne `C`comme le `nom` de l'ensemble de données.
+Définissez la colonne `D` comme l'`URL` du jeu de données (il s'agit de l'emplacement à partir duquel Galaxy peut télécharger les données).
+Indiquez à Galaxy de traiter ces fichiers comme `fastqsanger.gz` des fichiers.
+
+Nous allons filtrer la premiere ligne
+
+### 2. Création d'une liste de données simple
+
+Cet exemple illustrera l'utilisation de tels ensembles de données historiques comme source pour les chargements de collections ; cela peut s'avérer utile lorsque vous souhaitez appliquer les outils de manipulation tabulaire Galaxy existants aux métadonnées avant traitement, par exemple.
+
+Utilisez les meme données précedantes:
+
+```text
+study_accession	sample_accession	experiment_accession	fastq_ftp
+PRJDA60709	SAMD00016379	DRX000475	https://zenodo.org/records/3263975/files/DRR000770.fastqsanger.gz
+PRJDA60709	SAMD00016383	DRX000476	https://zenodo.org/records/3263975/files/DRR000771.fastqsanger.gz
+PRJDA60709	SAMD00016380	DRX000477	https://zenodo.org/records/3263975/files/DRR000772.fastqsanger.gz
+PRJDA60709	SAMD00016378	DRX000478	https://zenodo.org/records/3263975/files/DRR000773.fastqsanger.gz
+PRJDA60709	SAMD00016381	DRX000479	https://zenodo.org/records/3263975/files/DRR000774.fastqsanger.gz
+PRJDA60709	SAMD00016382	DRX000480	https://zenodo.org/records/3263975/files/DRR000775.fastqsanger.gz
+```
+
+les meme étapes qu'avant, sauf cette fois ci au lieu de définir un name pour la colonne C on identifie une list.
+
+### 3. Création d'une liste de paires de jeux de données
+
+
+Pour cette partie utilisez cette exemple :
+```text
+study_accession	sample_accession	experiment_accession	fastq_ftp
+PRJDB3920	SAMD00034150	DRX036147	https://zenodo.org/records/3263975/files/DRX036147_1.fastq.gz;https://zenodo.org/records/3263975/files/DRX036147_2.fastq.gz
+PRJDB3920	SAMD00034150	DRX036148	https://zenodo.org/records/3263975/files/DRX036148_1.fastq.gz;https://zenodo.org/records/3263975/files/DRX036148_2.fastq.gz
+PRJDB3920	SAMD00034150	DRX036149	https://zenodo.org/records/3263975/files/DRX036149_1.fastq.gz;https://zenodo.org/records/3263975/files/DRX036149_2.fastq.gz
+PRJDB3920	SAMD00034150	DRX036150	https://zenodo.org/records/3263975/files/DRX036150_1.fastq.gz;https://zenodo.org/records/3263975/files/DRX036150_2.fastq.gz
+PRJDB3920	SAMD00034150	DRX036151	https://zenodo.org/records/3263975/files/DRX036151_1.fastq.gz;https://zenodo.org/records/3263975/files/DRX036151_2.fastq.gz
+PRJDB3920	SAMD00034153	DRX036152	https://zenodo.org/records/3263975/files/DRX036152_1.fastq.gz;https://zenodo.org/records/3263975/files/DRX036152_2.fastq.gz
+PRJDB3920	SAMD00034152	DRX036164	https://zenodo.org/records/3263975/files/DRX036164_1.fastq.gz;https://zenodo.org/records/3263975/files/DRX036164_2.fastq.gz
+```
+
+- Filtré la prmeire colonne par `First or Last N Rows`
+- 
+
+## 📷 Exemple du Rule Builder
+
+![](https://training.galaxyproject.org/training-material/topics/galaxy-interface/tutorials/upload-rules/rule-based-upload-1.png)
+
+---
+
+# ✂️ Étape 4 — Construire les règles
+
+Après avoir collé les données :
+
+Cliquer sur :
+
+```text
+Build
+```
+
+Galaxy ouvre l’éditeur de règles. :contentReference[oaicite:5]{index=5}
+
+---
+
+## Exemple de règles
+
+### Identifier la colonne URL
+
+```text
+Set URL column
+```
+
+---
+
+### Nommer les datasets
+
+```text
+Add column metadata
+```
+
+---
+
+### Construire les collections
+
+```text
+Create list
+```
+
+ou :
+
+```text
+Create paired collection
+```
+
+---
+
+# ❓ Pourquoi utiliser des règles ?
+
+<details>
+<summary>👁️ Afficher la réponse</summary>
+
+Les règles permettent :
+
+- d’éviter les erreurs manuelles ;
+- d’automatiser l’importation ;
+- d’organiser les données ;
+- de préparer directement les workflows Galaxy.
+
+</details>
+
+---
+
+# 🧬 Étape 5 — Création d’une liste de datasets
+
+Galaxy peut transformer automatiquement :
+
+```text
+FASTQ1
+FASTQ2
+FASTQ3
+FASTQ4
+```
+
+en :
+
+```text
+Dataset Collection
+```
+
+Cette collection pourra être utilisée directement dans :
+
+- FastQC ;
+- fastp ;
+- Shovill ;
+- Snippy ;
+- workflows Galaxy. :contentReference[oaicite:6]{index=6}
+
+---
+
+## 📷 Collections Galaxy
+
+![](https://training.galaxyproject.org/training-material/topics/galaxy-interface/tutorials/upload-rules/collection-building.png)
+
+---
+
+# 🧬 Étape 6 — Création de collections paired-end
+
+Galaxy peut détecter :
+
+```text
+Sample1_R1.fastq.gz
+Sample1_R2.fastq.gz
+```
+
+et créer automatiquement :
+
+```text
+Sample1
+ ├── R1
+ └── R2
+```
+
+Cette étape est essentielle pour :
+
+- l’assemblage ;
+- le mapping ;
+- la recherche de variants. :contentReference[oaicite:7]{index=7}
+
+---
+
+# 📷 Exemple paired collection
+
+![](https://training.galaxyproject.org/training-material/topics/galaxy-interface/tutorials/upload-rules/paired-collection.png)
+
+---
+
+# 🧬 Étape 7 — Construction dynamique des URLs
+
+Dans certains cas :
+
+```text
+Accession seulement
+```
+
+est disponible.
+
+Exemple :
+
+```text
+E7C0H6
+```
+
+Galaxy peut construire automatiquement :
+
+```text
+https://...
+```
+
+à partir de règles personnalisées. :contentReference[oaicite:8]{index=8}
+
+---
+
+# ❓ Pourquoi construire des URLs automatiquement ?
+
+<details>
+<summary>👁️ Afficher la réponse</summary>
+
+Certaines bases de données ne fournissent :
+
+- que des accessions ;
+- pas de liens directs.
+
+Les Rules permettent alors de générer automatiquement les URLs.
+
+</details>
+
+---
+
+# 🧬 Étape 8 — Collections imbriquées
+
+Galaxy peut créer :
+
+```text
+Projet
+ ├── Échantillon 1
+ │      ├── R1
+ │      └── R2
+ │
+ ├── Échantillon 2
+ │      ├── R1
+ │      └── R2
+```
+
+Ces structures sont très utiles pour :
+
+- les grands projets ;
+- les workflows multi-échantillons ;
+- les analyses comparatives. :contentReference[oaicite:9]{index=9}
+
+---
+
+# 🧠 Cas pratique
+
+Vous disposez de :
+
+```text
+10 souches bactériennes
+```
+
+Chaque souche contient :
+
+```text
+R1
+R2
+```
+
+Sans Rules :
+
+```text
+20 imports manuels
+```
+
+Avec Rules :
+
+```text
+1 import
++
+1 collection
+```
+
+---
+
+# ❓ Questions
+
+1. Quel est l’intérêt des collections ?
+2. Pourquoi utiliser les Rules pour les grands projets ?
+3. Quelle différence entre une liste et une collection paired-end ?
+4. Pourquoi les workflows Galaxy utilisent-ils souvent des collections ?
+
+---
+
+# 🧠 Interprétation pratique
+
+Les Rule Based Uploaders deviennent indispensables lorsque :
+
+- plusieurs dizaines d’échantillons doivent être analysés ;
+- des workflows automatisés sont utilisés ;
+- les données proviennent du SRA ou de l’ENA ;
+- des analyses reproductibles sont nécessaires. 
+
+---
+
+# ✅ À retenir
+
+- Le Rule Based Uploader automatise l’importation des données.
+- Il permet de construire des collections Galaxy.
+- Les collections facilitent les workflows.
+- Les paired collections sont essentielles pour les données Illumina paired-end.
+- Les Rules réduisent fortement les erreurs manuelles.
+- Cette approche est indispensable pour les projets multi-échantillons. 
+
+---
+
+
+
+
+
+
+
+
+
+
 
 
 
