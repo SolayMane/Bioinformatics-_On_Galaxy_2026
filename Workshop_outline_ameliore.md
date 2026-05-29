@@ -328,8 +328,11 @@ Plutôt que de modifier les données, nous allons définir des règles pour les 
 Pour importer ces fichiers dans Galaxy, nous devrons effectuer quelques opérations :
 
 Supprimez cet en-tête des données (il ne contient pas d'URL que Galaxy peut télécharger).
+
 Définissez la colonne `C`comme le `nom` de l'ensemble de données.
+
 Définissez la colonne `D` comme l'`URL` du jeu de données (il s'agit de l'emplacement à partir duquel Galaxy peut télécharger les données).
+
 Indiquez à Galaxy de traiter ces fichiers comme type `fastqsanger.gz`.
 
 
@@ -366,8 +369,8 @@ PRJDB3920	SAMD00034153	DRX036152	https://zenodo.org/records/3263975/files/DRX036
 PRJDB3920	SAMD00034152	DRX036164	https://zenodo.org/records/3263975/files/DRX036164_1.fastq.gz;https://zenodo.org/records/3263975/files/DRX036164_2.fastq.gz
 ```
 
-- Filtré la première colonne par `First or Last N Rows`
-- La colonne `D`contien deux lien de téléchargement. Il faut la séparer en deux colonnes par :
+- Filtrez la première colonne par `First or Last N Rows`
+- La colonne `D`contient deux liens de téléchargement. Il faut la séparer en deux colonnes par :
 ```text
 From Column, select Using a Regular Expression
 “From Column”: D
@@ -384,7 +387,7 @@ From Rules select Split Column(s)
 Click Apply
 ```
 Ceci produit `ABCD` et `ABCE`
-- Maintenant, il faut informer Galaxy lequel des ces fichier ets `R1` et leqeul est `R2`:
+- Maintenant, il faut informer Galaxy lequel des ces fichiers est `R1` et lequel est `R2`:
   
 ```text
 From Column, select Using a Regular Expression
@@ -399,7 +402,7 @@ From Rule select Swap Columns
 “Swap Column”: D
 “With Column”: E
 ```
-- Modifier la définition des colonnes :
+- Modifiez la définition des colonnes :
 ```text
 Open the column definitions back up (Rules Menu, Add / Modify Column Definitions)
 “paired-end indicator”: column D
