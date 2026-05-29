@@ -1867,6 +1867,13 @@ BAM Snippy
 
 ---
 ### Faire une analyse phylogenetique des gènes en questions
+- Sous Galaxy vous pouvez exxtraire la sequence tpuchée par une densité elevée de variants.
+- Faire un ``blastn``de la séquence en question
+- Qu'est ce que vous constatez?
+
+<img width="1440" height="658" alt="image" src="https://github.com/user-attachments/assets/f8bb7f60-d897-4312-9dc1-64fda5f258b6" />
+
+
 
 ### 🧠 Interprétation biologique
 
@@ -2022,7 +2029,7 @@ Recherche AMR(staramr)
 ---
 
 ## 🧪 Recherche de variants
-Utilisé `snippy`pour chercher les varinats entre les couhes de `salmonella`et la souche de réference
+Utilisez `snippy`pour chercher les variants entre les souhes de `Salmonella` et la souche de réference.
 
    
 
