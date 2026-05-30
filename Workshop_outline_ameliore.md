@@ -273,7 +273,7 @@ Dans cette partie, nous allons apprendre à :
 - préparer des données pour des workflows Galaxy. 
 
 ---
-On va faire trois importation basées sur des règles :
+On va faire trois importations basées sur des règles :
 
 
 1. Téléchargement des jeux de données avec des règles
@@ -417,7 +417,7 @@ Dans cette étape nous allons faire plusier assemblage génomique sur différent
 ---
 
 
-### 1. Objectifs
+## 1. Objectifs
 
 À la fin de cet atelier, les participants pourront :
 
@@ -430,7 +430,7 @@ Dans cette étape nous allons faire plusier assemblage génomique sur différent
 
 ---
 
-### 2. Contexte biologique
+## 2. Contexte biologique
 
 Cet atelier utilise des données de séquençage Illumina MiSeq provenant d’une souche de **Staphylococcus aureus résistant à la méthicilline** (**MRSA**).
 
@@ -445,11 +445,10 @@ Assembler son génome permet ensuite de réaliser plusieurs analyses :
 ---
 
 
-### 3. Préparation de l’historique Galaxy
+## 3. Préparation de l’historique Galaxy
 
 Avant de commencer, créer un nouvel historique Galaxy.
 
-### Étapes
 
 1. Ouvrir Galaxy.
 2. Créer un nouvel historique.
@@ -468,7 +467,7 @@ Un historique séparé permet d’organiser l’analyse, d’éviter de mélange
 
 ---
 
-### 4. Importation des données
+## 4. Importation des données
 
 Importer les deux fichiers FASTQ paired-end suivants :
 
@@ -539,7 +538,7 @@ IIIIHHHHFFFF
 ---
 
 
-### 5. Contrôle qualité des reads
+## 5. Contrôle qualité des reads
 
 Le séquençage peut introduire plusieurs erreurs :
 
@@ -600,7 +599,7 @@ Cela provoque souvent une baisse progressive de qualité vers la fin des reads.
 ---
 
 
-### 6. Nettoyage avec fastp
+## 6. Nettoyage avec fastp
 
 Après le contrôle qualité, les reads peuvent être nettoyés avec `fastp`.
 
@@ -667,7 +666,7 @@ Le contenu GC ne doit normalement pas changer fortement.
 
 ---
 
-### 7. Assemblage avec Shovill
+## 7. Assemblage avec Shovill
 
 Une fois les reads nettoyés, on peut assembler le génome.
 
@@ -709,7 +708,7 @@ Avec des reads courts Illumina, un génome bactérien est souvent assemblé en p
 ---
 
 
-### 8. Évaluation avec QUAST
+## 8. Évaluation avec QUAST
 
 `QUAST` permet d’évaluer la qualité d’un assemblage génomique.
 
@@ -750,7 +749,7 @@ Cependant, avec des reads courts, il est fréquent de ne pas obtenir un génome 
 
 </details>
 
-### 🧬 9. Annotation génomique avec Prokka
+## 🧬 9. Annotation génomique avec Prokka
 
 
 L'annotation génomique est le processus qui consiste à identifier les éléments fonctionnels d'une séquence d'ADN après son assemblage.
@@ -999,8 +998,9 @@ Ces protéines sont prédites mais :
    
 
 ---
-### 10. Visualisation de l'assemblage sous JBrowse
+## 10. Visualisation de l'assemblage sous JBrowse
 ### Paramètres Galaxy
+
 <img width="298" height="392" alt="image" src="https://github.com/user-attachments/assets/33e045de-e780-4e19-b956-849623ca6bb7" />
 
 
@@ -1015,7 +1015,7 @@ Clicke on Insert Track Group + Insert Annotation Track : GFF/GFF3/BED Features
 <img width="1303" height="445" alt="image" src="https://github.com/user-attachments/assets/fb41909c-7b33-4edc-bbe6-f1c0dcd9020e" />
 
 
-### 11. Visualisation de l'assemblage avec Circos
+## 11. Visualisation de l'assemblage avec Circos
 
 Outil : **Circos**
 Pour publier l'asemblage d'un génome dans le cadre d'un projet, nous avons besoin d'une figure plus élégante avec une identification claire de la sequence. Circos est un outil ideale pour générer des représentations graphiques circulaires de données génomiques. Cet outil permet de cartographier l'architecture du chromosome en affichant simultanément, sous forme d'anneaux concentriques colorés, l'emplacement exact et la densité des gènes sur les brins direct et inverse, facilitant ainsi la visualisation globale et l'analyse comparative des structures de notre assemblage.
@@ -1083,7 +1083,7 @@ Les fichiers de coordonnées extraits à l'étape 2 sont intégrés sous forme d
 ---
 
 
-### 🔬 Introduction
+## 🔬 Introduction
 
 La résistance aux antibiotiques (AMR : Antimicrobial Resistance) représente un problème majeur de santé publique.
 
@@ -1100,7 +1100,7 @@ Dans ce tutoriel Galaxy, nous allons :
 
 
 
-### 🦠 Contexte biologique
+## 🦠 Contexte biologique
 
 Le jeu de données correspond à une souche de :
 
@@ -1121,7 +1121,7 @@ Les objectifs biologiques sont :
 
 
 
-### 🧪 Workflow global
+## 🧪 Workflow global
 
 ```text
 Contigs assemblés
@@ -1187,7 +1187,7 @@ Les contigs permettent :
 
 
 
-### 🧬 Détection des gènes AMR avec staramr
+## 🧬 Détection des gènes AMR avec staramr
 
 ### 🎯 Objectif
 
