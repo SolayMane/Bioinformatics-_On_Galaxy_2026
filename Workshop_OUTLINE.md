@@ -107,7 +107,7 @@ Les technologies de séquençage modernes permettent de générer un grand nombr
 
 Il est donc nécessaire de comprendre, d'identifier et d'éliminer les types d'erreurs susceptibles d'affecter l'interprétation des analyses ultérieures. Le contrôle qualité des séquences constitue ainsi une première étape essentielle de votre analyse. Détecter les erreurs au plus tôt permet de gagner du temps par la suite.
 
-## 1. Téléchargé un fichier de séquence brute à partir de la base de données SRA
+## 1. Téléchargement d'un fichier de séquences brutes à partir de la base de données SRA
 En bioinformatique, la base de données SRA (Sequence Read Archive) est le plus grand référentiel public mondial de données de séquençage de l'ADN et de l'ARN à haut débit.
 Elle fait partie intégrante de l'INSDC (International Nucleotide Sequence Database Collaboration). Les données soumises à l'une des plateformes suivantes sont automatiquement synchronisées entre elles :
 NCBI SRA (États-Unis)
