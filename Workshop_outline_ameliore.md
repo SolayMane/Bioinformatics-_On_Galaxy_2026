@@ -58,7 +58,6 @@ flowchart TD
 
     A --> B
     B --> C
-
     C --> D
     C --> E
     C --> X
@@ -68,7 +67,6 @@ flowchart TD
     E --> G
     X --> H
     G --> H
-
     H --> I
 
     %% =========================
@@ -82,7 +80,7 @@ flowchart TD
     style D fill:#f3e5f5,stroke:#6a1b9a,stroke-width:3px,color:#000
     style E fill:#e0f7fa,stroke:#00838f,stroke-width:3px,color:#000
 
-    style F fill:#fce4ec,stroke:#c2185b,stroke-width:3px,color:#000
+  
     style G fill:#fff3e0,stroke:#ef6c00,stroke-width:3px,color:#000
 
     style H fill:#e8eaf6,stroke:#283593,stroke-width:3px,color:#000
