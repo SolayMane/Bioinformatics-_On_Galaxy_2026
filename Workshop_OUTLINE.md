@@ -9,10 +9,10 @@
 * [Vu d'ensemble des analyses bioinformatiques ](#vu)
 * [Contrôle qualité des données NGS](#qc-des-donnees)
 * [Cas d'étude 1 : Assemblage d’un génome bactérien MRSA avec des données Illumina MiSeq](#assemblage-genomique1)
-* [Détection des gènes de résistance aux antibiotiques (AMR) sous Galaxy](#amr)
-* [Détection des gènes de résistance aux antibiotiques (AMR) sous Galaxy](#amr)
-* [Visualisation d’un transfert horizontal de gène (HGT)](#hgt)
-* [Notion de Workflow](#notion-de-workflow)
+* [Cas d'étude 2 :Détection des gènes de résistance aux antibiotiques (AMR) sous Galaxy](#amr)
+* [Cas d'étude 3 — Recherche de variants](#snp)
+* [Cas d'étude 4 — Visualisation d’un transfert horizontal de gène (HGT)](#hgt)
+* [NCas d'étude 5 — Notions de Workflow sous Galaxy](#workflows)
 * [Tutoriel sur sars-cov2](#sars-cov2)
 
 ---
@@ -225,8 +225,6 @@ https://zenodo.org/record/61771/files/GSM461178_untreat_paired_subset_2.fastq
 5.  Combien de pb enlevées a cause de la qualité basse?
 6.  Combien de séquences courtes supprimées?
 ---
-
-<a id="assemblage-genomique"></a>
 
 ## 3. Téléchargement des données basé sur des règles
 Importation massive des données avec les règles Galaxy (Rule Based Uploader)
@@ -1697,7 +1695,7 @@ bifunctional aminoglycoside N-acetyltransferase
 * JBrowse permet une interprétation génomique avancée.
 
 ---
-
+<a id="snp"></a>
 # Cas d'étude 3 — Recherche de variants
 
 Les données constituent un sous-ensemble d'un jeu de données réel provenant d'une bactérie Staphylococcus aureus. Nous disposons d'une séquence génomique complète et d'une annotation pour notre souche sauvage. Nous avons utilisé une approche de séquençage aléatoire du génome entier pour produire un ensemble de courtes séquences de lecture sur un séquenceur d'ADN Illumina pour notre souche mutante.
@@ -1874,6 +1872,7 @@ Dans cette étude de cas sous Galaxy, nous allons :
 - Annoter le génome avec Bakta ;
 - Rechercher les SNPs avec Snippy ;
 - Visualiser les résultats sous JBrowse.
+
 
 ---
 
@@ -2286,7 +2285,7 @@ Ces événements favorisent :
 <a id="notions-de-workflow"></a>
 
 
-
+<a id="workflows"></a>
 # 🧬 Cas d'étude 5 — Notions de Workflow sous Galaxy
 
 ## 📖 Introduction
