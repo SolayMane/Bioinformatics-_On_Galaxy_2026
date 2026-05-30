@@ -1733,7 +1733,7 @@ Snippy (SNP calling)
 JBrowse
 ```
 
-### 🧬 Étape 7 — Recherche de SNPs avec Snippy
+### 🧬 Recherche de SNPs avec Snippy
 
 ### Objectif
 
@@ -1786,7 +1786,70 @@ graph TD
 Snippy
 ```
 
----
+
+### Examiner la sortie de Snippy
+
+Snippy a pris les lectures, les a alignées sur la référence à l'aide de BWA MEM, a examiné le fichier BAM résultant et a trouvé des différences à l'aide de statistiques bayésiennes sophistiquées (Freebayes), a filtré les différences en fonction de leur sensibilité et a finalement vérifié l'effet que ces différences auront sur les gènes prédits et d'autres caractéristiques du génome.
+
+Il génère un volume de données important, jusqu'à 10 fichiers de sortie.
+
+ Nom de fichier | Description |
+| :--- | :--- |
+| **fichier vcf snps** | Les variantes annotées finales au format VCF |
+| **fichier gff snps** | Les variantes au format GFF3 |
+| **tableau snps** | Un simple résumé de toutes les variantes, séparé par des tabulations |
+| **résumé des SNP** | Un résumé des SNP appelés |
+| **fichier journal** | Un fichier journal contenant les commandes exécutées et leurs résultats. |
+| **fasta aligné** | Une version de la référence mais avec - à la position avec profondeur=0 et N pour 0 < profondeur < –mincov (n'a pas de variantes) |
+| **consensus fasta** | Une version du génome de référence avec toutes les variantes instanciées |
+| **profondeur de cartographie** | Tableau de la profondeur de cartographie |
+| **lectures mappées bam** | Un fichier BAM contenant toutes les lectures alignées |
+| **outdir** | Une archive tar du répertoire de sortie de Snippy à utiliser comme entrée pour Snippy-core si nécessaire |
+
+
+Nous allons maintenant examiner le contenu du fichier de tableau SNP:
+
+```text
+1   2   3   4   5   6   7   8   9   10  11  12  13  14
+CHROM   POS TYPE    REF ALT EVIDENCE    FTYPE   STRAND  NT_POS  AA_POS  EFFECT  LOCUS_TAG   GENE    PRODUCT
+Wildtype    24388   snp A   G   G:22 A:0    CDS +   1/702   1/233   initiator_codon_variant c.1A>G p.Met1?  WILD_00022  walR    Transcriptional regulatory protein WalR
+Wildtype    29479   snp T   G   G:21 T:0    CDS +   39/792  13/263  synonymous_variant c.39T>G p.Gly13Gly   WILD_00026  yycJ    Putative metallo-hydrolase YycJ
+Wildtype    47299   snp T   A   A:24 T:0    CDS +   54/1758 18/585  stop_gained c.54T>A p.Cys18*    WILD_00043  mecR1   Methicillin resistance mecR1 protein
+Wildtype    102969  snp G   C   C:16 G:0    CDS -   87/1281 29/426  synonymous_variant c.87C>G p.Gly29Gly   WILD_00093  spa Immunoglobulin G-binding protein A
+Wildtype    103048  snp T   A   A:20 T:0    CDS -   8/1281  3/426   missense_variant c.8A>T p.Lys3Met   WILD_00093  spa Immunoglobulin G-binding protein A
+Wildtype    103379  del GAA GA  GA:11 GAA:0
+Wildtype    106602  snp T   G   G:21 T:0    CDS -   993/993 331/330 stop_lost&splice_region_variant c.993A>C p.Ter331Tyrext*?   WILD_00097  yfiY    putative siderophore-binding lipoprotein YfiY
+Wildtype    109833  snp T   A   A:16 T:0    CDS +   1/1755  1/584   initiator_codon_variant c.1T>A p.Leu1?  WILD_00100  iucC_1  Aerobactin synthase
+Wildtype    114540  del ATT AT  AT:25 ATT:0 CDS +   1717/1737   573/578 frameshift_variant c.1717delT p.Cys573fs    WILD_00102  iucA    N(2)-citryl-N(6)-acetyl-N(6)-hydroxylysine synthase
+Wildtype    129881  mnp GT  AA  AA:18 GT:0  CDS +   55/708  19/235  missense_variant c.55_56delGTinsAA p.Val19Asn   WILD_00117  deoD    Purine nucleoside phosphorylase DeoD-type
+Wildtype    138877  snp G   C   C:14 G:0    CDS +   1119/1545   373/514 missense_variant c.1119G>C p.Trp373Cys  WILD_00125      hypothetical protein
+Wildtype    138920  snp A   G   G:10 A:0    CDS +   1162/1545   388/514 missense_variant c.1162A>G p.Lys388Glu  WILD_00125      hypothetical protein
+Wildtype    160547  del GTC GC  GC:18 GTC:0
+Wildtype    160552  del CTA CA  CA:20 CTA:0
+Wildtype    190866  del GTT GT  GT:18 GTT:0 CDS -   28/1356 10/451  frameshift_variant c.28delA p.Asn10fs   WILD_00166  brnQ    Branched-chain amino acid transport system 2 carrier protein
+```
+
+1. Quels types de variants ont été trouvés ?
+2. Comment s'appelle la troisième variante ?
+3. Quel est le produit de la mutation ?
+4. Quel pourrait être le résultat d'une telle mutation ?
+
+<details>
+<summary>👁️ Afficher la réponse</summary>
+1. Dans la 3e colonne, vous avez « snp » pour SNP, « del » pour délétion, « mnp » pour ultiple nucléo. polymorphisme
+2. Il s'agit d'une mutation T→A, provoquant un codon stop.
+3.Dans la 14e colonne, on constate que le produit de ce gène est une protéine de résistance à la méthicilline. La méthicilline est un antibiotique.
+4. Cela entraînera une troncature du gène de la méthicilline et une perte de résistance chez l'organisme.
+
+</details>
+
+### Afficher la sortie de Snippy dans JBrowse
+
+Nous pourrions parcourir toutes les variantes de cette manière et les lire dans un tableau, mais c'est fastidieux et cela ne permet pas de bien comprendre le contexte des changements. Il serait bien plus pratique d'avoir une visualisation des SNP et des autres données pertinentes. Dans Galaxy, nous pouvons utiliser JBrowse pour visualiser ces données.
+
+-Visuliser la référence + l'annotation gff + l'annotation gff des snp + les reads(bam files)
+
+
 
 <a id="hgt"></a>
 # 🧬 Cas d'étude 4 — Visualisation d’un transfert horizontal de gène (HGT)
@@ -2333,11 +2396,6 @@ Recherche AMR(staramr)
 
 
 ---
-
-## 🧪 Recherche de variants
-Utilisez `snippy`pour chercher les variants entre les souhes de `Salmonella` et la souche de réference.
-
-   
 
 # Tutoriel sur sars-cov2
 [Pour le sars-cov2, nous allons suivre ce tutoriel sur Galaxy Training](https://training.galaxyproject.org/training-material/topics/variant-analysis/tutorials/sars-cov-2-variant-discovery/tutorial.html)
