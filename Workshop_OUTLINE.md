@@ -123,7 +123,7 @@ SRR3111247
 ````
 5. inspecter un des ces fichier
 
-N.B : on peut utliser une list SRA pour un téléchargement groupé
+N.B : On peut utliser une liste SRA pour un téléchargement groupé
 ````
 @SRR3111247.1/1
 GGAATGCCTGATGGCGGTTCGGCACCTGGTTTGCTGAGAGACATCGCTCGCTGCGCATACCATGACGAATAGGGACTGTCGCGGTATGCGTTGCTGCTAA
