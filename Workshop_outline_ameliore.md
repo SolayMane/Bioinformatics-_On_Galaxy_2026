@@ -1036,7 +1036,9 @@ Ces protéines sont prédites mais :
 
 ## 🧬  Recrutement des lectures 
 
-Pour vérifier l'assemblage
+Pour vérifier l'assemblage, nous devons `re-mapper` les reads sur les contigs assemblés et verifier le poucentage des lectures alignées.
+Utilisez `bowtie2` pour remapper les reads sur les contigs
+
 ---
 ## 10. Visualisation de l'assemblage sous JBrowse
 ### Paramètres Galaxy
@@ -1653,8 +1655,6 @@ On peut observer :
 
 ---
 
-
-
 ### 🧠 Interprétation biologique
 
 Les gènes AMR détectés peuvent être associés :
@@ -1690,7 +1690,6 @@ bifunctional aminoglycoside N-acetyltransferase
 ---
 
 
-
 ### ✅ À retenir
 
 * staramr permet de détecter les ARGs et plasmides.
@@ -1700,8 +1699,100 @@ bifunctional aminoglycoside N-acetyltransferase
 * JBrowse permet une interprétation génomique avancée.
 
 ---
+
+# Cas d'étude 3 — Recherche de variants
+
+Les données constituent un sous-ensemble d'un jeu de données réel provenant d'une bactérie Staphylococcus aureus. Nous disposons d'une séquence génomique complète et d'une annotation pour notre souche sauvage. Nous avons utilisé une approche de séquençage aléatoire du génome entier pour produire un ensemble de courtes séquences de lecture sur un séquenceur d'ADN Illumina pour notre souche mutante.
+
+Les lectures sont appariées
+Chaque lecture comprend en moyenne 150 bases
+Les séquences couvriraient le génome sauvage original à une profondeur de 19x.
+Les fichiers que nous utiliserons sont :
+
+`mutant_R1.fastq` & `mutant_R2.fastq`- les fichiers de lecture au format fastq.
+`wildtype.fna`- La séquence de la souche de référence au format fasta.
+`wildtype.gbk`- La souche de référence avec les gènes et autres annotations au format GenBank.
+`wildtype.gff`- La souche de référence avec les gènes et autres annotations au format gff3.
+
+Importer les données :
+```text
+https://zenodo.org/record/582600/files/mutant_R1.fastq
+https://zenodo.org/record/582600/files/mutant_R2.fastq
+https://zenodo.org/record/582600/files/wildtype.fna
+https://zenodo.org/record/582600/files/wildtype.gbk
+https://zenodo.org/record/582600/files/wildtype.gff
+```
+### 🧪 Workflow global
+
+```text
+Récupération des données
+      ↓
+FastQC
+      ↓
+fastp
+      ↓
+Snippy (SNP calling)
+      ↓
+JBrowse
+```
+
+### 🧬 Étape 7 — Recherche de SNPs avec Snippy
+
+### Objectif
+
+Identifier les variations entre :
+
+- les reads ;
+- le génome de référence PPO9019.
+
+---
+
+### Outil Galaxy
+
+Snippy est un outil bio-informatique open-source conçu pour trouver rapidement des variants génétiques entre un génome de référence et des lectures de séquençage (NGS). Il est spécifiquement optimisé pour les organismes haploïdes, comme les bactéries et les virus
+
+````mermaid
+graph TD
+    %% Entrées et Sorties
+    Ref([Génome de Référence: FASTA/GenBank]) --> Stage1
+    Reads([Lectures NGS: FastQ]) --> Stage1
+    Stage4 --> Output1([Fichiers de Variants: VCF / Tabular])
+    Stage4 --> Output2([Rapport d'Impact Biologique: SnpEff])
+
+    %% Pipeline Snippy
+    subgraph Pipeline Snippy
+        Stage1[1. Alignement des lectures]
+        Stage2[2. Tri et Filtrage]
+        Stage3[3. Détection des Variants]
+        Stage4[4. Annotation des Effets]
+
+        Stage1 --> Stage2
+        Stage2 --> Stage3
+        Stage3 --> Stage4
+    end
+
+    %% Outils sous-jacents
+    Outil1[BWA-MEM] -.-> Stage1
+    Outil2[Samtools] -.-> Stage2
+    Outil3[FreeBayes] -.-> Stage3
+    Outil4[SnpEff] -.-> Stage4
+
+    %% Style
+    style Ref fill:#f9f,stroke:#333,stroke-width:2px
+    style Reads fill:#f9f,stroke:#333,stroke-width:2px
+    style Output1 fill:#bbf,stroke:#333,stroke-width:2px
+    style Output2 fill:#bbf,stroke:#333,stroke-width:2px
+    style Outil3 fill:#fbc,stroke:#333,stroke-width:1px
+````
+
+```text
+Snippy
+```
+
+---
+
 <a id="hgt"></a>
-# 🧬 Cas d'étude 3 — Visualisation d’un transfert horizontal de gène (HGT)
+# 🧬 Cas d'étude 4 — Visualisation d’un transfert horizontal de gène (HGT)
 
 ### 📖 Introduction
 
@@ -1716,12 +1807,12 @@ Chez les bactéries, ce mécanisme joue un rôle majeur dans :
 
 Dans cette étude de cas sous Galaxy, nous allons :
 
-- télécharger des données NGS depuis le SRA ;
-- récupérer une référence génomique depuis NCBI ;
-- réaliser un contrôle qualité ;
-- annoter le génome avec Bakta ;
-- rechercher les SNPs avec Snippy ;
-- visualiser les résultats sous JBrowse.
+- Télécharger des données NGS depuis le SRA sur une espèces `Dickeya solani` provenant de l'étude [(khayi et al, 2015)](https://link.springer.com/article/10.1186/s12864-015-1997-z);
+- Récupérer une sequence référence génomique depuis [NCBI genome datasets](https://www.ncbi.nlm.nih.gov/datasets/genome/) ;
+- Réaliser un contrôle qualité ;
+- Annoter le génome avec Bakta ;
+- Rechercher les SNPs avec Snippy ;
+- Visualiser les résultats sous JBrowse.
 
 ---
 
@@ -1977,24 +2068,6 @@ L’annotation permet :
 
 ---
 
-### 🧬 Étape 7 — Recherche de SNPs avec Snippy
-
-### Objectif
-
-Identifier les variations entre :
-
-- les reads ;
-- le génome de référence PPO9019.
-
----
-
-### Outil Galaxy
-
-```text
-Snippy
-```
-
----
 
 ### Entrées
 
@@ -2030,7 +2103,7 @@ FASTQ nettoyés avec fastp
 ---
 
 ### Étape 8 — Visualisation des SNP avec Circos
-(Vous pouvez suivre la meme procèdure decrite dans la partie Assemblage génomique)
+(Vous pouvez suivre la même procèdure décrite dans la partie Assemblage génomique)
 
 <img width="3000" height="3000" alt="Galaxy174- Circos Plot" src="https://github.com/user-attachments/assets/fc9dd4ad-407f-4259-8eeb-989977754148" />
 
@@ -2100,8 +2173,8 @@ BAM Snippy
 
 ---
 ### Faire une analyse phylogenetique des gènes en questions
-- Sous Galaxy vous pouvez exxtraire la sequence tpuchée par une densité elevée de variants.
-- Faire un ``blastn``de la séquence en question
+- Sous Galaxy vous pouvez extraire les séquences touchées par une densité elevée de variants.
+- Faire un ``blastn`` de la séquence en question
 - Qu'est ce que vous constatez?
 
 <img width="1440" height="658" alt="image" src="https://github.com/user-attachments/assets/f8bb7f60-d897-4312-9dc1-64fda5f258b6" />
@@ -2150,7 +2223,10 @@ Ces événements favorisent :
 
 
 <a id="notions-de-workflow"></a>
-# 🧬 Cas d'étude 4 — Notions de Workflow sous Galaxy
+
+
+
+# 🧬 Cas d'étude 5 — Notions de Workflow sous Galaxy
 
 ## 📖 Introduction
 
