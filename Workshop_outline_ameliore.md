@@ -668,6 +668,11 @@ Le contenu GC ne doit normalement pas changer fortement.
 
 ## 7. Assemblage avec Shovill
 
+Une fois les reads nettoyés, on peut assembler le génome.
+
+### Pourquoi Shovill ?
+
+`Shovill` est un pipeline bio-informatique open-source conçu pour assembler des génomes bactériens (ou d'autres petits microbes) à partir de séquençage Illumina. Développé par Torsten Seemann, il agit comme un "emballage" (wrapper) pour des assembleurs comme SPAdes, permettant de les rendre beaucoup plus rapides et efficaces
 
 ```mermaid
 graph TD
@@ -705,12 +710,6 @@ graph TD
     style Outil5 fill:#fbc,stroke:#333,stroke-width:1px
 
 ```
-
-Une fois les reads nettoyés, on peut assembler le génome.
-
-### Pourquoi Shovill ?
-
-`Shovill` est un assembleur basé sur SPAdes, optimisé pour les petits génomes bactériens.
 
 ### Paramètres Galaxy
 
@@ -1035,6 +1034,9 @@ Ces protéines sont prédites mais :
 - Les fichiers `.tbl` et `.sqn` servent aux soumissions NCBI.
    
 
+## 🧬  Recrutement des lectures 
+
+Pour vérifier l'assemblage
 ---
 ## 10. Visualisation de l'assemblage sous JBrowse
 ### Paramètres Galaxy
