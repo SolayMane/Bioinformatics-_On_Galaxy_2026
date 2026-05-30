@@ -67,7 +67,6 @@ flowchart TD
     D --> H
     E --> G
     X --> H
-    F --> H
     G --> H
 
     H --> I
