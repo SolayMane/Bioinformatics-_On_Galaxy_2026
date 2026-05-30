@@ -669,7 +669,7 @@ Une fois les reads nettoyés, on peut assembler le génome.
 
 ### Pourquoi Shovill ?
 
-`Shovill` est un pipeline bio-informatique open-source conçu pour assembler des génomes bactériens (ou d'autres petits microbes) à partir de séquençage Illumina. Développé par Torsten Seemann, il agit comme un "emballage" (wrapper) pour des assembleurs comme SPAdes, permettant de les rendre beaucoup plus rapides et efficaces
+`Shovill` est un pipeline bio-informatique open-source conçu pour assembler des génomes bactériens (ou d'autres petits microbes) à partir de séquençage Illumina. Il agit comme un "emballage" (wrapper) pour des assembleurs comme SPAdes, permettant de les rendre beaucoup plus rapides et efficaces
 
 ```mermaid
 graph TD
