@@ -8,11 +8,11 @@
 * [Introduction](#-introduction)
 * [Vu d'ensemble des analyses bioinformatiques ](#vu)
 * [Contrôle qualité des données NGS](#qc-des-donnees)
-* [Cas d'étude 1 : Assemblage d’un génome bactérien MRSA avec des données Illumina MiSeq](#assemblage-genomique1)
-* [Cas d'étude 2 :Détection des gènes de résistance aux antibiotiques (AMR) sous Galaxy](#amr)
+* [Cas d'étude 1 — Assemblage d’un génome bactérien MRSA avec des données Illumina MiSeq](#assemblage-genomique1)
+* [Cas d'étude 2 — Détection des gènes de résistance aux antibiotiques (AMR) sous Galaxy](#amr)
 * [Cas d'étude 3 — Recherche de variants](#snp)
 * [Cas d'étude 4 — Visualisation d’un transfert horizontal de gène (HGT)](#hgt)
-* [NCas d'étude 5 — Notions de Workflow sous Galaxy](#workflows)
+* [Cas d'étude 5 — Notions de Workflow sous Galaxy](#workflows)
 * [Tutoriel sur sars-cov2](#sars-cov2)
 
 ---
@@ -405,7 +405,7 @@ Open the column definitions back up (Rules Menu, Add / Modify Column Definitions
 “URL”: column E
 ```
 <a id="assemblage-genomique1"></a>
-# 🧬 Cas d'étude 1 : Assemblage d’un génome bactérien MRSA avec des données Illumina MiSeq
+# 🧬 Cas d'étude 1 — Assemblage d’un génome bactérien MRSA avec des données Illumina MiSeq
 L'assemblage génomique consiste à reconstruire la séquence complète d'un génome à partir de millions de fragments courts d'ADN (les reads) obtenus par séquençage. C'est un puzzle informatique géant à résoudre sans modèle de départ
 Dans cette étape nous allons faire plusier assemblage génomique sur différents jeux de données.
 
@@ -1110,7 +1110,7 @@ Les fichiers de coordonnées extraits à l'étape 2 sont intégrés sous forme d
 ---
 
 <a id="amr"></a>
-# 🦠 Cas d'étude 2 :Détection des gènes de résistance aux antibiotiques (AMR) sous Galaxy
+# 🦠 Cas d'étude 2 — Détection des gènes de résistance aux antibiotiques (AMR) sous Galaxy
 
 > Adapté du tutoriel Galaxy Training Network :
 >
