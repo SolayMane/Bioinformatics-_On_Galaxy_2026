@@ -117,11 +117,13 @@ DRA (DDBJ Sequence Read Archive, au Japon)
 1. Créez un nouveau historique
 2. Renommez le
 3. Comment explorer la base de données SRA (Demo NCBI)
-4. Importer les données NGS via ````Faster Download and Extract Reads in FASTQ```` en utilisant 'l'accession number' SRRXXX suivant 
+4. Importer les données NGS via ````Faster Download and Extract Reads in FASTQ```` en utilisant le numéro d'accession suivant 
 ````
 SRR3111247
 ````
-4. inspecter un des ces fichier
+5. inspecter un des ces fichier
+
+N.B : on peut utliser une list SRA pour un téléchargement groupé
 ````
 @SRR3111247.1/1
 GGAATGCCTGATGGCGGTTCGGCACCTGGTTTGCTGAGAGACATCGCTCGCTGCGCATACCATGACGAATAGGGACTGTCGCGGTATGCGTTGCTGCTAA
