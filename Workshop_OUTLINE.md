@@ -8,7 +8,8 @@
 * [Introduction](#-introduction)
 * [Vu d'ensemble des analyses bioinformatiques ](#vu)
 * [Contrôle qualité des données NGS](#qc-des-donnees)
-* [Assemblage génomique](#assemblage-genomique)
+* [Cas d'étude 1 : Assemblage d’un génome bactérien MRSA avec des données Illumina MiSeq](#assemblage-genomique1)
+* [Détection des gènes de résistance aux antibiotiques (AMR) sous Galaxy](#amr)
 * [Détection des gènes de résistance aux antibiotiques (AMR) sous Galaxy](#amr)
 * [Visualisation d’un transfert horizontal de gène (HGT)](#hgt)
 * [Notion de Workflow](#notion-de-workflow)
@@ -405,7 +406,7 @@ Open the column definitions back up (Rules Menu, Add / Modify Column Definitions
 “paired-end indicator”: column D
 “URL”: column E
 ```
-
+<a id="assemblage-genomique1"></a>
 # 🧬 Cas d'étude 1 : Assemblage d’un génome bactérien MRSA avec des données Illumina MiSeq
 L'assemblage génomique consiste à reconstruire la séquence complète d'un génome à partir de millions de fragments courts d'ADN (les reads) obtenus par séquençage. C'est un puzzle informatique géant à résoudre sans modèle de départ
 Dans cette étape nous allons faire plusier assemblage génomique sur différents jeux de données.
