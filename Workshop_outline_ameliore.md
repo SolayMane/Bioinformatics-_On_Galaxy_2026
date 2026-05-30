@@ -409,7 +409,7 @@ Open the column definitions back up (Rules Menu, Add / Modify Column Definitions
 “URL”: column E
 ```
 
-# 🧬 Cas d'étude 1 :Assemblage d’un génome bactérien MRSA avec des données Illumina MiSeq
+# 🧬 Cas d'étude 1 : Assemblage d’un génome bactérien MRSA avec des données Illumina MiSeq
 L'assemblage génomique consiste à reconstruire la séquence complète d'un génome à partir de millions de fragments courts d'ADN (les reads) obtenus par séquençage. C'est un puzzle informatique géant à résoudre sans modèle de départ
 Dans cette étape nous allons faire plusier assemblage génomique sur différents jeux de données.
 
@@ -667,6 +667,44 @@ Le contenu GC ne doit normalement pas changer fortement.
 ---
 
 ## 7. Assemblage avec Shovill
+
+
+```mermaid
+graph TD
+    %% Entrée et Sortie
+    Input([Données Brutes: Illumina FastQ]) --> Stage1
+    Stage6 --> Output([Génome Assemblé: FASTA])
+
+    %% Étapes du Pipeline
+    subgraph Pipeline Shovill
+        Stage1[1. Estimation de la taille]
+        Stage2[2. Nettoyage des lectures]
+        Stage3[3. Correction des erreurs]
+        Stage4[4. Fusion des paires]
+        Stage5[5. Assemblage Principal]
+        Stage6[6. Polissage des Contigs]
+
+        Stage1 --> Stage2
+        Stage2 --> Stage3
+        Stage3 --> Stage4
+        Stage4 --> Stage5
+        Stage5 --> Stage6
+    end
+
+    %% Outils associés
+    Outil1[Mash] -.-> Stage1
+    Outil2[Trimmomatic] -.-> Stage2
+    Outil3[Lighter] -.-> Stage3
+    Outil4[Flash] -.-> Stage4
+    Outil5["SPAdes <br> (ou SKESA, Megahit, Velvet)"] -.-> Stage5
+    Outil6["Pilon <br> (via BWA-MEM & Samtools)"] -.-> Stage6
+
+    %% Style graphique
+    style Input fill:#f9f,stroke:#333,stroke-width:2px
+    style Output fill:#bbf,stroke:#333,stroke-width:2px
+    style Outil5 fill:#fbc,stroke:#333,stroke-width:1px
+
+```
 
 Une fois les reads nettoyés, on peut assembler le génome.
 
@@ -1203,6 +1241,19 @@ Identifier :
 ```text
 staramr
 ```
+
+StarAMR est un outil bio-informatique open source (accessible sur GitHub) développé par le Laboratoire national de microbiologie du Canada (ASPC). Il sert à scanner des génomes bactériens pour détecter la présence de gènes liés à la résistance aux antimicrobiens (RAM).
+
+*Comment ça fonctionne ?*
+
+StarAMR compare les séquences d'ADN assemblées d'une bactérie (les contigs) avec des bases de données de référence :
+ResFinder : Identifie les gènes qui rendent la bactérie résistante aux antibiotiques.
+PointFinder : Détecte les mutations ponctuelles dans l'ADN qui confèrent une résistance.
+PlasmidFinder : Repère les plasmides (fragments d'ADN) souvent responsables de la propagation de ces gènes de résistance d'une bactérie à une autre.
+*À quoi ça sert ?*
+Il permet de faire de la prédiction génotypique, c'est-à-dire de prévoir à quels antibiotiques la bactérie sera résistante uniquement en lisant son génome, sans avoir à réaliser de tests de culture en laboratoire (phénotypage).
+Il génère des rapports détaillés (tableaux) listant les gènes, les mutations et les antibiotiques concernés.
+
 
 ---
 
