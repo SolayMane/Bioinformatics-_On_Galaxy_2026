@@ -2396,6 +2396,6 @@ Recherche AMR(staramr)
 
 
 ---
-
+<a id="sars-cov2"></a>
 # Tutoriel sur sars-cov2
 [Pour le sars-cov2, nous allons suivre ce tutoriel sur Galaxy Training](https://training.galaxyproject.org/training-material/topics/variant-analysis/tutorials/sars-cov-2-variant-discovery/tutorial.html)
