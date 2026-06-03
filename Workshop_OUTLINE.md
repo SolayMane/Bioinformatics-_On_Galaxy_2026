@@ -2288,8 +2288,8 @@ Ces événements favorisent :
 
 
 <a id="workflows"></a>
-# 🧬 Cas d'étude 5 — Notions de Workflow sous Galaxy
-
+# 🧬 Cas d'étude 5 — Notions de Workflow bioinformatique
+[lien](https://usegalaxy.eu/u/solay/h/inh-workshop-2026)
 ## 📖 Introduction
 
 En bioinformatique, les analyses comportent souvent plusieurs étapes :
